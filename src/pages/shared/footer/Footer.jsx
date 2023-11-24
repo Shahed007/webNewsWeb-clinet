@@ -94,7 +94,7 @@ const Footer = () => {
       <div className="border-t  border-gray-300 my-6"></div>
       <Container>
         <div className="flex justify-between items-center xl:flex-row flex-col xl:gap-0 gap-6">
-          <ul className="flex gap-6 items-center text-white/80">
+          <ul className="flex flex-wrap md:justify-start justify-center gap-6 items-center text-white/80">
             <li>Site Map</li>
             <li>Privacy </li>
             <li>Terms</li>
