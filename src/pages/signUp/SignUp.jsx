@@ -119,8 +119,9 @@ const SignUp = () => {
                 and one spacial character.
               </Typography>
             </div>
-            <div>
+            <div className="mt-6">
               <Checkbox
+                color="#03045e"
                 label={
                   <Typography
                     color="blue-gray"
