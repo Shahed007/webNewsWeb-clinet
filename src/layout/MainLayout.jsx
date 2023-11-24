@@ -5,8 +5,8 @@ import { StickyNavbar } from "../pages/shared/navbar/Navbar";
 
 const MainLayout = () => {
   return (
-    <div className="font-inter ">
-      <header className="shadow-md  z-[70] ">
+    <div className="font-inter h-full overflow-x-hidden">
+      <header className="shadow-md h-full  z-[70] ">
         <StickyNavbar></StickyNavbar>
       </header>
       <main>

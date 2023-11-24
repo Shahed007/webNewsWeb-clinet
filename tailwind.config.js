@@ -17,6 +17,7 @@ module.exports = withMT({
       },
       fontFamily: {
         inter: "'Inter', sans-serif",
+        popins: "'Poppins', sans-serif",
       },
       animation: {
         shine: "shine 1s",
