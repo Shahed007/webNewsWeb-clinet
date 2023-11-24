@@ -102,7 +102,7 @@ const Footer = () => {
             <li>license</li>
           </ul>
 
-          <p className="text-white/80">
+          <p className="text-white/80 md:text-start text-center">
             ©2023 All rights reserved . Developed by{" "}
             <span className="font-bold text-secondary_color">MD Shahed</span>
           </p>
