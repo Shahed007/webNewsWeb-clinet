@@ -1,104 +1,228 @@
-import { Link, NavLink } from "react-router-dom";
+import React from "react";
+import {
+  Navbar,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemPrefix,
+  ListItemSuffix,
+  Chip,
+} from "@material-tailwind/react";
 import Container from "../../../components/container/Container";
+import Logo from "../../../components/logo/Logo";
+import { Link, NavLink } from "react-router-dom";
 
-const links = ["Add Articles", "All Articles", "Subscription", "My Articles"];
-const Navbar = () => {
+const navList = ["Add Articles", "All Articles", "Subscription", "My Articles"];
+export function StickyNavbar() {
+  const [open, setOpen] = React.useState(false);
+  const openDrawer = () => setOpen(true);
+  const closeDrawer = () => setOpen(false);
+
+  React.useEffect(() => {
+    window.addEventListener(
+      "resize",
+      () => window.innerWidth >= 960 && setOpen(false)
+    );
+  }, []);
+
   return (
-    <nav>
-      <div className="drawer">
-        <input id="my-drawer-3" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content flex flex-col">
-          <div className="w-full  bg-white">
-            <Container>
-              <div className="navbar justify-between">
-                <div className="flex-none lg:hidden">
-                  <label
-                    htmlFor="my-drawer-3"
-                    aria-label="open sidebar"
-                    className="btn btn-square btn-ghost"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      className="inline-block w-6 h-6 stroke-current"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M4 6h16M4 12h16M4 18h16"
-                      ></path>
-                    </svg>
-                  </label>
-                </div>
-                <Link
-                  to="/"
-                  className=" lg:px-0 lg:mx-0 text-transparent bg-gradient-to-tr from-primary_color/60 to-secondary_color bg-clip-text text-3xl font-bold"
+    <>
+      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 ">
+        <Container>
+          <div className="flex items-center justify-between text-blue-gray-900">
+            <div className="mr-4 cursor-pointer py-1.5 font-medium">
+              <div className="hidden lg:block">
+                <Logo></Logo>
+              </div>
+
+              <IconButton
+                variant="text"
+                className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+                ripple={false}
+                onClick={openDrawer}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="h-6 w-6"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth={2}
                 >
-                  WebNewsWave
-                </Link>
-                <div className="flex-none hidden lg:block">
-                  <ul className="flex items-center gap-6 text-base font-medium">
-                    <li className="flex flex-col relative">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </IconButton>
+            </div>
+            <div className="flex items-center gap-4">
+              <div className="mr-4 hidden lg:block">
+                <ul className="flex items-center gap-6">
+                  <li>
+                    <NavLink
+                      className={({ isActive }) =>
+                        isActive
+                          ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+                          : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+                      }
+                    >
+                      Home
+                    </NavLink>
+                  </li>
+                  {navList.map((link, idx) => (
+                    <li key={idx}>
                       <NavLink
-                        to="/"
+                        to={link}
                         className={({ isActive }) =>
                           isActive
-                            ? "after:inline-block text-secondary_color relative after:h-1 after:w-full after:bg-secondary_color flex flex-col after:absolute after:-bottom-6"
-                            : "after:inline-block relative scale-0 duration-300 hover:scale-100 after:h-1 after:w-full after:bg-secondary_color flex flex-col after:absolute after:-bottom-6"
+                            ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+                            : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
                         }
                       >
-                        Home
+                        {link}
                       </NavLink>
                     </li>
-                    {links.map((link, idx) => (
-                      <li key={idx} className="flex flex-col relative">
-                        <NavLink
-                          to={link}
-                          className={({ isActive }) =>
-                            isActive
-                              ? "after:inline-block text-secondary_color relative after:h-1 after:w-full after:bg-secondary_color flex flex-col after:absolute after:-bottom-6"
-                              : "after:inline-block hover:text-secondary_color duration-300 relative after:scale-0 after:duration-300 after:hover:scale-100 after:h-1 after:w-full after:bg-secondary_color flex flex-col after:absolute after:-bottom-6"
-                          }
-                        >
-                          {link}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <Link
-                    className="px-8 shadow-md hover:shadow-inner active:scale-95 hover:bg-secondary_color/70 duration-150 py-3 bg-secondary_color text-lg font-semibold text-white rounded-lg"
-                    to="/login"
-                  >
-                    Login
-                  </Link>
-                </div>
+                  ))}
+                </ul>
               </div>
-            </Container>
+            </div>
+            <div>
+              <div className="flex items-center gap-x-1">
+                <Button
+                  variant="filled"
+                  size="lg"
+                  className="inline-block bg-secondary_color"
+                >
+                  <Link>Log In</Link>
+                </Button>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="drawer-side">
-          <label
-            htmlFor="my-drawer-3"
-            aria-label="close sidebar"
-            className="drawer-overlay"
-          ></label>
-          <ul className="menu p-4 w-80 min-h-full bg-base-200">
-            {/* Sidebar content here */}
-            <li>
-              <a>Sidebar Item 1</a>
-            </li>
-            <li>
-              <a>Sidebar Item 2</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-};
+        </Container>
+      </Navbar>
 
-export default Navbar;
+      <Drawer open={open} onClose={closeDrawer} className="h-full">
+        <div className="mb-2 flex items-center justify-between p-4">
+          <Logo></Logo>
+          <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="h-5 w-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </IconButton>
+        </div>
+        <List>
+          <ListItem>
+            <ListItemPrefix>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M2.25 2.25a.75.75 0 000 1.5H3v10.5a3 3 0 003 3h1.21l-1.172 3.513a.75.75 0 001.424.474l.329-.987h8.418l.33.987a.75.75 0 001.422-.474l-1.17-3.513H18a3 3 0 003-3V3.75h.75a.75.75 0 000-1.5H2.25zm6.04 16.5l.5-1.5h6.42l.5 1.5H8.29zm7.46-12a.75.75 0 00-1.5 0v6a.75.75 0 001.5 0v-6zm-3 2.25a.75.75 0 00-1.5 0v3.75a.75.75 0 001.5 0V9zm-3 2.25a.75.75 0 00-1.5 0v1.5a.75.75 0 001.5 0v-1.5z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </ListItemPrefix>
+            Dashboard
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M7.5 6v.75H5.513c-.96 0-1.764.724-1.865 1.679l-1.263 12A1.875 1.875 0 004.25 22.5h15.5a1.875 1.875 0 001.865-2.071l-1.263-12a1.875 1.875 0 00-1.865-1.679H16.5V6a4.5 4.5 0 10-9 0zM12 3a3 3 0 00-3 3v.75h6V6a3 3 0 00-3-3zm-3 8.25a3 3 0 106 0v-.75a.75.75 0 011.5 0v.75a4.5 4.5 0 11-9 0v-.75a.75.75 0 011.5 0v.75z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </ListItemPrefix>
+            Analytics
+            <ListItemSuffix>
+              <Chip
+                value="5"
+                size="sm"
+                color="green"
+                className="rounded-full"
+              />
+            </ListItemSuffix>
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M6.912 3a3 3 0 00-2.868 2.118l-2.411 7.838a3 3 0 00-.133.882V18a3 3 0 003 3h15a3 3 0 003-3v-4.162c0-.299-.045-.596-.133-.882l-2.412-7.838A3 3 0 0017.088 3H6.912zm13.823 9.75l-2.213-7.191A1.5 1.5 0 0017.088 4.5H6.912a1.5 1.5 0 00-1.434 1.059L3.265 12.75H6.11a3 3 0 012.684 1.658l.256.513a1.5 1.5 0 001.342.829h3.218a1.5 1.5 0 001.342-.83l.256-.512a3 3 0 012.684-1.658h2.844z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </ListItemPrefix>
+            Sales
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </ListItemPrefix>
+            Profile
+          </ListItem>
+          <ListItem>
+            <ListItemPrefix>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="h-5 w-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M11.078 2.25c-.917 0-1.699.663-1.85 1.567L9.05 4.889c-.02.12-.115.26-.297.348a7.493 7.493 0 00-.986.57c-.166.115-.334.126-.45.083L6.3 5.508a1.875 1.875 0 00-2.282.819l-.922 1.597a1.875 1.875 0 00.432 2.385l.84.692c.095.078.17.229.154.43a7.598 7.598 0 000 1.139c.015.2-.059.352-.153.43l-.841.692a1.875 1.875 0 00-.432 2.385l.922 1.597a1.875 1.875 0 002.282.818l1.019-.382c.115-.043.283-.031.45.082.312.214.641.405.985.57.182.088.277.228.297.35l.178 1.071c.151.904.933 1.567 1.85 1.567h1.844c.916 0 1.699-.663 1.85-1.567l.178-1.072c.02-.12.114-.26.297-.349.344-.165.673-.356.985-.57.167-.114.335-.125.45-.082l1.02.382a1.875 1.875 0 002.28-.819l.923-1.597a1.875 1.875 0 00-.432-2.385l-.84-.692c-.095-.078-.17-.229-.154-.43a7.614 7.614 0 000-1.139c-.016-.2.059-.352.153-.43l.84-.692c.708-.582.891-1.59.433-2.385l-.922-1.597a1.875 1.875 0 00-2.282-.818l-1.02.382c-.114.043-.282.031-.449-.083a7.49 7.49 0 00-.985-.57c-.183-.087-.277-.227-.297-.348l-.179-1.072a1.875 1.875 0 00-1.85-1.567h-1.843zM12 15.75a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </ListItemPrefix>
+            Tables
+          </ListItem>
+        </List>
+        <Button className="mt-3 ml-5" size="sm">
+          Documentation
+        </Button>
+      </Drawer>
+    </>
+  );
+}
