@@ -1,22 +1,21 @@
 import { Link } from "react-router-dom";
 import authentication from "../../assets/authenticaton/authentication.svg";
-import {
-  Input,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Button,
-  Typography,
-  Checkbox,
-} from "@material-tailwind/react";
-import { useCountries } from "use-react-countries";
-import { useState } from "react";
+import { Input, Button, Typography, Checkbox } from "@material-tailwind/react";
+import imageUpload from "../../utils/imageUpload";
 
 const SignUp = () => {
-  const { countries } = useCountries();
-  const [country, setCountry] = useState(0);
-  const { name, flags, countryCallingCode } = countries[country];
+  const handleSignUp = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const file = form.image.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+    const image = await imageUpload(formData);
+  };
   return (
     <section className="w-full xl:h-screen px-4 sm:px-7 lg:px-0  flex justify-center items-center">
       <div className="flex my-10 max-w-5xl  w-full mx-auto rounded-lg  shadow-md border border-gray-400 ">
@@ -33,70 +32,43 @@ const SignUp = () => {
             </p>
             <h1 className="text-3xl font-bold text-text">Sign Up</h1>
           </div>
-          <form className="mt-5">
+          <form className="mt-5" onSubmit={handleSignUp}>
             <div className="flex sm:flex-row flex-col items-center gap-6">
-              <Input type="text" color="#03045e" label="Name" required />
-              <Input type="email" color="#03045e" label="Email" required />
-            </div>
-            <div className="relative flex w-full mt-6">
-              <Menu placement="bottom-start">
-                <MenuHandler>
-                  <Button
-                    ripple={false}
-                    variant="text"
-                    color="blue-gray"
-                    className="flex h-10 items-center gap-2 rounded-r-none border border-r-0 border-blue-gray-200 bg-blue-gray-500/10 pl-3"
-                  >
-                    <img
-                      src={flags.svg}
-                      alt={name}
-                      className="h-4 w-4 rounded-full object-cover"
-                    />
-                    {countryCallingCode}
-                  </Button>
-                </MenuHandler>
-                <MenuList className="max-h-[20rem] max-w-[18rem]">
-                  {countries.map(
-                    ({ name, flags, countryCallingCode }, index) => {
-                      return (
-                        <MenuItem
-                          key={name}
-                          value={name}
-                          className="flex items-center gap-2"
-                          onClick={() => setCountry(index)}
-                        >
-                          <img
-                            src={flags.svg}
-                            alt={name}
-                            className="h-5 w-5 rounded-full object-cover"
-                          />
-                          {name}{" "}
-                          <span className="ml-auto">{countryCallingCode}</span>
-                        </MenuItem>
-                      );
-                    }
-                  )}
-                </MenuList>
-              </Menu>
               <Input
+                name="name"
+                type="text"
+                color="teal"
+                label="Name"
                 required
-                type="#03045e"
-                placeholder="Mobile Number"
-                className="rounded-l-none !border-t-blue-gray-200 focus:!border-t-gray-900 w-full block"
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                containerProps={{
-                  className: "min-w-0",
-                }}
+              />
+              <Input
+                name="email"
+                type="email"
+                color="teal"
+                label="Email"
+                required
               />
             </div>
             <div className="mt-6">
+              <input
+                className="relative mb-1 m-0 block w-full min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-clip-padding px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none dark:border-neutral-600 dark:text-neutral-200 dark:file:bg-neutral-700 dark:file:text-neutral-100 dark:focus:border-primary"
+                type="file"
+                id="imageUpload"
+                name="image"
+                required
+              />
+              <Typography variant="small" className="text-gray-600 ">
+                upload your profile pic
+              </Typography>
+            </div>
+            <div className="mt-6">
               <Input
+                name="password"
                 type="password"
-                color="#03045e"
+                color="teal"
                 label="Password"
                 required
+                autoComplete="current-password"
               />
               <Typography
                 variant="small"
@@ -121,7 +93,8 @@ const SignUp = () => {
             </div>
             <div className="mt-6">
               <Checkbox
-                color="#03045e"
+                name="trams"
+                color="teal"
                 label={
                   <Typography
                     color="blue-gray"

@@ -21,15 +21,10 @@ const Login = () => {
           </div>
           <form className="mt-5">
             <div className="">
-              <Input type="email" color="#03045e" label="Email" required />
+              <Input type="email" color="teal" label="Email" required />
             </div>
             <div className="mt-6">
-              <Input
-                type="password"
-                color="#03045e"
-                label="Password"
-                required
-              />
+              <Input type="password" color="teal" label="Password" required />
               <Typography
                 variant="small"
                 color="gray"
