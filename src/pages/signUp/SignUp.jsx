@@ -1,20 +1,92 @@
 import { Link } from "react-router-dom";
 import authentication from "../../assets/authenticaton/authentication.svg";
+import loadingAnim from "../../assets/loading/authentication.gif";
 import { Input, Button, Typography, Checkbox } from "@material-tailwind/react";
 import imageUpload from "../../utils/imageUpload";
+import useAuth from "../../hooks/useAuth";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
+  const { createUser, profileUpdate } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState({
+    uppercase: false,
+    lowercase: false,
+    number: false,
+    passwordLength: false,
+    spacial: false,
+  });
   const handleSignUp = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     const form = e.target;
     const name = form.name.value;
     const email = form.email.value;
     const password = form.password.value;
+    const trams = form.trams.checked;
     const file = form.image.files[0];
     const formData = new FormData();
     formData.append("image", file);
-    const image = await imageUpload(formData);
+
+    setError({
+      ...error,
+      uppercase: false,
+      lowercase: false,
+      number: false,
+      passwordLength: false,
+      spacial: false,
+    });
+
+    if (password.length < 6) {
+      setLoading(false);
+      setError({ ...error, passwordLength: true });
+      toast.error("password at lest 6 cheater");
+      return;
+    } else if (!/[A-Z]/.test(password)) {
+      setLoading(false);
+      setError({ ...error, uppercase: true });
+      toast.error("password should be one uppercase latter");
+      return;
+    } else if (!/[a-z]/.test(password)) {
+      setLoading(false);
+      setError({ ...error, uppercase: true });
+      toast.error("password should be one lowercase latter");
+      return;
+    } else if (!/[0-9]/.test(password)) {
+      setLoading(false);
+      setError({ ...error, number: true });
+      toast.error("password should be contains number");
+      return;
+    } else if (!/[!@#$%^&*]/.test(password)) {
+      setLoading(false);
+      setError({ ...error, spacial: true });
+      toast.error("password should be one spacial character");
+      return;
+    }
+
+    if (!trams) {
+      setLoading(false);
+      toast.error("must except trams and condition");
+      return;
+    }
+
+    try {
+      const user = await createUser(email, password);
+      const { data } = await imageUpload(formData);
+      setLoading(true);
+      const image = data.data.display_url;
+      setLoading(true);
+      if (user && image) {
+        const update = await profileUpdate(name, image);
+        setLoading(false);
+      }
+    } catch (err) {
+      if (err.message === "Firebase: Error (auth/email-already-in-use).") {
+        setLoading(false);
+        toast.error("This email is already in use");
+      }
+    }
   };
   return (
     <section className="w-full xl:h-screen px-4 sm:px-7 lg:px-0  flex justify-center items-center">
@@ -70,16 +142,12 @@ const SignUp = () => {
                 required
                 autoComplete="current-password"
               />
-              <Typography
-                variant="small"
-                color="gray"
-                className="mt-2 flex items-center gap-1 font-normal"
-              >
+              <div className="mt-2 flex gap-1  font-normal text-gray-600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="-mt-px h-4 w-4"
+                  className="mt-px h-4 w-4 "
                 >
                   <path
                     fillRule="evenodd"
@@ -87,9 +155,28 @@ const SignUp = () => {
                     clipRule="evenodd"
                   />
                 </svg>
-                Use at least 6 characters, one uppercase, one lowercase, number
-                and one spacial character.
-              </Typography>
+                <p className="text-sm">
+                  <span
+                    className={`${
+                      error.passwordLength ? "text-red-500" : "inline-block"
+                    }`}
+                  >
+                    Use at least 6 characters,
+                  </span>
+                  <span className={`${error.uppercase ? "text-red-500" : ""}`}>
+                    one uppercase,
+                  </span>{" "}
+                  <span className={`${error.lowercase ? "text-red-500" : ""}`}>
+                    one lowercase,
+                  </span>{" "}
+                  <span className={`${error.number ? "text-red-500" : ""}`}>
+                    number
+                  </span>{" "}
+                  <span className={`${error.spacial ? "text-red-500" : ""}`}>
+                    and one spacial character.
+                  </span>{" "}
+                </p>
+              </div>
             </div>
             <div className="mt-6">
               <Checkbox
@@ -110,11 +197,20 @@ const SignUp = () => {
               />
             </div>
             <Button
+              disabled={loading}
               variant="filled"
-              className="w-full bg-primary_color mt-5"
+              className="w-full bg-primary_color mt-5 flex items-center justify-center"
               type="submit"
             >
-              Sign Up
+              {loading ? (
+                <img
+                  className="h-6"
+                  src={loadingAnim}
+                  alt="loading animation gif"
+                />
+              ) : (
+                <span>Sign Up</span>
+              )}
             </Button>
           </form>
           <div className="flex justify-center items-center">
