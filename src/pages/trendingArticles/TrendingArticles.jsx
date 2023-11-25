@@ -2,6 +2,13 @@ import { useTrending } from "../../hooks/api";
 import loadingAnimation from "../../assets/loading/loading-animation.gif";
 import Container from "../../components/container/Container";
 import ArticlesCard from "../../components/card/ArticlesCard";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+import { Pagination, Autoplay } from "swiper/modules";
 
 const TrendingArticles = () => {
   const { isLoading, error, tending } = useTrending();
@@ -28,9 +35,34 @@ const TrendingArticles = () => {
         </div>
 
         <div className="mt-12">
-          {tending?.map((data, idx) => (
-            <ArticlesCard key={idx} data={data}></ArticlesCard>
-          ))}
+          <Swiper
+            slidesPerView={1}
+            spaceBetween={30}
+            loop={true}
+            pagination={{
+              clickable: true,
+            }}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            modules={[Pagination, Autoplay]}
+            breakpoints={{
+              768: {
+                slidesPerView: 2,
+              },
+              1280: {
+                slidesPerView: 3,
+              },
+            }}
+            className="h-full"
+          >
+            {tending?.map((data, idx) => (
+              <SwiperSlide key={idx} className="h-full mb-10">
+                <ArticlesCard data={data}></ArticlesCard>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </Container>
     </section>

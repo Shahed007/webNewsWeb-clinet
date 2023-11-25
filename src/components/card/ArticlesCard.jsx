@@ -12,7 +12,7 @@ const ArticlesCard = ({ data }) => {
   const { title, publisher, image, description, tag, views, publish_date } =
     data || {};
   return (
-    <Card className="max-w-[24rem] overflow-hidden relative">
+    <Card className=" overflow-hidden relative">
       <CardHeader
         floated={false}
         shadow={false}
@@ -32,20 +32,17 @@ const ArticlesCard = ({ data }) => {
         </div>
       </CardHeader>
       <p className="px-3 text-end mt-2 text-secondary_color">#{tag}</p>
-      <CardBody className="px-3 pt-4">
-        <Typography variant="h4" color="blue-gray">
-          {title}
-        </Typography>
-        <Typography
-          variant="lead"
-          className="mt-3 font-normal text-text_secondary/80"
-        >
-          {description.slice(0, 100)}...
+      <div className="px-3 pt-4 flex flex-col">
+        <h4 className=" text-2xl font-bold text-text_primary grow">
+          {title.slice(0, 50)}
+        </h4>
+        <p className="mt-3 font-normal text-lg text-text_secondary/80 ">
+          {description.slice(0, 60)}...
           <Button variant="text" size="sm">
             Read more
           </Button>
-        </Typography>
-      </CardBody>
+        </p>
+      </div>
       <CardFooter className="flex items-center justify-between">
         <div className="flex  flex-col">
           <h4 className="text-base font-bold text-text_primary">Publisher</h4>
