@@ -20,7 +20,7 @@ const HeroSection = () => {
               size="lg"
               className="border-primary_color/90 hover:bg-primary_color/90 duration-200 hover:text-white"
             >
-              Let's read
+              Let&apos;s read
             </Button>
           </div>
           <div className="flex-1 xl:block hidden">

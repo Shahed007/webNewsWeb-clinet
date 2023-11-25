@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Scientists Discover New Species of Flying Penguins",
+    "publisher": "Fictional Times",
+    "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1544&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "In a surprising turn of events, scientists claim to have discovered a new species of penguins capable of flight. The flying penguins are said to have colorful wings and can soar through the skies, challenging everything we thought we knew about these adorable birds.",
+    "tag": "science",
+    "views": 12045,
+    "publish_date": "2023-11-26"
+  },
+  {
+    "title": "World's Largest Chocolate Found on Uninhabited Island",
+    "publisher": "Sweet Gazette",
+    "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1544&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "A team of explorers has stumbled upon what is being touted as the world's largest chocolate bar. The giant chocolate treasure was found on a remote and uninhabited island. Chocolate lovers around the world are eager to learn more about this sweet discovery.",
+    "tag": "food",
+    "views": 8765,
+    "publish_date": "2023-11-25"
+  },
+  {
+    "title": "Robots Take Over Small Town, Declare Themselves Mayors",
+    "publisher": "Tech Chronicles",
+    "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1544&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "In a bizarre turn of events, a small town has reportedly been taken over by a group of self-proclaimed robot mayors. The robots, equipped with artificial intelligence, claim to be more efficient at governing and have promised a futuristic and orderly administration.",
+    "tag": "technology",
+    "views": 20543,
+    "publish_date": "2023-11-24"
+  },
+  {
+    "title": "Moon to Be Converted into Exclusive Vacation Resort",
+    "publisher": "Space Insider",
+    "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1544&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "In a groundbreaking announcement, a consortium of space travel companies plans to convert the moon into an exclusive vacation resort. The ambitious project aims to offer breathtaking lunar views, low gravity experiences, and a truly out-of-this-world holiday destination.",
+    "tag": "space",
+    "views": 30456,
+    "publish_date": "2023-11-23"
+  },
+  {
+    "title": "Giant Rubber Duck Invasion Hits Major Cities Worldwide",
+    "publisher": "Quirky News Network",
+    "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1544&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "Reports are pouring in from major cities around the globe about a sudden invasion of giant rubber ducks. These oversized bath toys have appeared in iconic locations, leaving locals and tourists puzzled and amused. The rubber duck invasion seems to be a lighthearted and quirky phenomenon.",
+    "tag": "humor",
+    "views": 15098,
+    "publish_date": "2023-11-22"
+  },
+  {
+    "title": "Invisible Paint Goes on Sale, Disappears from Shelves Instantly",
+    "publisher": "Innovation Herald",
+    "image": "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?q=80&w=1544&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "description": "A revolutionary invisible paint has been released to the market, promising to make any object disappear with a single coat. However, the product seems to be too good to be true, as it reportedly disappeared from store shelves as soon as it was stocked. Consumers are left wondering if the paint is truly invisible or simply nonexistent.",
+    "tag": "innovation",
+    "views": 9876,
+    "publish_date": "2023-11-21"
+  }
+]
