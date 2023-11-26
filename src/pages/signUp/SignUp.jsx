@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import authentication from "../../assets/authenticaton/authentication.svg";
 import loadingAnim from "../../assets/loading/authentication.gif";
 import { Input, Button, Typography, Checkbox } from "@material-tailwind/react";
@@ -10,6 +10,8 @@ import toast from "react-hot-toast";
 const SignUp = () => {
   const { createUser, profileUpdate } = useAuth();
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
   const [error, setError] = useState({
     uppercase: false,
     lowercase: false,
@@ -80,6 +82,8 @@ const SignUp = () => {
       if (user && image) {
         const update = await profileUpdate(name, image);
         setLoading(false);
+        toast.success("SignUp successful");
+        location.state ? navigate(location.form) : navigate("/");
       }
     } catch (err) {
       if (err.message === "Firebase: Error (auth/email-already-in-use).") {

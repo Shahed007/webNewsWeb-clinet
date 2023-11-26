@@ -6,16 +6,19 @@ import {
   Drawer,
   List,
   ListItem,
+  Avatar,
 } from "@material-tailwind/react";
 import Container from "../../../components/container/Container";
 import Logo from "../../../components/logo/Logo";
 import { Link, NavLink } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const navList = ["Add Articles", "All Articles", "Subscription", "My Articles"];
 export function StickyNavbar() {
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
+  const { user } = useAuth();
 
   React.useEffect(() => {
     window.addEventListener(
@@ -88,13 +91,31 @@ export function StickyNavbar() {
             </div>
             <div>
               <div className="flex items-center gap-x-1">
-                <Button
-                  variant="filled"
-                  size="lg"
-                  className="inline-block bg-secondary_color"
-                >
-                  <Link>Log In</Link>
-                </Button>
+                {user ? (
+                  <div className="flex gap-3">
+                    <Link>
+                      <Avatar
+                        src={user?.photoURL}
+                        alt={`image of ${user?.displayName}`}
+                        size="md"
+                        className="active:scale-95"
+                      />
+                    </Link>
+                    <Button size="sm" className="bg-secondary_color">
+                      Logout
+                    </Button>
+                  </div>
+                ) : (
+                  <Link to="/login">
+                    <Button
+                      variant="filled"
+                      size="lg"
+                      className="inline-block bg-secondary_color"
+                    >
+                      Log In
+                    </Button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
