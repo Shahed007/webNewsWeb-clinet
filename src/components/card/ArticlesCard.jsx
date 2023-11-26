@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import {
   Card,
   CardHeader,
-  CardBody,
   CardFooter,
   Typography,
   Button,

@@ -3,3 +3,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.rfm-marquee-container .rfm-marquee .rfm-initial-child-container {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}

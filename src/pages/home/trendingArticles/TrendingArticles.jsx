@@ -1,7 +1,6 @@
-import { useTrending } from "../../hooks/api";
-import loadingAnimation from "../../assets/loading/loading-animation.gif";
-import Container from "../../components/container/Container";
-import ArticlesCard from "../../components/card/ArticlesCard";
+import loadingAnimation from "../../../assets/loading/loading-animation.gif";
+import Container from "../../../components/container/Container";
+import ArticlesCard from "../../../components/card/ArticlesCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -9,9 +8,11 @@ import "swiper/css";
 import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper/modules";
+import Title from "../../../components/title/Title";
+import { useTending } from "../../../hooks/api";
 
 const TrendingArticles = () => {
-  const { isLoading, error, tending } = useTrending();
+  const { isLoading, error, tending } = useTending();
   if (isLoading)
     return (
       <div className="h-screen flex justify-center items-center w-full">
@@ -26,13 +27,9 @@ const TrendingArticles = () => {
       </div>
     );
   return (
-    <section className="my-20">
+    <section className="mt-20">
       <Container>
-        <div className="flex justify-center items-center font-popins">
-          <h2 className="border-b-4 border-b-secondary_color text-3xl font-semibold uppercase">
-            Trending Articles
-          </h2>
-        </div>
+        <Title>Trending Articles</Title>
 
         <div className="mt-12">
           <Swiper
