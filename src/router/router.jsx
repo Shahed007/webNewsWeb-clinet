@@ -10,6 +10,7 @@ import ArticlesDetails from "../pages/articlesDetails/ArticlesDetails";
 import Subscription from "../pages/subscription/Subscription";
 import PremiumArticles from "../pages/premiumArticles/PremiumArticles";
 import MyArticles from "../pages/myArticles/MyArticles";
+import DashboardLayout from "../layout/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -57,6 +58,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login></Login>,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout></DashboardLayout>,
+    children: [],
   },
 ]);
 

@@ -90,6 +90,18 @@ export function StickyNavbar() {
           My Articles
         </NavLink>
       </li>
+      <li>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          Dashboard
+        </NavLink>
+      </li>
     </>
   );
   const navLinksMobiles = (
