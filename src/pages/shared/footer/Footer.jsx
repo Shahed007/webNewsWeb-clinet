@@ -13,7 +13,7 @@ const Footer = () => {
     <footer className="bg-text_primary py-16 font-popins ">
       <Container>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
-          <div className="col-span-2">
+          <div className="md:col-span-2 w-full">
             <h2 className="text-4xl text-white mb-2">Don&apos;t Miss Out</h2>
             <p className="text-white/80 mb-6">
               Subscribe our news letter for latest news?
@@ -30,6 +30,7 @@ const Footer = () => {
               />
               <Button
                 variant="filled"
+                size="sm"
                 className="flex justify-center items-center w-1/5 bg-red-500"
               >
                 Subscribe
