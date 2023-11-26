@@ -5,6 +5,7 @@ import SignUp from "../pages/signUp/SignUp";
 import Login from "../pages/login/Login";
 import Profile from "../pages/profile/Profile";
 import AddArticles from "../pages/addArticles/AddArticles";
+import AllArticles from "../pages/allArticles/AllArticles";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
       {
         path: "/add-Articles",
         element: <AddArticles></AddArticles>,
+      },
+      {
+        path: "/all-articles",
+        element: <AllArticles></AllArticles>,
       },
     ],
   },
