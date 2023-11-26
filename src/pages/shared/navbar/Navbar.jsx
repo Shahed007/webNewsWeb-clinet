@@ -14,7 +14,6 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 
-const navList = ["Add Articles", "All Articles", "Subscription", "My Articles"];
 export function StickyNavbar() {
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
@@ -27,6 +26,135 @@ export function StickyNavbar() {
       () => window.innerWidth >= 960 && setOpen(false)
     );
   }, []);
+
+  const navLinksDesktop = (
+    <>
+      <li>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          Home
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/add-Articles"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          Add Articles
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/all-Articles"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          All Articles
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/subscription"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          Subscription
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/subscription"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          Subscription
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/my-Articles"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          My Articles
+        </NavLink>
+      </li>
+    </>
+  );
+  const navLinksMobiles = (
+    <>
+      <ListItem className="w-full h-full p-0 ">
+        <NavLink
+          className={({ isActive }) =>
+            isActive
+              ? "text-base font-medium bg-secondary_color block w-full h-full p-2 rounded-lg text-white shadow-md"
+              : "text-base font-medium duration-150 hover:bg-secondary_color block w-full h-full p-2 rounded-lg hover:text-white hover:shadow-md"
+          }
+          to="/"
+        >
+          Home
+        </NavLink>
+      </ListItem>
+      <ListItem className="w-full h-full p-0 ">
+        <NavLink
+          to="/add-Articles"
+          className={({ isActive }) =>
+            isActive
+              ? "text-base font-medium bg-secondary_color block w-full h-full p-2 rounded-lg text-white shadow-md"
+              : "text-base font-medium duration-150 hover:bg-secondary_color block w-full h-full p-2 rounded-lg hover:text-white hover:shadow-md"
+          }
+        >
+          Add Articles
+        </NavLink>
+      </ListItem>
+      <ListItem className="w-full h-full p-0 ">
+        <NavLink
+          to="/all-Articles"
+          className={({ isActive }) =>
+            isActive
+              ? "text-base font-medium bg-secondary_color block w-full h-full p-2 rounded-lg text-white shadow-md"
+              : "text-base font-medium duration-150 hover:bg-secondary_color block w-full h-full p-2 rounded-lg hover:text-white hover:shadow-md"
+          }
+        >
+          All Articles
+        </NavLink>
+      </ListItem>
+      <ListItem className="w-full h-full p-0 ">
+        <NavLink
+          to="/all-Articles"
+          className={({ isActive }) =>
+            isActive
+              ? "text-base font-medium bg-secondary_color block w-full h-full p-2 rounded-lg text-white shadow-md"
+              : "text-base font-medium duration-150 hover:bg-secondary_color block w-full h-full p-2 rounded-lg hover:text-white hover:shadow-md"
+          }
+        >
+          All Articles
+        </NavLink>
+      </ListItem>
+    </>
+  );
 
   return (
     <>
@@ -61,33 +189,7 @@ export function StickyNavbar() {
             </div>
             <div className="flex items-center gap-4">
               <div className="mr-4 hidden lg:block">
-                <ul className="flex items-center gap-6">
-                  <li>
-                    <NavLink
-                      className={({ isActive }) =>
-                        isActive
-                          ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
-                          : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
-                      }
-                    >
-                      Home
-                    </NavLink>
-                  </li>
-                  {navList.map((link, idx) => (
-                    <li key={idx}>
-                      <NavLink
-                        to={link}
-                        className={({ isActive }) =>
-                          isActive
-                            ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
-                            : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
-                        }
-                      >
-                        {link}
-                      </NavLink>
-                    </li>
-                  ))}
-                </ul>
+                <ul className="flex items-center gap-6">{navLinksDesktop}</ul>
               </div>
             </div>
             <div>
@@ -149,34 +251,7 @@ export function StickyNavbar() {
             </svg>
           </IconButton>
         </div>
-        <List className="w-full gap-0">
-          <ListItem className="w-full h-full p-0 ">
-            <NavLink
-              className={({ isActive }) =>
-                isActive
-                  ? "text-base font-medium bg-secondary_color block w-full h-full p-2 rounded-lg text-white shadow-md"
-                  : "text-base font-medium duration-150 hover:bg-secondary_color block w-full h-full p-2 rounded-lg hover:text-white hover:shadow-md"
-              }
-              to="/"
-            >
-              Home
-            </NavLink>
-          </ListItem>
-          {navList.map((link, idx) => (
-            <ListItem key={idx} className="w-full h-full p-0">
-              <NavLink
-                to={link}
-                className={({ isActive }) =>
-                  isActive
-                    ? "text-base font-medium bg-secondary_color block w-full h-full p-2 rounded-lg text-white shadow-md"
-                    : "text-base font-medium duration-150 hover:bg-secondary_color block w-full h-full p-2 rounded-lg hover:text-white hover:shadow-md"
-                }
-              >
-                {link}
-              </NavLink>
-            </ListItem>
-          ))}
-        </List>
+        <List className="w-full gap-0">{navLinksMobiles}</List>
       </Drawer>
     </>
   );
