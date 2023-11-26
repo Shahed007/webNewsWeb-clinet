@@ -8,7 +8,7 @@ const Statastics = () => {
   return (
     <section className="mt-20">
       <Title>Statistic</Title>
-      <div className="mt-12  max-w-5xl mx-auto">
+      <div className="mt-12  max-w-5xl mx-auto xl:px-0 px-6">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <div className="flex flex-col items-center justify-center p-4 ring-1 ring-gray-500 rounded ">
             <img className="h-24 w-24" src={allUser} alt="all User" />

@@ -17,8 +17,8 @@ const AllArticles = () => {
         <Title>All Articles</Title>
 
         <div className="mt-12">
-          <div className="p-6 shadow-sm border-2 border-gray-200 rounded-sm flex items-center gap-6">
-            <div className="basis-2/5 flex items-center gap-6">
+          <div className="p-6 shadow-sm border-2 border-gray-200 rounded-sm flex items-center lg:flex-row flex-col gap-6">
+            <div className=" xl:basis-2/5 lg:basis-1/2 w-full flex sm:flex-row flex-col items-center gap-6">
               <div className="w-full">
                 <Select
                   defaultValue={selectedOption}
@@ -36,7 +36,7 @@ const AllArticles = () => {
                 />
               </div>
             </div>
-            <div className="flex-1 flex items-center gap-6">
+            <div className="lg:flex-1 w-full sm:flex-row flex-col flex items-center gap-6">
               <div className="flex items-center w-full">
                 <Input
                   type="text"

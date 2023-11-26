@@ -132,14 +132,14 @@ export function StickyNavbar() {
       </ListItem>
       <ListItem className="w-full h-full p-0 ">
         <NavLink
-          to="/all-Articles"
+          to="/my-Articles"
           className={({ isActive }) =>
             isActive
               ? "text-base font-medium bg-secondary_color block w-full h-full p-2 rounded-lg text-white shadow-md"
               : "text-base font-medium duration-150 hover:bg-secondary_color block w-full h-full p-2 rounded-lg hover:text-white hover:shadow-md"
           }
         >
-          All Articles
+          My Articles
         </NavLink>
       </ListItem>
     </>
