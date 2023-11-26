@@ -34,3 +34,20 @@ export const usePublisher = () => {
   });
   return { isLoading, error, publisher };
 };
+
+export const usePlan = () => {
+  const {
+    isLoading,
+    error,
+    data: plan,
+  } = useQuery({
+    queryKey: ["plan"],
+    queryFn: async () => {
+      const res = await axios.get(
+        "https://raw.githubusercontent.com/Shahed007/asets/main/plan.json"
+      );
+      return res.data;
+    },
+  });
+  return { isLoading, error, plan };
+};

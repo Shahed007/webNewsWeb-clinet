@@ -1,4 +1,3 @@
-import Container from "../../../components/container/Container";
 import Title from "../../../components/title/Title";
 import allUser from "../../../assets/icon/teamwork.png";
 import normalUser from "../../../assets/icon/group.png";
@@ -7,7 +6,7 @@ import CountUp from "react-countup";
 
 const Statastics = () => {
   return (
-    <section className="my-20">
+    <section className="mt-20">
       <Title>Statistic</Title>
       <div className="mt-12  max-w-5xl mx-auto">
         <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

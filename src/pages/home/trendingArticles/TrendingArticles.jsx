@@ -29,7 +29,7 @@ const TrendingArticles = () => {
   return (
     <section className="mt-20">
       <Container>
-        <Title>Trending Articles</Title>
+        <Title>Trending news</Title>
 
         <div className="mt-12">
           <Swiper
