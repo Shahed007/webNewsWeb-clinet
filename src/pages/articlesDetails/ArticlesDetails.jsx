@@ -4,7 +4,6 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Button,
 } from "@material-tailwind/react";
 
 const ArticlesDetails = () => {
