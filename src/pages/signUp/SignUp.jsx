@@ -8,7 +8,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const SignUp = () => {
-  const { createUser, profileUpdate } = useAuth();
+  const { createUser, profileUpdate, googleLogin } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
@@ -91,6 +91,13 @@ const SignUp = () => {
         toast.error("This email is already in use");
       }
     }
+  };
+
+  const handleGoogleSignUp = () => {
+    googleLogin().then(() => {
+      toast.success("SignUp successful");
+      location.state ? navigate(location.form) : navigate("/");
+    });
   };
   return (
     <section className="w-full xl:h-screen px-4 sm:px-7 lg:px-0  flex justify-center items-center">
@@ -224,6 +231,7 @@ const SignUp = () => {
           </div>
           <div className="flex flex-col items-center gap-4 mt-5">
             <Button
+              onClick={handleGoogleSignUp}
               size="lg"
               variant="outlined"
               color="blue-gray"

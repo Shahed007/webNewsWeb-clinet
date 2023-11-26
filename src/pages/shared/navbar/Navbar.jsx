@@ -12,13 +12,14 @@ import Container from "../../../components/container/Container";
 import Logo from "../../../components/logo/Logo";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const navList = ["Add Articles", "All Articles", "Subscription", "My Articles"];
 export function StickyNavbar() {
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
 
   React.useEffect(() => {
     window.addEventListener(
@@ -93,7 +94,7 @@ export function StickyNavbar() {
               <div className="flex items-center gap-x-1">
                 {user ? (
                   <div className="flex gap-3">
-                    <Link>
+                    <Link to="/profile">
                       <Avatar
                         src={user?.photoURL}
                         alt={`image of ${user?.displayName}`}
@@ -101,7 +102,13 @@ export function StickyNavbar() {
                         className="active:scale-95"
                       />
                     </Link>
-                    <Button size="sm" className="bg-secondary_color">
+                    <Button
+                      onClick={() =>
+                        logout().then(() => toast.success("Logout successful"))
+                      }
+                      size="sm"
+                      className="bg-secondary_color"
+                    >
                       Logout
                     </Button>
                   </div>

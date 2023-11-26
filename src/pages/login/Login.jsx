@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import authentication from "../../assets/authenticaton/authentication.svg";
-import { Input, Button, Typography } from "@material-tailwind/react";
+import { Input, Button } from "@material-tailwind/react";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
@@ -49,7 +49,7 @@ const Login = () => {
                 to="/signUp"
                 className="underline hover:text-secondary_color"
               >
-                Login
+                SignUp
               </Link>
             </p>
             <h1 className="text-3xl font-bold text-text">Login</h1>
