@@ -11,12 +11,19 @@ import { NavLink } from "react-router-dom";
 
 export function Sidebar() {
   return (
-    <Card className="h-screen w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+    <Card className="w-full h-screen   p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
         <Logo></Logo>
       </div>
       <List>
-        <NavLink>
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive
+              ? "text-base font-medium bg-secondary_color block w-full h-full  rounded-lg text-white shadow-md"
+              : ""
+          }
+        >
           <ListItem>
             <ListItemPrefix>
               <svg

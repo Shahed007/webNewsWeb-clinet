@@ -11,6 +11,7 @@ import Subscription from "../pages/subscription/Subscription";
 import PremiumArticles from "../pages/premiumArticles/PremiumArticles";
 import MyArticles from "../pages/myArticles/MyArticles";
 import DashboardLayout from "../layout/DashboardLayout";
+import Dashboard from "../pages/dashboard/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -62,7 +63,12 @@ const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: <DashboardLayout></DashboardLayout>,
-    children: [],
+    children: [
+      {
+        index: true,
+        element: <Dashboard></Dashboard>,
+      },
+    ],
   },
 ]);
 
