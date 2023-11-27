@@ -7,7 +7,7 @@ const DashboardLayout = () => {
       <nav className="basis-1/5">
         <Sidebar></Sidebar>
       </nav>
-      <main className="bg-gray-100 flex-1  overflow-y-auto h-screen">
+      <main className="bg-gray-100 flex-1 p-6 overflow-y-auto h-screen">
         <Outlet></Outlet>
       </main>
     </div>

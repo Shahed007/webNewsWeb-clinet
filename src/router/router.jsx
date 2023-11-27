@@ -12,6 +12,7 @@ import PremiumArticles from "../pages/premiumArticles/PremiumArticles";
 import MyArticles from "../pages/myArticles/MyArticles";
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
+import AllUsers from "../pages/dashboard/allUsers/AllUsers";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "/dashboard/all-users",
+        element: <AllUsers></AllUsers>,
       },
     ],
   },
