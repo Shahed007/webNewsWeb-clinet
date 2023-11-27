@@ -82,7 +82,7 @@ const SignUp = () => {
       const image = data.data.display_url;
       setLoading(true);
       if (user && image) {
-        const update = await profileUpdate(name, image);
+        await profileUpdate(name, image);
         setLoading(true);
 
         const user = {
@@ -92,8 +92,7 @@ const SignUp = () => {
           premiumTaken: "no",
           roll: "normal",
         };
-        const res = await axios.post("/users", user);
-        console.log(res.data);
+        const res = await axios.put("/users", user);
         if (res.data.createUser) {
           setLoading(false);
           toast.success("SignUp successful");
@@ -108,10 +107,23 @@ const SignUp = () => {
     }
   };
 
-  const handleGoogleSignUp = () => {
-    googleLogin().then(() => {
-      toast.success("SignUp successful");
-      location.state ? navigate(location.form) : navigate("/");
+  const handleGoogleSignUp = async () => {
+    await googleLogin().then(async (res1) => {
+      const data = res1.user;
+      const user = {
+        name: data.displayName,
+        email: data.email,
+        photo: data.displayURL,
+        premiumTaken: "no",
+        roll: "normal",
+      };
+
+      const res = await axios.put("/users", user);
+      if (res.data.createUser) {
+        setLoading(false);
+        toast.success("SignUp successful");
+        location.state ? navigate(location.form) : navigate("/");
+      }
     });
   };
   return (

@@ -3,65 +3,35 @@ import {
   Typography,
   Button,
   CardBody,
-  Chip,
   CardFooter,
-  Avatar,
-  IconButton,
-  Tooltip,
 } from "@material-tailwind/react";
 import Title from "../../../components/title/Title";
+import { useAllUser } from "../../../hooks/api";
+import LoadingAnimation from "../../../components/loadingAnimation/LoadingAnimation";
+import PageError from "../../../components/error/PageError";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
-const TABLE_HEAD = ["Picture", "Name", "Email", ""];
-
-const TABLE_ROWS = [
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-3.jpg",
-    name: "John Michael",
-    email: "john@creative-tim.com",
-    job: "Manager",
-    org: "Organization",
-    online: true,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-2.jpg",
-    name: "Alexa Liras",
-    email: "alexa@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: false,
-    date: "23/04/18",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-1.jpg",
-    name: "Laurent Perrier",
-    email: "laurent@creative-tim.com",
-    job: "Executive",
-    org: "Projects",
-    online: false,
-    date: "19/09/17",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-4.jpg",
-    name: "Michael Levi",
-    email: "michael@creative-tim.com",
-    job: "Programator",
-    org: "Developer",
-    online: true,
-    date: "24/12/08",
-  },
-  {
-    img: "https://demos.creative-tim.com/test/corporate-ui-dashboard/assets/img/team-5.jpg",
-    name: "Richard Gran",
-    email: "richard@creative-tim.com",
-    job: "Manager",
-    org: "Executive",
-    online: false,
-    date: "04/10/21",
-  },
-];
+const TABLE_HEAD = ["Serial No:", "Picture", "Name", "Email", ""];
 
 const AllUsers = () => {
+  const { isLoading, error, allUser, refetch } = useAllUser();
+  const axios = useAxiosPublic();
+
+  if (isLoading) return <LoadingAnimation />;
+  if (error) return <PageError />;
+
+  const handleCreateAdmin = async (id) => {
+    const res = await axios.patch(`/admin/${id}`, { roll: "admin" });
+    if (res.data.success) {
+      toast.success("Admin created successful");
+      refetch();
+    } else if (res.status === 404) {
+      toast.error(res.data.message);
+    } else {
+      toast.error(res.data.message);
+    }
+  };
   return (
     <section className="mt-12">
       <Title>All Users</Title>
@@ -88,27 +58,40 @@ const AllUsers = () => {
                 </tr>
               </thead>
               <tbody>
-                {TABLE_ROWS.map(
-                  ({ img, name, email, job, org, online, date }, index) => {
-                    const isLast = index === TABLE_ROWS.length - 1;
-                    const classes = isLast
-                      ? "p-4"
-                      : "p-4 border-b border-blue-gray-50";
+                {allUser.map(({ photo, name, email, _id, roll }, index) => {
+                  const isLast = index === allUser.length - 1;
+                  const classes = isLast
+                    ? "p-4"
+                    : "p-4 border-b border-blue-gray-50";
 
-                    return (
-                      <tr key={name}>
-                        <td className={classes}></td>
-                        <td className={classes}></td>
-                        <td className={classes}></td>
-                        <td className={classes}>
-                          <Button size="sm" className="text-green-500">
+                  return (
+                    <tr key={index}>
+                      <td className={classes}>{index + 1}</td>
+                      <td className={classes}>
+                        <img
+                          src={photo}
+                          alt={`image of ${name}`}
+                          className="h-10 w-10 object-cover"
+                        />
+                      </td>
+                      <td className={classes}>{name}</td>
+                      <td className={classes}>{email}</td>
+                      <td className={classes}>
+                        {roll === "normal" ? (
+                          <Button
+                            onClick={() => handleCreateAdmin(_id)}
+                            size="sm"
+                            className="text-green-500"
+                          >
                             Make admin
                           </Button>
-                        </td>
-                      </tr>
-                    );
-                  }
-                )}
+                        ) : (
+                          <span className="text-green-500">{roll}</span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </CardBody>

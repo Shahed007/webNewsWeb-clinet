@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import useAxiosPublic from "../useAxiosPublic";
 
 export const useTending = () => {
   const {
@@ -50,4 +51,21 @@ export const usePlan = () => {
     },
   });
   return { isLoading, error, plan };
+};
+
+export const useAllUser = () => {
+  const axios = useAxiosPublic();
+  const {
+    isLoading,
+    error,
+    data: allUser,
+    refetch,
+  } = useQuery({
+    queryKey: ["allUser"],
+    queryFn: async () => {
+      const res = await axios.get("/users");
+      return res.data;
+    },
+  });
+  return { isLoading, error, allUser, refetch };
 };

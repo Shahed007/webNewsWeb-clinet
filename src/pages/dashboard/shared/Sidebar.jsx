@@ -7,15 +7,13 @@ import {
   Chip,
 } from "@material-tailwind/react";
 import Logo from "../../../components/logo/Logo";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export function Sidebar() {
   return (
     <Card className="w-full h-screen   p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
-        <Link to="/">
-          <Logo></Logo>
-        </Link>
+        <Logo></Logo>
       </div>
       <List>
         <NavLink to="/dashboard">
