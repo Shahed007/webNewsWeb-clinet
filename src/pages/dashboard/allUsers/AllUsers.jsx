@@ -6,20 +6,38 @@ import {
   CardFooter,
 } from "@material-tailwind/react";
 import Title from "../../../components/title/Title";
-import { useAllUser } from "../../../hooks/api";
 import LoadingAnimation from "../../../components/loadingAnimation/LoadingAnimation";
 import PageError from "../../../components/error/PageError";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const TABLE_HEAD = ["Serial No:", "Picture", "Name", "Email", ""];
 
 const AllUsers = () => {
-  const { isLoading, error, allUser, refetch } = useAllUser();
   const axios = useAxiosPublic();
+  const userParPage = 5;
+  const [activePage, setActivePage] = useState(0);
+  const {
+    isLoading,
+    error,
+    data: allUser,
+    refetch,
+  } = useQuery({
+    queryKey: ["users"],
+    queryFn: async () => {
+      const res = await axios.get(
+        `/users?page=${activePage}&pageSize=${userParPage}`
+      );
+      return res.data;
+    },
+  });
 
   if (isLoading) return <LoadingAnimation />;
   if (error) return <PageError />;
+
+  const totalPages = Math.ceil(allUser?.totalUsers / userParPage);
 
   const handleCreateAdmin = async (id) => {
     const res = await axios.patch(`/admin/${id}`, { roll: "admin" });
@@ -32,6 +50,20 @@ const AllUsers = () => {
       toast.error(res.data.message);
     }
   };
+
+  const handlePrevious = () => {
+    if (activePage > 0) {
+      setActivePage(activePage - 1);
+      refetch();
+    }
+  };
+  const handleNext = () => {
+    if (activePage <= totalPages) {
+      setActivePage(activePage + 1);
+      refetch();
+    }
+  };
+
   return (
     <section className="mt-12">
       <Title>All Users</Title>
@@ -58,40 +90,42 @@ const AllUsers = () => {
                 </tr>
               </thead>
               <tbody>
-                {allUser.map(({ photo, name, email, _id, roll }, index) => {
-                  const isLast = index === allUser.length - 1;
-                  const classes = isLast
-                    ? "p-4"
-                    : "p-4 border-b border-blue-gray-50";
+                {allUser?.users.map(
+                  ({ photo, name, email, _id, roll }, index) => {
+                    const isLast = index === allUser.length - 1;
+                    const classes = isLast
+                      ? "p-4"
+                      : "p-4 border-b border-blue-gray-50";
 
-                  return (
-                    <tr key={index}>
-                      <td className={classes}>{index + 1}</td>
-                      <td className={classes}>
-                        <img
-                          src={photo}
-                          alt={`image of ${name}`}
-                          className="h-10 w-10 object-cover"
-                        />
-                      </td>
-                      <td className={classes}>{name}</td>
-                      <td className={classes}>{email}</td>
-                      <td className={classes}>
-                        {roll === "normal" ? (
-                          <Button
-                            onClick={() => handleCreateAdmin(_id)}
-                            size="sm"
-                            className="text-green-500"
-                          >
-                            Make admin
-                          </Button>
-                        ) : (
-                          <span className="text-green-500">{roll}</span>
-                        )}
-                      </td>
-                    </tr>
-                  );
-                })}
+                    return (
+                      <tr key={index}>
+                        <td className={classes}>{index + 1}</td>
+                        <td className={classes}>
+                          <img
+                            src={photo}
+                            alt={`image of ${name}`}
+                            className="h-10 w-10 object-cover"
+                          />
+                        </td>
+                        <td className={classes}>{name}</td>
+                        <td className={classes}>{email}</td>
+                        <td className={classes}>
+                          {roll === "normal" ? (
+                            <Button
+                              onClick={() => handleCreateAdmin(_id)}
+                              size="sm"
+                              className="text-green-500"
+                            >
+                              Make admin
+                            </Button>
+                          ) : (
+                            <span className="text-green-500">{roll}</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  }
+                )}
               </tbody>
             </table>
           </CardBody>
@@ -101,13 +135,13 @@ const AllUsers = () => {
               color="blue-gray"
               className="font-normal"
             >
-              Page 1 of 10
+              Page {activePage + 1} of {totalPages}
             </Typography>
             <div className="flex gap-2">
-              <Button variant="outlined" size="sm">
+              <Button onClick={handlePrevious} variant="outlined" size="sm">
                 Previous
               </Button>
-              <Button variant="outlined" size="sm">
+              <Button onClick={handleNext} variant="outlined" size="sm">
                 Next
               </Button>
             </div>

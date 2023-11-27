@@ -95,8 +95,12 @@ const SignUp = () => {
         const res = await axios.put("/users", user);
         if (res.data.createUser) {
           setLoading(false);
-          toast.success("SignUp successful");
+          toast.success(res.data.message);
           location.state ? navigate(location.form) : navigate("/");
+        } else if (!res.data.createUser) {
+          toast.success(res.data.message);
+        } else {
+          toast.success(res.data.message);
         }
       }
     } catch (err) {
