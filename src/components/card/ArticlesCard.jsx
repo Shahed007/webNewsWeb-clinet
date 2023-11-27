@@ -6,6 +6,7 @@ import {
   Typography,
   Button,
 } from "@material-tailwind/react";
+import { FaEye } from "react-icons/fa";
 
 const ArticlesCard = ({ data }) => {
   const { title, publisher, image, description, tag, views, publish_date } =
@@ -47,8 +48,10 @@ const ArticlesCard = ({ data }) => {
           <h4 className="text-base font-bold text-text_primary">Publisher</h4>
           <h5>{publisher}</h5>
         </div>
-        <Typography className="font-normal text-sm">
-          <span className="font-bold text-text_primary">Views:</span>{" "}
+        <Typography className="font-normal text-sm flex items-center gap-1">
+          <span className="font-bold text-text_primary">
+            <FaEye />
+          </span>{" "}
           <span className="font-medium">{views}</span>
         </Typography>
       </CardFooter>

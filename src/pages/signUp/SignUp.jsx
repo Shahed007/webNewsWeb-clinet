@@ -6,12 +6,14 @@ import imageUpload from "../../utils/imageUpload";
 import useAuth from "../../hooks/useAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const SignUp = () => {
   const { createUser, profileUpdate, googleLogin } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const axios = useAxiosPublic();
   const [error, setError] = useState({
     uppercase: false,
     lowercase: false,
@@ -81,9 +83,22 @@ const SignUp = () => {
       setLoading(true);
       if (user && image) {
         const update = await profileUpdate(name, image);
-        setLoading(false);
-        toast.success("SignUp successful");
-        location.state ? navigate(location.form) : navigate("/");
+        setLoading(true);
+
+        const user = {
+          name,
+          email,
+          photo: image,
+          premiumTaken: "no",
+          roll: "normal",
+        };
+        const res = await axios.post("/users", user);
+        console.log(res.data);
+        if (res.data.createUser) {
+          setLoading(false);
+          toast.success("SignUp successful");
+          location.state ? navigate(location.form) : navigate("/");
+        }
       }
     } catch (err) {
       if (err.message === "Firebase: Error (auth/email-already-in-use).") {
