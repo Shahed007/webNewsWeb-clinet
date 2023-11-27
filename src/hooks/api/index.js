@@ -20,6 +20,7 @@ export const useTending = () => {
 };
 
 export const usePublisher = () => {
+  const axios = useAxiosPublic();
   const {
     isLoading,
     error,
@@ -27,13 +28,33 @@ export const usePublisher = () => {
   } = useQuery({
     queryKey: ["publisher"],
     queryFn: async () => {
-      const res = await axios.get(
-        "https://raw.githubusercontent.com/Shahed007/asets/main/publisher.json"
-      );
+      const res = await axios.get("/publishers");
       return res.data;
     },
   });
   return { isLoading, error, publisher };
+};
+export const usePublisherName = () => {
+  const axios = useAxiosPublic();
+  const {
+    isLoading,
+    error,
+    data: publisher,
+  } = useQuery({
+    queryKey: ["publisherName"],
+    queryFn: async () => {
+      const res = await axios.get("/publishers");
+      return res.data;
+    },
+  });
+
+  let publisherName;
+
+  if (!isLoading) {
+    publisherName = publisher.map((name) => name.publisher_name);
+  }
+
+  return { isLoading, error, publisherName };
 };
 
 export const usePlan = () => {
@@ -63,7 +84,7 @@ export const useAllUser = () => {
   } = useQuery({
     queryKey: ["allUser"],
     queryFn: async () => {
-      const res = await axios.get("/users");
+      const res = await axios.get(`/users?page=${0}&pageSize=${5}`);
       return res.data;
     },
   });

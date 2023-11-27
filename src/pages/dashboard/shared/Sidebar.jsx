@@ -5,11 +5,14 @@ import {
   ListItemPrefix,
   ListItemSuffix,
   Chip,
+  Spinner,
 } from "@material-tailwind/react";
 import Logo from "../../../components/logo/Logo";
 import { NavLink } from "react-router-dom";
+import { useAllUser } from "../../../hooks/api";
 
 export function Sidebar() {
+  const { allUser, isLoading } = useAllUser();
   return (
     <Card className="w-full h-screen   p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
@@ -57,13 +60,17 @@ export function Sidebar() {
             </ListItemPrefix>
             All Users
             <ListItemSuffix>
-              <Chip
-                value="0"
-                size="sm"
-                variant="ghost"
-                color="blue-gray"
-                className="rounded-full"
-              />
+              {isLoading ? (
+                <Spinner className="h-4 w-4" />
+              ) : (
+                <Chip
+                  value={allUser?.totalUsers}
+                  size="sm"
+                  variant="ghost"
+                  color="blue-gray"
+                  className="rounded-full"
+                />
+              )}
             </ListItemSuffix>
           </ListItem>
         </NavLink>
@@ -95,25 +102,27 @@ export function Sidebar() {
             />
           </ListItemSuffix>
         </ListItem>
-        <ListItem>
-          <ListItemPrefix>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-          </ListItemPrefix>
-          Add Publisher
-        </ListItem>
+        <NavLink to="/dashboard/add-publisher">
+          <ListItem>
+            <ListItemPrefix>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+            </ListItemPrefix>
+            Add Publisher
+          </ListItem>
+        </NavLink>
         <ListItem>
           <ListItemPrefix>
             <svg

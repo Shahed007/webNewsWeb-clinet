@@ -1,18 +1,113 @@
-import { Button, Input, Textarea, Typography } from "@material-tailwind/react";
+import {
+  Button,
+  Input,
+  Spinner,
+  Textarea,
+  Typography,
+} from "@material-tailwind/react";
 import Container from "../../components/container/Container";
 import Title from "../../components/title/Title";
 import Select from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SiteTitle from "../../components/siteTitle/SiteTitle";
+import LoadingAnimation from "../../components/loadingAnimation/LoadingAnimation";
+import PageError from "../../components/error/PageError";
+import { usePublisherName } from "../../hooks/api";
+import moment from "moment/moment";
+import useAuth from "../../hooks/useAuth";
+import imageUpload from "../../utils/imageUpload";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import toast from "react-hot-toast";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+const newsTags = [
+  "Breaking News",
+  "Politics",
+  "World News",
+  "Business",
+  "Technology",
+  "Science",
+  "Health",
+  "Entertainment",
+  "Sports",
+  "Environment",
 ];
 
+const tags = newsTags.map((tag) => ({ value: tag.toLowerCase(), label: tag }));
+
 const AddArticles = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const { user, loading } = useAuth();
+  const [currentDateTime, setCurrentDateTime] = useState(
+    moment().format("MMMM Do YYYY, h:mm:ss a")
+  );
+  const [getTag, setSelectTag] = useState(null);
+  const [getPublisher, setPublisher] = useState(null);
+  const { isLoading, error, publisherName } = usePublisherName();
+  const axios = useAxiosPublic();
+  const [formLoading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const time = setInterval(() => {
+      setCurrentDateTime(moment().format("MMMM Do YYYY, h:mm:ss a"));
+    }, 1000);
+
+    return () => clearInterval(time);
+  }, []);
+
+  if (isLoading && loading) return <LoadingAnimation />;
+  if (error) return <PageError err={error} />;
+  const publisher = publisherName.map((name) => ({
+    value: name.toLowerCase(),
+    label: name,
+  }));
+
+  if (getTag === null && publisher === null) {
+    return;
+  }
+
+  const handleAddArticles = async (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+    const title = form.title.value;
+    const description = form.description.value;
+    const file = form.image.files[0];
+    const formData = new FormData();
+    formData.append("image", file);
+
+    setLoading(true);
+
+    try {
+      const { data } = await imageUpload(formData);
+      const image = data.data.display_url;
+
+      const article = {
+        title,
+        image,
+        tags: getTag,
+        publisher: getPublisher,
+        author_email: user?.email,
+        author_name: user?.displayName,
+        author_image: user?.photoURL,
+        publish_date: currentDateTime,
+        description,
+      };
+
+      const res = await axios.post("/article", article);
+      const { success, message } = res.data;
+      if (success) {
+        toast.success(message);
+        setLoading(false);
+        e.target.reset();
+      } else {
+        toast.success(message);
+      }
+    } catch (err) {
+      console.log(err);
+      e.target.reset();
+      setLoading(false);
+    }
+  };
+
   return (
     <>
       <SiteTitle page="Add Articles"></SiteTitle>
@@ -21,23 +116,26 @@ const AddArticles = () => {
           <Title>Add articles</Title>
 
           <div className="mt-12 shadow-sm border-2 border-gray-200 p-6">
-            <form>
-              <Input name="title" size="lg" label="Title" />
+            <form onSubmit={handleAddArticles}>
+              <Input name="title" size="lg" label="Title" required />
               <div className="flex sm:flex-row flex-col gap-6 items-center mt-6">
                 <div className="w-full">
-                  <label className="mt-1">Select tag</label>
                   <Select
-                    defaultValue={selectedOption}
-                    onChange={setSelectedOption}
-                    options={options}
+                    defaultValue={getTag}
+                    onChange={setSelectTag}
+                    options={tags}
+                    placeholder="Select tags"
+                    isMulti={true}
+                    required
                   />
                 </div>
                 <div className="w-full">
-                  <label className="mt-1">Select publisher</label>
                   <Select
-                    defaultValue={selectedOption}
-                    onChange={setSelectedOption}
-                    options={options}
+                    defaultValue={getPublisher}
+                    onChange={setPublisher}
+                    options={publisher}
+                    placeholder="Select publisher"
+                    required
                   />
                 </div>
               </div>
@@ -54,11 +152,25 @@ const AddArticles = () => {
                 </Typography>
               </div>
               <div className="my-6">
-                <Textarea size="lg" label="Textarea Large" />
+                <Textarea
+                  required
+                  name="description"
+                  size="lg"
+                  label="Textarea Large"
+                />
               </div>
               <div>
-                <Button className="bg-primary_color/80" size="lg">
-                  Submit Articles
+                <Button
+                  disabled={formLoading}
+                  type="submit"
+                  className="bg-primary_color/80"
+                  size="lg"
+                >
+                  {formLoading ? (
+                    <Spinner className="h-4 w-4" />
+                  ) : (
+                    "Submit Articles"
+                  )}
                 </Button>
                 <p className="text-sm mt-4">
                   Note: if admin approve your articles than this articles showed

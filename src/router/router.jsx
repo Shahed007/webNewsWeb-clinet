@@ -13,6 +13,7 @@ import MyArticles from "../pages/myArticles/MyArticles";
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
 import AllUsers from "../pages/dashboard/allUsers/AllUsers";
+import AddPublisher from "../pages/dashboard/addPublisher/AddPublisher";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/all-users",
         element: <AllUsers></AllUsers>,
+      },
+      {
+        path: "/dashboard/add-publisher",
+        element: <AddPublisher></AddPublisher>,
       },
     ],
   },

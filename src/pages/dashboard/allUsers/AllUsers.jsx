@@ -18,7 +18,7 @@ const TABLE_HEAD = ["Serial No:", "Picture", "Name", "Email", ""];
 const AllUsers = () => {
   const axios = useAxiosPublic();
   const userParPage = 5;
-  const [activePage, setActivePage] = useState(0);
+  const [activePage, setActivePage] = useState(1);
   const {
     isLoading,
     error,
@@ -48,19 +48,6 @@ const AllUsers = () => {
       toast.error(res.data.message);
     } else {
       toast.error(res.data.message);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (activePage > 0) {
-      setActivePage(activePage - 1);
-      refetch();
-    }
-  };
-  const handleNext = () => {
-    if (activePage <= totalPages) {
-      setActivePage(activePage + 1);
-      refetch();
     }
   };
 
@@ -135,13 +122,28 @@ const AllUsers = () => {
               color="blue-gray"
               className="font-normal"
             >
-              Page {activePage + 1} of {totalPages}
+              Page {activePage}of {totalPages}
             </Typography>
             <div className="flex gap-2">
-              <Button onClick={handlePrevious} variant="outlined" size="sm">
+              <Button
+                disabled={activePage === 1}
+                onClick={() => {
+                  setActivePage(activePage - 1), refetch();
+                }}
+                variant="outlined"
+                size="sm"
+              >
                 Previous
               </Button>
-              <Button onClick={handleNext} variant="outlined" size="sm">
+              <Button
+                disabled={activePage === totalPages}
+                onClick={() => {
+                  setActivePage(activePage + 1);
+                  refetch();
+                }}
+                variant="outlined"
+                size="sm"
+              >
                 Next
               </Button>
             </div>
