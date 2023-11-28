@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { auth } from "../firebase/firebase.config";
 
 const axiosSecure = axios.create({
+  // baseURL: "https://web-news-wave-server-v1.vercel.app",
   baseURL: "http://localhost:5000",
   withCredentials: true,
 });

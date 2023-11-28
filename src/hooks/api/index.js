@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAxiosPublic from "../useAxiosPublic";
 import useAuth from "../useAuth";
+import useAxiosSecure from "../useAxiosSecure";
 
 export const useTending = () => {
   const {
@@ -109,4 +110,18 @@ export const useUserArticle = () => {
     },
   });
   return { isLoading, error, userArticle, refetch };
+};
+
+export const useAdmin = () => {
+  const axiosSecure = useAxiosSecure();
+  const { user, loading } = useAuth();
+  const { isLoading, error, data } = useQuery({
+    queryKey: "admin",
+    enabled: !loading && !!user,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/user/${user?.email}`);
+      return res.data;
+    },
+  });
+  return { isLoading, error, data };
 };

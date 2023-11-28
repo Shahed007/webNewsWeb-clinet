@@ -62,7 +62,7 @@ const ArticlesCard = ({ data }) => {
       <CardFooter className="flex items-center justify-between">
         <div className="flex  flex-col">
           <h4 className="text-base font-bold text-text_primary">Publisher</h4>
-          <h5>{publisher}</h5>
+          <h5>{publisher.toUpperCase()}</h5>
         </div>
         <Typography className="font-normal text-sm flex items-center gap-1">
           <span className="font-bold text-text_primary">

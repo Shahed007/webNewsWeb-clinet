@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import authentication from "../../assets/authenticaton/authentication.svg";
-import { Input, Button } from "@material-tailwind/react";
+import { Input, Button, Spinner } from "@material-tailwind/react";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
@@ -23,6 +23,7 @@ const Login = () => {
       if (res) {
         toast.success("Login successful");
         location.state ? navigate(location.form) : navigate("/");
+        setLoading(false);
       }
     } catch (err) {
       setLoading(false);
@@ -75,11 +76,11 @@ const Login = () => {
             </div>
             <Button
               variant="filled"
-              className="w-full bg-primary_color mt-5"
+              className="w-full bg-primary_color mt-5 flex justify-center items-center"
               type="submit"
               disabled={loading}
             >
-              Login
+              {loading ? <Spinner className="h-4 w-4" /> : "Login"}
             </Button>
           </form>
           <div className="flex justify-center items-center">

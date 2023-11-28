@@ -50,6 +50,9 @@ const AllArticles = () => {
   if (error || err) return <PageError err={error}></PageError>;
 
   const approved = data?.filter((article) => article.status === "approved");
+  console.log(approved);
+
+  if (approved === undefined) return <LoadingAnimation />;
 
   const publisher = publisherName?.map((name) => ({
     value: name.toLowerCase(),

@@ -13,12 +13,40 @@ import Logo from "../../../components/logo/Logo";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
+import { useAdmin } from "../../../hooks/api";
+import moment from "moment";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import { async } from "@firebase/util";
 
 export function StickyNavbar() {
+  const axios = useAxiosPublic();
+  const { data } = useAdmin();
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const { user, logout } = useAuth();
+
+  if (data && user) {
+    const date1 = moment(
+      user?.metadata.lastSignInTime,
+      "ddd, DD MMM YYYY HH:mm:ss [GMT]"
+    );
+    const date2 = moment(data.time, "YYYY-MM-DD HH:mm:ss");
+    const outputDateString1 = date1.format("YYYY-MM-DDTHH:mm:ss");
+    const outputDateString2 = date2.format("YYYY-01-01THH:mm:ss");
+    // console.log(outputDateString1, outputDateString2);
+    console.log(outputDateString1);
+    console.log(outputDateString2);
+    if (outputDateString1 > outputDateString2) {
+      const updatePremiumTaken = async () => {
+        const res = await axios.patch(`/user/${user?.email}`, {
+          premiumTaken: "no",
+        });
+        console.log(res);
+      };
+      updatePremiumTaken();
+    }
+  }
 
   React.useEffect(() => {
     window.addEventListener(
@@ -90,7 +118,7 @@ export function StickyNavbar() {
           My Articles
         </NavLink>
       </li>
-      <li>
+      <li className={`${data?.roll === "admin" ? "inline-block" : "hidden"}`}>
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>

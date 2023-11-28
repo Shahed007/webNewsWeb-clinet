@@ -16,6 +16,7 @@ import AllUsers from "../pages/dashboard/allUsers/AllUsers";
 import AddPublisher from "../pages/dashboard/addPublisher/AddPublisher";
 import Payment from "../pages/payment/Payment";
 import PrivateRoute from "../pages/private/PrivateRoute";
+import AdminRoute from "../pages/private/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -98,15 +99,33 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Dashboard></Dashboard>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <Dashboard></Dashboard>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/all-users",
-        element: <AllUsers></AllUsers>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AllUsers></AllUsers>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/dashboard/add-publisher",
-        element: <AddPublisher></AddPublisher>,
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AddPublisher></AddPublisher>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
       },
     ],
   },
