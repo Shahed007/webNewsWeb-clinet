@@ -9,18 +9,27 @@ import {
 import { FaEye } from "react-icons/fa";
 
 const ArticlesCard = ({ data }) => {
-  const { title, publisher, image, description, tag, views, publish_date } =
-    data || {};
+  const {
+    _id,
+    title,
+    image,
+    publisher,
+    tags,
+    description,
+    viewers,
+    publish_date,
+  } = data || {};
+
   return (
-    <Card className=" overflow-hidden relative">
+    <Card className=" overflow-hidden relative flex flex-col">
       <CardHeader
         floated={false}
         shadow={false}
         color="transparent"
-        className="m-0 rounded-none"
+        className="m-0 rounded-none h-80"
       >
         <img
-          className="hover:scale-105 duration-500"
+          className="hover:scale-105 duration-500 h-full w-full"
           src={image}
           alt={`image of ${title}`}
         />
@@ -31,17 +40,21 @@ const ArticlesCard = ({ data }) => {
           <h4>{publish_date}</h4>
         </div>
       </CardHeader>
-      <p className="px-3 text-end mt-2 text-secondary_color">#{tag}</p>
-      <div className="px-3 pt-4 flex flex-col">
-        <h4 className=" text-2xl font-bold text-text_primary grow">
-          {title.slice(0, 50)}
-        </h4>
-        <p className="mt-3 font-normal text-lg text-text_secondary/80 ">
-          {description.slice(0, 60)}...
-          <Button variant="text" size="sm">
-            Read more
-          </Button>
+      <div className="grow">
+        <p className="px-3 text-end mt-2 text-secondary_color flex gap-1 text-sm">
+          {tags?.map((item, idx) => (
+            <span key={idx}>#{item}</span>
+          ))}
         </p>
+        <div className="px-3 pt-4 flex flex-col">
+          <h4 className=" text-lg font-bold text-text_primary grow">{title}</h4>
+          <p className="mt-3 font-normal text-lg text-text_secondary/80 ">
+            {description.slice(0, 60)}...
+            <Button variant="text" size="sm">
+              Read more
+            </Button>
+          </p>
+        </div>
       </div>
       <CardFooter className="flex items-center justify-between">
         <div className="flex  flex-col">
@@ -52,7 +65,7 @@ const ArticlesCard = ({ data }) => {
           <span className="font-bold text-text_primary">
             <FaEye />
           </span>{" "}
-          <span className="font-medium">{views}</span>
+          <span className="font-medium">{viewers}</span>
         </Typography>
       </CardFooter>
     </Card>

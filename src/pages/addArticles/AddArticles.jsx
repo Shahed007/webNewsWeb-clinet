@@ -74,6 +74,9 @@ const AddArticles = () => {
     const formData = new FormData();
     formData.append("image", file);
 
+    const arrayTag = getTag?.map((item) => item.value);
+    const pub = publisher[0].value;
+
     setLoading(true);
 
     try {
@@ -83,8 +86,8 @@ const AddArticles = () => {
       const article = {
         title,
         image,
-        tags: getTag,
-        publisher: getPublisher,
+        tags: arrayTag,
+        publisher: pub,
         author_email: user?.email,
         author_name: user?.displayName,
         author_image: user?.photoURL,

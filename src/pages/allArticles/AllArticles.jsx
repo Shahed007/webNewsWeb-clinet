@@ -1,17 +1,76 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Container from "../../components/container/Container";
 import Title from "../../components/title/Title";
 import Select from "react-select";
-import { Button, Input } from "@material-tailwind/react";
+import { Input } from "@material-tailwind/react";
 import SiteTitle from "../../components/siteTitle/SiteTitle";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
+import LoadingAnimation from "../../components/loadingAnimation/LoadingAnimation";
+import PageError from "../../components/error/PageError";
+import ArticlesCard from "../../components/card/ArticlesCard";
+import { usePublisherName } from "../../hooks/api";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" },
+const newsTags = [
+  "Breaking News",
+  "Politics",
+  "World News",
+  "Business",
+  "Technology",
+  "Science",
+  "Health",
+  "Entertainment",
+  "Sports",
+  "Environment",
 ];
+
+const tags = newsTags.map((tag) => ({ value: tag.toLowerCase(), label: tag }));
+
 const AllArticles = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const axios = useAxiosPublic();
+  const [getTag, setTags] = useState("");
+  const [getPublisher, setPublisher] = useState("");
+  const [search, setSearch] = useState("");
+  const searchText = useRef("");
+
+  const { isLoading: loading2, error: err, publisherName } = usePublisherName();
+  const { isLoading, error, data, refetch } = useQuery({
+    queryKey: ["allArticles", getPublisher, search, searchText, getTag],
+    queryFn: async () => {
+      const res = await axios.get(
+        `/articles?title=${search}&publisher=${
+          getPublisher?.value === undefined ? "" : getPublisher?.value
+        }&tag=${getTag?.value === undefined ? "" : getTag?.value}`
+      );
+      return res.data;
+    },
+  });
+
+  if (isLoading && loading2) return <LoadingAnimation />;
+  if (error || err) return <PageError err={error}></PageError>;
+
+  const approved = data?.articles?.filter(
+    (article) => article.status === "approved"
+  );
+
+  const publisher = publisherName.map((name) => ({
+    value: name.toLowerCase(),
+    label: name,
+  }));
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.search.value);
+    refetch();
+  };
+
+  const handleInput = () => {
+    if (searchText.current.value === "") {
+      setSearch("");
+      refetch;
+    }
+  };
+
   return (
     <>
       <SiteTitle page="All Articles"></SiteTitle>
@@ -23,24 +82,29 @@ const AllArticles = () => {
               <div className=" xl:basis-2/5 lg:basis-1/2 w-full flex sm:flex-row flex-col items-center gap-6">
                 <div className="w-full">
                   <Select
-                    defaultValue={selectedOption}
-                    onChange={setSelectedOption}
-                    options={options}
+                    defaultValue={getTag}
+                    onChange={setTags}
+                    options={tags}
                     placeholder="Filter by tags"
                   />
                 </div>
                 <div className="w-full">
                   <Select
-                    defaultValue={selectedOption}
-                    onChange={setSelectedOption}
-                    options={options}
+                    defaultValue={getPublisher}
+                    onChange={setPublisher}
+                    options={publisher}
                     placeholder="Filter by publisher"
                   />
                 </div>
               </div>
-              <div className="lg:flex-1 w-full sm:flex-row flex-col flex items-center gap-6">
+              <form
+                onSubmit={handleSearch}
+                className="lg:flex-1 w-full sm:flex-row flex-col flex items-center gap-6"
+              >
                 <div className="flex items-center w-full">
                   <Input
+                    onChange={handleInput}
+                    name="search"
                     type="text"
                     placeholder="Search by title"
                     className="!border !border-gray-300 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
@@ -63,10 +127,26 @@ const AllArticles = () => {
                     />
                   </svg>
                 </div>
-                <Button>Search</Button>
-              </div>
+                <input
+                  value="Search"
+                  type="submit"
+                  size="md"
+                  className="flex justify-center items-center bg-black px-5 py-2 rounded-md text-white uppercase font-bold active:scale-95"
+                />
+              </form>
             </div>
           </div>
+          {approved?.length === 0 ? (
+            <div className="h-screen w-full mt-12 flex justify-center items-center text-center ">
+              <h2 className="text-xl text-center">Article no found</h2>
+            </div>
+          ) : (
+            <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {approved?.map((article) => (
+                <ArticlesCard key={article._id} data={article}></ArticlesCard>
+              ))}
+            </div>
+          )}
         </Container>
       </section>
     </>
