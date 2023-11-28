@@ -9,10 +9,13 @@ import PageError from "../../components/error/PageError";
 
 import { useState } from "react";
 import ArticleUpdateModal from "../../components/articleUpdateModal/ArticleUpdateModal";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const TABLE_HEAD = ["Serial No", "Title", "Status", "Is Premium", ""];
 
 const MyArticles = () => {
+  const axios = useAxiosPublic();
   const [update, setUpdate] = useState({});
   const [open, setOpen] = useState(false);
 
@@ -23,6 +26,33 @@ const MyArticles = () => {
   const handleUpdate = (article) => {
     setUpdate(article);
     handleOpen();
+  };
+
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't to delete this",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const deleteArticle = async () => {
+          const res = await axios.delete(`/article/${id}`);
+          if (res.data.success) {
+            Swal.fire({
+              title: "Deleted!",
+              text: res.data.message,
+              icon: "success",
+            });
+            refetch();
+          }
+        };
+        deleteArticle();
+      }
+    });
   };
   return (
     <>
@@ -128,7 +158,11 @@ const MyArticles = () => {
                           >
                             Update
                           </Button>
-                          <Button size="sm" className="text-red-400">
+                          <Button
+                            onClick={() => handleDelete(article?._id)}
+                            size="sm"
+                            className="text-red-400"
+                          >
                             Delete
                           </Button>
                         </td>

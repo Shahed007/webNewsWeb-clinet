@@ -92,4 +92,5 @@ ArticleUpdateModal.propTypes = {
   update: PropTypes.object,
   handleOpen: PropTypes.any,
   open: PropTypes.any,
+  setOpen: PropTypes.any,
 };
