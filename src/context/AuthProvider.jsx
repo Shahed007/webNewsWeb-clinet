@@ -10,11 +10,13 @@ import {
 import PropTypes from "prop-types";
 import { createContext, useEffect, useState } from "react";
 import { auth } from "../firebase/firebase.config";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 const provider = new GoogleAuthProvider();
 
 export const AuthContext = createContext(null);
 const AuthProvider = ({ children }) => {
+  const axiosSecure = useAxiosSecure();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,13 +50,21 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (user) => {
+      const email = user?.email;
       setUser(user);
+      setLoading(false);
+
+      if (user) {
+        axiosSecure
+          .post("/jwt", { email })
+          .then((res) => console.log(res.data));
+      }
     });
 
     return () => {
       unSubscribe();
     };
-  }, []);
+  }, [axiosSecure]);
   const allAuth = {
     user,
     loading,

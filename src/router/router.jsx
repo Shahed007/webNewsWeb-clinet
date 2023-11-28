@@ -15,6 +15,7 @@ import Dashboard from "../pages/dashboard/Dashboard";
 import AllUsers from "../pages/dashboard/allUsers/AllUsers";
 import AddPublisher from "../pages/dashboard/addPublisher/AddPublisher";
 import Payment from "../pages/payment/Payment";
+import PrivateRoute from "../pages/private/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -27,11 +28,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile",
-        element: <Profile></Profile>,
+        element: (
+          <PrivateRoute>
+            <Profile></Profile>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/add-Articles",
-        element: <AddArticles></AddArticles>,
+        element: (
+          <PrivateRoute>
+            <AddArticles></AddArticles>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/all-articles",
@@ -39,11 +48,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/articles-Details/:id",
-        element: <ArticlesDetails></ArticlesDetails>,
+        element: (
+          <PrivateRoute>
+            <ArticlesDetails></ArticlesDetails>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/subscription",
-        element: <Subscription></Subscription>,
+        element: (
+          <PrivateRoute>
+            <Subscription></Subscription>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/premium-Articles",
@@ -51,11 +68,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/my-Articles",
-        element: <MyArticles></MyArticles>,
+        element: (
+          <PrivateRoute>
+            <MyArticles></MyArticles>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/payment",
-        element: <Payment></Payment>,
+        element: (
+          <PrivateRoute>
+            <Payment></Payment>
+          </PrivateRoute>
+        ),
       },
     ],
   },
