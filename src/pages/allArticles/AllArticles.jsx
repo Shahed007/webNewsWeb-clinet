@@ -51,7 +51,7 @@ const AllArticles = () => {
 
   const approved = data?.filter((article) => article.status === "approved");
 
-  const publisher = publisherName.map((name) => ({
+  const publisher = publisherName?.map((name) => ({
     value: name.toLowerCase(),
     label: name,
   }));

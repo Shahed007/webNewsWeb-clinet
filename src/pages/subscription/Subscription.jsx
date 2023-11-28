@@ -6,23 +6,38 @@ import Select from "react-select";
 import { useEffect, useState } from "react";
 import { Button } from "@material-tailwind/react";
 import SiteTitle from "../../components/siteTitle/SiteTitle";
+import moment from "moment";
+import { useNavigate } from "react-router-dom";
+
 const options = [
-  { value: 1, label: "1 minute" },
-  { value: 5, label: "5 days" },
-  { value: 10, label: "10 days" },
+  { label: "1 Minute", value: 1, unit: "minutes" },
+  { label: "5 Days", value: 5, unit: "days" },
+  { label: "10 Days", value: 10, unit: "days" },
 ];
 const Subscription = () => {
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedDuration, setSelectedDuration] = useState(null);
   const [price, setPrice] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (selectedOption !== null) {
-      const { value } = selectedOption;
+    if (selectedDuration !== null) {
+      const { value } = selectedDuration;
       const total = value * 10;
       setPrice(total);
     }
-  }, [selectedOption]);
-  console.log(price);
+  }, [selectedDuration]);
+
+  const handleSubscription = () => {
+    if (selectedDuration) {
+      const currentDate = moment();
+      const endDate = currentDate
+        .clone()
+        .add(selectedDuration.value, selectedDuration.unit);
+      const date = endDate.format("YYYY-MM-DD HH:mm:ss");
+      localStorage.setItem("subscribe", JSON.stringify([date, price]));
+      navigate("/payment");
+    }
+  };
 
   return (
     <>
@@ -49,8 +64,8 @@ const Subscription = () => {
           <Title>Subscribe</Title>
           <div className="mt-12">
             <Select
-              defaultValue={selectedOption}
-              onChange={setSelectedOption}
+              defaultValue={selectedDuration}
+              onChange={setSelectedDuration}
               options={options}
               placeholder="Select subscription days"
             />
@@ -61,7 +76,9 @@ const Subscription = () => {
               </span>
               <span className="font-medium">${price}</span>
             </p>
-            <Button variant="lg">Subscription</Button>
+            <Button onClick={handleSubscription} size="lg">
+              Subscription
+            </Button>
           </div>
         </div>
       </section>

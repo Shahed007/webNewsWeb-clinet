@@ -14,6 +14,7 @@ import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../pages/dashboard/Dashboard";
 import AllUsers from "../pages/dashboard/allUsers/AllUsers";
 import AddPublisher from "../pages/dashboard/addPublisher/AddPublisher";
+import Payment from "../pages/payment/Payment";
 
 const router = createBrowserRouter([
   {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "/my-Articles",
         element: <MyArticles></MyArticles>,
+      },
+      {
+        path: "/payment",
+        element: <Payment></Payment>,
       },
     ],
   },
