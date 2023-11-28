@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import useAxiosPublic from "../useAxiosPublic";
+import useAuth from "../useAuth";
 
 export const useTending = () => {
   const {
@@ -89,4 +90,23 @@ export const useAllUser = () => {
     },
   });
   return { isLoading, error, allUser, refetch };
+};
+
+export const useUserArticle = () => {
+  const axios = useAxiosPublic();
+  const { user, loading } = useAuth();
+  const {
+    isLoading,
+    error,
+    data: userArticle = [],
+    refetch,
+  } = useQuery({
+    queryKey: ["userArticle", loading, user],
+
+    queryFn: async () => {
+      const res = await axios.get(`/articles?author_email=${user?.email}`);
+      return res.data;
+    },
+  });
+  return { isLoading, error, userArticle, refetch };
 };
