@@ -25,7 +25,7 @@ const AllUsers = () => {
     data: allUser,
     refetch,
   } = useQuery({
-    queryKey: ["users"],
+    queryKey: ["users", activePage],
     queryFn: async () => {
       const res = await axios.get(
         `/users?page=${activePage}&pageSize=${userParPage}`
@@ -127,9 +127,7 @@ const AllUsers = () => {
             <div className="flex gap-2">
               <Button
                 disabled={activePage === 1}
-                onClick={() => {
-                  setActivePage(activePage - 1), refetch();
-                }}
+                onClick={() => setActivePage(activePage - 1)}
                 variant="outlined"
                 size="sm"
               >
@@ -137,10 +135,7 @@ const AllUsers = () => {
               </Button>
               <Button
                 disabled={activePage === totalPages}
-                onClick={() => {
-                  setActivePage(activePage + 1);
-                  refetch();
-                }}
+                onClick={() => setActivePage(activePage + 1)}
                 variant="outlined"
                 size="sm"
               >

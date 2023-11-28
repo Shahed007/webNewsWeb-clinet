@@ -49,9 +49,7 @@ const AllArticles = () => {
   if (isLoading && loading2) return <LoadingAnimation />;
   if (error || err) return <PageError err={error}></PageError>;
 
-  const approved = data?.articles?.filter(
-    (article) => article.status === "approved"
-  );
+  const approved = data?.filter((article) => article.status === "approved");
 
   const publisher = publisherName.map((name) => ({
     value: name.toLowerCase(),
