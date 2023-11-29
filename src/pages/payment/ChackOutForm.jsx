@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import useAuth from "../../hooks/useAuth";
+import { useAdmin } from "../../hooks/api";
 
 const ChackOutForm = () => {
+  const { refetch } = useAdmin();
   const [loading, setLoading] = useState(false);
   const { user } = useAuth();
   const [data, setData] = useState([]);
@@ -64,6 +66,7 @@ const ChackOutForm = () => {
 
     if (cardError) {
       toast.error(cardError.message);
+      setLoading(false);
     } else {
       if (paymentSuccess.status === "succeeded") {
         setLoading(false);
@@ -74,7 +77,10 @@ const ChackOutForm = () => {
         };
         const update = async () => {
           const res = await axios.patch(`/user/${user?.email}`, updateUserData);
-          console.log(res);
+          if (res.data.success) {
+            toast.success("payment successful");
+            refetch();
+          }
         };
 
         update();

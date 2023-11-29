@@ -19,6 +19,7 @@ const ArticlesCard = ({ data }) => {
     description,
     viewers,
     publish_date,
+    premium,
   } = data || {};
 
   return (
@@ -51,11 +52,9 @@ const ArticlesCard = ({ data }) => {
           <h4 className=" text-lg font-bold text-text_primary grow">{title}</h4>
           <p className="mt-3 font-normal text-lg text-text_secondary/80 ">
             {description.slice(0, 60)}...
-            <Link to={`/articles-Details/${_id}`}>
-              <Button variant="text" size="sm">
-                Read more
-              </Button>
-            </Link>
+            <Button variant="text" size="sm" disabled={premium === "yeas"}>
+              <Link to={`/articles-Details/${_id}`}>Read more</Link>
+            </Button>
           </p>
         </div>
       </div>

@@ -9,10 +9,10 @@ import "swiper/css/pagination";
 
 import { Pagination, Autoplay } from "swiper/modules";
 import Title from "../../../components/title/Title";
-import { useTending } from "../../../hooks/api";
+import { useAllArticle } from "../../../hooks/api";
 
 const TrendingArticles = () => {
-  const { isLoading, error, tending } = useTending();
+  const { isLoading, error, allArticles } = useAllArticle();
   if (isLoading)
     return (
       <div className="h-screen flex justify-center items-center w-full">
@@ -26,6 +26,11 @@ const TrendingArticles = () => {
         <h1>{error}</h1>
       </div>
     );
+
+  const shortByView = allArticles.sort(function (a, b) {
+    return b.viewers - a.viewers;
+  });
+
   return (
     <section className="mt-20">
       <Container>
@@ -54,7 +59,7 @@ const TrendingArticles = () => {
             }}
             className="h-full"
           >
-            {tending?.map((data, idx) => (
+            {shortByView?.slice(0, 6)?.map((data, idx) => (
               <SwiperSlide key={idx} className="h-full mb-10">
                 <ArticlesCard data={data}></ArticlesCard>
               </SwiperSlide>

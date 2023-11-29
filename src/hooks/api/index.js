@@ -115,7 +115,7 @@ export const useUserArticle = () => {
 export const useAdmin = () => {
   const axiosSecure = useAxiosSecure();
   const { user, loading } = useAuth();
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["admin"],
     enabled: !loading && !!user,
     queryFn: async () => {
@@ -123,7 +123,7 @@ export const useAdmin = () => {
       return res.data;
     },
   });
-  return { isLoading, error, data };
+  return { isLoading, error, data, refetch };
 };
 
 export const useAllArticle = () => {
@@ -132,7 +132,7 @@ export const useAllArticle = () => {
     isLoading,
     error,
     data: allArticles,
-    refetch
+    refetch,
   } = useQuery({
     queryKey: ["all-article"],
     queryFn: async () => {

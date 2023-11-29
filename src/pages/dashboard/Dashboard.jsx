@@ -8,7 +8,7 @@ const Dashboard = () => {
   const { isLoading, error, allArticles } = useAllArticle();
   if (isLoading) return <LoadingAnimation />;
 
-  const transformArticleForPieChart = () => {
+  const transformArticleForPublisherPieChart = () => {
     const articleData = allArticles.reduce((acc, article) => {
       const { publisher } = article;
 
@@ -30,59 +30,34 @@ const Dashboard = () => {
     return publisherData;
   };
 
-  const pieChart = transformArticleForPieChart();
+  const pieChart = transformArticleForPublisherPieChart();
 
-  const data = [
-    ["Task", "Hours per Day"],
-    ["Work", 11],
-    ["Eat", 2],
-    ["Commute", 2],
-    ["Watch TV", 2],
-    ["Sleep", 7],
-  ];
+  const transformDataForHistogram = () => {
+    const histogramData = [["Publisher", "Premium Articles"]];
 
-  const options = {
-    title: "Published Articles",
+    const premiumCounts = allArticles.reduce((acc, article) => {
+      const { publisher, premium } = article;
+
+      if (premium) {
+        acc[publisher] = (acc[publisher] || 0) + 1;
+      }
+
+      return acc;
+    }, {});
+
+    for (const [publisher, count] of Object.entries(premiumCounts)) {
+      histogramData.push([publisher, count]);
+    }
+
+    return histogramData;
   };
 
-  const dataOld = [
-    ["Name", "Popularity"],
-    ["Cesar", 250],
-    ["Rachel", 4200],
-    ["Patrick", 2900],
-    ["Eric", 8200],
+  const histrogram = transformDataForHistogram();
+
+  const viewers = [
+    ["Title", "Viewers"],
+    ...allArticles.map((item) => [item.title, item.viewers]),
   ];
-
-  const dataNew = [
-    ["Name", "Popularity"],
-    ["Cesar", 370],
-    ["Rachel", 600],
-    ["Patrick", 700],
-    ["Eric", 1500],
-  ];
-
-  const diffdata = {
-    old: dataOld,
-    new: dataNew,
-  };
-
-  const options2 = {
-    legend: { position: "top" },
-  };
-
-  const data2 = [
-    ["Year", "Sales", "Expenses", "Profit"],
-    ["2014", 1000, 400, 200],
-    ["2015", 1170, 460, 250],
-    ["2016", 660, 1120, 300],
-    ["2017", 1030, 540, 350],
-  ];
-  const options3 = {
-    chart: {
-      title: "Company Performance",
-      subtitle: "Sales, Expenses, and Profit: 2014-2017",
-    },
-  };
 
   return (
     <>
@@ -93,7 +68,6 @@ const Dashboard = () => {
           <Chart
             chartType="PieChart"
             data={pieChart}
-            options={options}
             width={"100%"}
             height={"400px"}
           />
@@ -103,17 +77,15 @@ const Dashboard = () => {
             chartType="BarChart"
             width="100%"
             height="400px"
-            data={data}
-            options={options2}
+            data={viewers}
           />
         </div>
         <div className="mt-6">
           <Chart
-            chartType="Line"
+            chartType="Histogram"
             width="100%"
             height="400px"
-            data={data2}
-            options={options}
+            data={histrogram}
           />
         </div>
       </section>

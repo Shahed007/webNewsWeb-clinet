@@ -22,7 +22,7 @@ const Login = () => {
       const res = await login(email, password);
       if (res) {
         toast.success("Login successful");
-        location.state ? navigate(location.form) : navigate("/");
+        location.state ? navigate(location.state) : navigate("/");
         setLoading(false);
       }
     } catch (err) {

@@ -12,13 +12,7 @@ const PrivateRoute = ({ children }) => {
     return children;
   }
 
-  return (
-    <Navigate
-      to="/login"
-      state={{ form: location.pathname }}
-      replace
-    ></Navigate>
-  );
+  return <Navigate to="/login" state={location.pathname} replace></Navigate>;
 };
 
 PrivateRoute.propTypes = {

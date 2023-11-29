@@ -19,32 +19,38 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 export function StickyNavbar() {
   const axios = useAxiosPublic();
-  const { data } = useAdmin();
+  const { data, refetch } = useAdmin();
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const { user, logout } = useAuth();
 
   if (data && user) {
-    const date1 = moment(
-      user?.metadata.lastSignInTime,
-      "ddd, DD MMM YYYY HH:mm:ss [GMT]"
+    const lastLoginTimeString = moment(
+      parseInt(user?.metadata.lastLoginAt)
+    ).format("YYYY-MM-DD HH:mm:ss");
+
+  
+    const subscriptionTimeString = data.time;
+  
+
+    const lastLoginTime = moment(lastLoginTimeString);
+    const subscriptionTime = moment(
+      subscriptionTimeString,
+      "YYYY-MM-DD HH:mm:ss"
     );
-    const date2 = moment(data.time, "YYYY-MM-DD HH:mm:ss");
-    const outputDateString1 = date1.format("YYYY-MM-DDTHH:mm:ss");
-    const outputDateString2 = date2.format("YYYY-01-01THH:mm:ss");
-    // console.log(outputDateString1, outputDateString2);
-    console.log(outputDateString1);
-    console.log(outputDateString2);
-    if (outputDateString1 > outputDateString2) {
-      const updatePremiumTaken = async () => {
+
+    if (!lastLoginTime.isBefore(subscriptionTime)) {
+      const update = async () => {
         const res = await axios.patch(`/user/${user?.email}`, {
           premiumTaken: "no",
         });
-        console.log(res);
+        if (res.data.success) {
+          refetch();
+        }
       };
-      updatePremiumTaken();
-    }
+      update();
+    } 
   }
 
   React.useEffect(() => {
@@ -129,6 +135,22 @@ export function StickyNavbar() {
           Dashboard
         </NavLink>
       </li>
+      <li
+        className={`${
+          data?.premiumTaken === "yeas" ? "inline-block" : "hidden"
+        }`}
+      >
+        <NavLink
+          to="/premium-Articles"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          Premium Article
+        </NavLink>
+      </li>
     </>
   );
   const navLinksMobiles = (
@@ -179,6 +201,22 @@ export function StickyNavbar() {
           }
         >
           My Articles
+        </NavLink>
+      </ListItem>
+      <ListItem
+        className={`${
+          data?.roll === "admin" ? "inline-block w-full h-full" : "hidden"
+        }`}
+      >
+        <NavLink
+          to="/dashboard"
+          className={({ isActive }) =>
+            isActive
+              ? "after:inline-block after:absolute after:-bottom-[29px] duration-300 text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+              : "after:inline-block after:absolute after:scale-0 after:duration-300 hover:after:scale-100 after:-bottom-[29px] duration-300 hover:text-secondary_color relative after:bg-secondary_color after:h-1 after:w-full flex flex-col"
+          }
+        >
+          Dashboard
         </NavLink>
       </ListItem>
     </>
