@@ -13,7 +13,6 @@ import PageError from "../../components/error/PageError";
 import { FaEye } from "react-icons/fa";
 import premiumSymbol from "../../assets/icon/premium-art.png";
 
-
 const ArticlesDetails = () => {
   const axios = useAxiosPublic();
   const { id } = useParams();
@@ -58,7 +57,7 @@ const ArticlesDetails = () => {
               className="h-full w-full object-cover"
             />
             <div className="absolute top-0 left-0">
-              {premium === "premium" ? <img src={premiumSymbol} alt="" /> : ""}
+              {premium === "yeas" ? <img src={premiumSymbol} alt="" /> : ""}
             </div>
           </CardHeader>
           <CardBody className="px-3 py-5 lg:px-6">

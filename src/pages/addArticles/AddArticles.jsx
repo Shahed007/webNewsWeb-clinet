@@ -32,7 +32,7 @@ const newsTags = [
   "Environment",
 ];
 
-const tags = newsTags.map((tag) => ({ value: tag.toLowerCase(), label: tag }));
+const tags = newsTags?.map((tag) => ({ value: tag.toLowerCase(), label: tag }));
 
 const AddArticles = () => {
   const { user, loading } = useAuth();
@@ -55,7 +55,7 @@ const AddArticles = () => {
 
   if (isLoading && loading) return <LoadingAnimation />;
   if (error) return <PageError err={error} />;
-  const publisher = publisherName.map((name) => ({
+  const publisher = publisherName?.map((name) => ({
     value: name.toLowerCase(),
     label: name,
   }));

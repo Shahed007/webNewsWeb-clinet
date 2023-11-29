@@ -3,12 +3,12 @@ import Title from "../../components/title/Title";
 import Container from "../../components/container/Container";
 import useAuth from "../../hooks/useAuth";
 import imageUpload from "../../utils/imageUpload";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const Profile = () => {
   const { user, profileUpdate } = useAuth();
-  const axios = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
@@ -21,15 +21,18 @@ const Profile = () => {
 
     const { data } = await imageUpload(formData);
     const image = data.data.display_url;
-    await profileUpdate(name, image);
-
-    const res = await axios.patch(`/user/${user?.email}`, {
-      name,
-      photo: image,
+    await profileUpdate(name, image).then(() => {
+      axiosSecure
+        .patch(`/user/${user?.email}`, {
+          name,
+          photo: image,
+        })
+        .then((res) => {
+          if (res.data.success) {
+            toast.success(res.data.message);
+          }
+        });
     });
-    if (res.data.success) {
-      toast.success(res.data.message);
-    }
   };
   return (
     <section className="my-20">

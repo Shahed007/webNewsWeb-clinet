@@ -9,10 +9,21 @@ import {
 import PropTypes from "prop-types";
 import { FaEye } from "react-icons/fa";
 import premiumArt from "../../assets/icon/premium-art.png";
+import { useAdmin } from "../../hooks/api";
+import { Link } from "react-router-dom";
 
 export function PremiumArticlesCard({ premium }) {
-  const { title, publisher, image, description, tag, views, publish_date } =
-    premium || {};
+  const {
+    _id,
+    title,
+    publisher,
+    image,
+    description,
+    tags,
+    viewers,
+    publish_date,
+  } = premium || {};
+  const { data } = useAdmin();
   return (
     <Card className="w-full flex flex-col  shadow-lg bg-white/10 backdrop-blur-lg border-2 border-primary_color/40">
       <CardHeader floated={false} color="blue-gray">
@@ -28,11 +39,15 @@ export function PremiumArticlesCard({ premium }) {
         </p>
       </CardHeader>
       <CardBody className="grow">
-        <small className="text-primary_color">#{tag}</small>
-        <div className="flex justify-between items-center">
+        <small className="text-primary_color">
+          {tags.map((item, idx) => (
+            <span key={idx}>#{item}</span>
+          ))}
+        </small>
+        <div className="flex justify-between items-center mt-4">
           <h2>
             <span className="text-text_primary">Publisher: </span>
-            <span>{publisher}</span>
+            <span className="uppercase">{publisher}</span>
           </h2>
           <Typography
             variant="small"
@@ -42,7 +57,7 @@ export function PremiumArticlesCard({ premium }) {
             <span className="">
               <FaEye />
             </span>
-            <span>{views}</span>
+            <span>{viewers}</span>
           </Typography>
         </div>
         <div className="my-3 flex items-center justify-between">
@@ -55,14 +70,16 @@ export function PremiumArticlesCard({ premium }) {
         </Typography>
       </CardBody>
       <CardFooter className="pt-3">
-        <Button
-          disabled={true}
-          size="lg"
-          className="bg-primary_color/80"
-          fullWidth={true}
-        >
-          Read more
-        </Button>
+        <Link to={`/articles-Details/${_id}`}>
+          <Button
+            disabled={data?.premiumTaken === "no"}
+            size="lg"
+            className="bg-primary_color/80"
+            fullWidth={true}
+          >
+            Read more
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );

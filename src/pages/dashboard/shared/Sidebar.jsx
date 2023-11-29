@@ -13,6 +13,7 @@ import { useAllUser } from "../../../hooks/api";
 
 export function Sidebar() {
   const { allUser, isLoading } = useAllUser();
+
   return (
     <Card className="w-full h-screen   p-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-2 p-4">
@@ -93,15 +94,6 @@ export function Sidebar() {
               </svg>
             </ListItemPrefix>
             All Articles
-            <ListItemSuffix>
-              <Chip
-                value="0"
-                size="sm"
-                variant="ghost"
-                color="blue-gray"
-                className="rounded-full"
-              />
-            </ListItemSuffix>
           </ListItem>
         </NavLink>
         <NavLink to="/dashboard/add-publisher">

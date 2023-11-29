@@ -33,7 +33,9 @@ const AdminAllArticle = () => {
   return (
     <section className="my-20 overflow-y-auto ">
       <Title>All Article</Title>
-
+      <h2 className="my-5 text-3xl font-bold">
+        Total Article:{allArticles?.totalCount}
+      </h2>
       <div className="mt-12 grid grid-cols-2  gap-6 ">
         {allArticles?.article?.map((data) => (
           <AdminArticleCard

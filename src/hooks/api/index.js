@@ -77,7 +77,7 @@ export const usePlan = () => {
 };
 
 export const useAllUser = () => {
-  const axios = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const {
     isLoading,
     error,
@@ -86,7 +86,7 @@ export const useAllUser = () => {
   } = useQuery({
     queryKey: ["allUser"],
     queryFn: async () => {
-      const res = await axios.get(`/users?page=${0}&pageSize=${5}`);
+      const res = await axiosSecure.get(`/users?page=${0}&pageSize=${5}`);
       return res.data;
     },
   });

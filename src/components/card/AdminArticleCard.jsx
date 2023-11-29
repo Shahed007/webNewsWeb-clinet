@@ -96,21 +96,29 @@ button,decline button,Delete button,make premium button
           </div>
           <h2 className="mt-6">{title}</h2>
           <div className="mt-6 flex gap-2">
-            <Button
-              onClick={() => handleAprove(_id)}
-              size="sm"
-              className="text-green-500"
-            >
-              Approve
-            </Button>
+            {status === "approved" ? (
+              <span className="text-green-500 text-base">{status}</span>
+            ) : (
+              <Button
+                onClick={() => handleAprove(_id)}
+                size="sm"
+                className="text-green-500"
+              >
+                Approve
+              </Button>
+            )}
 
-            <Button
-              onClick={() => handleDecline(_id)}
-              size="sm"
-              className="text-yellow-500"
-            >
-              decline
-            </Button>
+            {status === "decline" ? (
+              <span className="text-red-500 text-base">declined</span>
+            ) : (
+              <Button
+                onClick={() => handleDecline(_id)}
+                size="sm"
+                className="text-yellow-500"
+              >
+                decline
+              </Button>
+            )}
             <Button
               onClick={() => handleDelete(_id)}
               size="sm"
@@ -118,13 +126,17 @@ button,decline button,Delete button,make premium button
             >
               Delete
             </Button>
-            <Button
-              onClick={() => handlePremium(_id)}
-              size="sm"
-              className="text-blue-500"
-            >
-              Premium
-            </Button>
+            {status === "premium" ? (
+              <span className="text-blue-500 text-base">{status}</span>
+            ) : (
+              <Button
+                onClick={() => handlePremium(_id)}
+                size="sm"
+                className="text-blue-500"
+              >
+                Premium
+              </Button>
+            )}
           </div>
         </CardBody>
       </Card>
@@ -135,7 +147,6 @@ button,decline button,Delete button,make premium button
         handleOpen={handleOpen}
         setOpen={setOpen}
       ></DeclineModal>
-      ;
     </>
   );
 };

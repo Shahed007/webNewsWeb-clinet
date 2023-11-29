@@ -27,7 +27,7 @@ const TrendingArticles = () => {
       </div>
     );
 
-  const shortByView = allArticles.sort(function (a, b) {
+  const shortByView = allArticles?.article?.sort(function (a, b) {
     return b.viewers - a.viewers;
   });
 

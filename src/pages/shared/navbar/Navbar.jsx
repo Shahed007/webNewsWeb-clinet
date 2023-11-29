@@ -15,10 +15,10 @@ import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useAdmin } from "../../../hooks/api";
 import moment from "moment";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 export function StickyNavbar() {
-  const axios = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { data, refetch } = useAdmin();
   const [open, setOpen] = React.useState(false);
   const openDrawer = () => setOpen(true);
@@ -30,9 +30,7 @@ export function StickyNavbar() {
       parseInt(user?.metadata.lastLoginAt)
     ).format("YYYY-MM-DD HH:mm:ss");
 
-  
     const subscriptionTimeString = data.time;
-  
 
     const lastLoginTime = moment(lastLoginTimeString);
     const subscriptionTime = moment(
@@ -42,7 +40,7 @@ export function StickyNavbar() {
 
     if (!lastLoginTime.isBefore(subscriptionTime)) {
       const update = async () => {
-        const res = await axios.patch(`/user/${user?.email}`, {
+        const res = await axiosSecure.patch(`/user/${user?.email}`, {
           premiumTaken: "no",
         });
         if (res.data.success) {
@@ -50,7 +48,7 @@ export function StickyNavbar() {
         }
       };
       update();
-    } 
+    }
   }
 
   React.useEffect(() => {
@@ -123,7 +121,11 @@ export function StickyNavbar() {
           My Articles
         </NavLink>
       </li>
-      <li className={`${data?.roll === "admin" ? "inline-block" : "hidden"}`}>
+      <li
+        className={`${
+          data?.roll === "admin" && user ? "inline-block" : "hidden"
+        }`}
+      >
         <NavLink
           to="/dashboard"
           className={({ isActive }) =>
@@ -137,7 +139,7 @@ export function StickyNavbar() {
       </li>
       <li
         className={`${
-          data?.premiumTaken === "yeas" ? "inline-block" : "hidden"
+          data?.premiumTaken === "yeas" && user ? "inline-block" : "hidden"
         }`}
       >
         <NavLink
@@ -222,19 +224,29 @@ export function StickyNavbar() {
     </>
   );
 
+  const handleLogout = () =>{
+    logout().then(() => {
+      axiosSecure.get("/clearAccessToken").then(res => {
+        if(res.data.success){
+           toast.success("Logout successful")
+        }
+      })
+    })
+  }
+
   return (
     <>
       <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 ">
         <Container>
           <div className="flex items-center justify-between text-blue-gray-900">
             <div className="mr-4 cursor-pointer py-1.5 font-medium">
-              <div className="hidden lg:block">
+              <div className="hidden 2xl:block">
                 <Logo></Logo>
               </div>
 
               <IconButton
                 variant="text"
-                className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
+                className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent 2xl:hidden"
                 ripple={false}
                 onClick={openDrawer}
               >
@@ -254,7 +266,7 @@ export function StickyNavbar() {
               </IconButton>
             </div>
             <div className="flex items-center gap-4">
-              <div className="mr-4 hidden lg:block">
+              <div className="mr-4 hidden 2xl:block">
                 <ul className="flex items-center gap-6">{navLinksDesktop}</ul>
               </div>
             </div>
@@ -271,9 +283,7 @@ export function StickyNavbar() {
                       />
                     </Link>
                     <Button
-                      onClick={() =>
-                        logout().then(() => toast.success("Logout successful"))
-                      }
+                      onClick={handleLogout}
                       size="sm"
                       className="bg-secondary_color"
                     >

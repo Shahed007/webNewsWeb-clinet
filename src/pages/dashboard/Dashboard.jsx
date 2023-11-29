@@ -3,13 +3,24 @@ import Title from "../../components/title/Title";
 import { Chart } from "react-google-charts";
 import { useAllArticle } from "../../hooks/api";
 import LoadingAnimation from "../../components/loadingAnimation/LoadingAnimation";
+import PageError from "../../components/error/PageError";
 
 const Dashboard = () => {
   const { isLoading, error, allArticles } = useAllArticle();
   if (isLoading) return <LoadingAnimation />;
+  if (error) return <PageError err={error} />;
 
   const transformArticleForPublisherPieChart = () => {
-    const articleData = allArticles.reduce((acc, article) => {
+    const articleData = allArticles?.article;
+
+    if (!articleData) {
+      return [];
+    }
+
+    const acc = {};
+
+    for (let i = 0; i < articleData.length; i++) {
+      const article = articleData[i];
       const { publisher } = article;
 
       if (!acc[publisher]) {
@@ -17,33 +28,37 @@ const Dashboard = () => {
       } else {
         acc[publisher] += 1;
       }
-
-      return acc;
-    }, {});
+    }
 
     const publisherData = [["Publisher", "Number of Articles"]];
 
-    for (const [publisher, count] of Object.entries(articleData)) {
+    for (const [publisher, count] of Object.entries(acc)) {
       publisherData.push([publisher, count]);
     }
 
     return publisherData;
   };
-
   const pieChart = transformArticleForPublisherPieChart();
 
   const transformDataForPremiumArticle = () => {
     const histogramData = [["Publisher", "Premium Articles"]];
 
-    const premiumCounts = allArticles.reduce((acc, article) => {
+    const articleData = allArticles?.article;
+
+    if (!articleData) {
+      return histogramData;
+    }
+
+    const premiumCounts = {};
+
+    for (let i = 0; i < articleData.length; i++) {
+      const article = articleData[i];
       const { publisher, premium } = article;
 
       if (premium) {
-        acc[publisher] = (acc[publisher] || 0) + 1;
+        premiumCounts[publisher] = (premiumCounts[publisher] || 0) + 1;
       }
-
-      return acc;
-    }, {});
+    }
 
     for (const [publisher, count] of Object.entries(premiumCounts)) {
       histogramData.push([publisher, count]);
@@ -56,7 +71,7 @@ const Dashboard = () => {
 
   const viewers = [
     ["Title", "Viewers"],
-    ...allArticles.map((item) => [item.title, item.viewers]),
+    ...allArticles.article.map((item) => [item.title, item.viewers]),
   ];
 
   return (
