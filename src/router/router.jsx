@@ -17,6 +17,7 @@ import AddPublisher from "../pages/dashboard/addPublisher/AddPublisher";
 import Payment from "../pages/payment/Payment";
 import PrivateRoute from "../pages/private/PrivateRoute";
 import AdminRoute from "../pages/private/AdminRoute";
+import AdminAllArticle from "../pages/dashboard/allArticles/AdminAllArticle";
 
 const router = createBrowserRouter([
   {
@@ -123,6 +124,16 @@ const router = createBrowserRouter([
           <PrivateRoute>
             <AdminRoute>
               <AddPublisher></AddPublisher>
+            </AdminRoute>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/dashboard/all-article",
+        element: (
+          <PrivateRoute>
+            <AdminRoute>
+              <AdminAllArticle></AdminAllArticle>
             </AdminRoute>
           </PrivateRoute>
         ),

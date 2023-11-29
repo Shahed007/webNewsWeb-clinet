@@ -116,7 +116,7 @@ export const useAdmin = () => {
   const axiosSecure = useAxiosSecure();
   const { user, loading } = useAuth();
   const { isLoading, error, data } = useQuery({
-    queryKey: "admin",
+    queryKey: ["admin"],
     enabled: !loading && !!user,
     queryFn: async () => {
       const res = await axiosSecure.get(`/user/${user?.email}`);
@@ -124,4 +124,21 @@ export const useAdmin = () => {
     },
   });
   return { isLoading, error, data };
+};
+
+export const useAllArticle = () => {
+  const axios = useAxiosPublic();
+  const {
+    isLoading,
+    error,
+    data: allArticles,
+    refetch
+  } = useQuery({
+    queryKey: ["all-article"],
+    queryFn: async () => {
+      const res = await axios.get("/all-article");
+      return res.data;
+    },
+  });
+  return { isLoading, error, allArticles, refetch };
 };

@@ -16,7 +16,6 @@ import toast from "react-hot-toast";
 import { useAdmin } from "../../../hooks/api";
 import moment from "moment";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
-import { async } from "@firebase/util";
 
 export function StickyNavbar() {
   const axios = useAxiosPublic();
