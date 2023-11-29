@@ -32,7 +32,7 @@ const Dashboard = () => {
 
   const pieChart = transformArticleForPublisherPieChart();
 
-  const transformDataForHistogram = () => {
+  const transformDataForPremiumArticle = () => {
     const histogramData = [["Publisher", "Premium Articles"]];
 
     const premiumCounts = allArticles.reduce((acc, article) => {
@@ -52,7 +52,7 @@ const Dashboard = () => {
     return histogramData;
   };
 
-  const histrogram = transformDataForHistogram();
+  const histrogram = transformDataForPremiumArticle();
 
   const viewers = [
     ["Title", "Viewers"],

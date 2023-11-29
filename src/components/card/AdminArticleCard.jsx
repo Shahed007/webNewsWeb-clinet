@@ -129,6 +129,7 @@ button,decline button,Delete button,make premium button
         </CardBody>
       </Card>
       <DeclineModal
+        className="hidden"
         id={getId}
         open={open}
         handleOpen={handleOpen}
