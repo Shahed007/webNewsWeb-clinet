@@ -8,7 +8,7 @@ const AdminAllArticle = () => {
   const { isLoading, error, allArticles, refetch } = useAllArticle();
   if (isLoading) return <LoadingAnimation />;
   if (error) return <PageError err={error} />;
-  console.log(allArticles);
+
   return (
     <section className="my-20 overflow-y-auto ">
       <Title>All Article</Title>

@@ -1,8 +1,37 @@
 import SiteTitle from "../../components/siteTitle/SiteTitle";
 import Title from "../../components/title/Title";
 import { Chart } from "react-google-charts";
+import { useAllArticle } from "../../hooks/api";
+import LoadingAnimation from "../../components/loadingAnimation/LoadingAnimation";
 
 const Dashboard = () => {
+  const { isLoading, error, allArticles } = useAllArticle();
+  if (isLoading) return <LoadingAnimation />;
+
+  const transformArticleForPieChart = () => {
+    const articleData = allArticles.reduce((acc, article) => {
+      const { publisher } = article;
+
+      if (!acc[publisher]) {
+        acc[publisher] = 1;
+      } else {
+        acc[publisher] += 1;
+      }
+
+      return acc;
+    }, {});
+
+    const publisherData = [["Publisher", "Number of Articles"]];
+
+    for (const [publisher, count] of Object.entries(articleData)) {
+      publisherData.push([publisher, count]);
+    }
+
+    return publisherData;
+  };
+
+  const pieChart = transformArticleForPieChart();
+
   const data = [
     ["Task", "Hours per Day"],
     ["Work", 11],
@@ -63,7 +92,7 @@ const Dashboard = () => {
         <div className="mt-12">
           <Chart
             chartType="PieChart"
-            data={data}
+            data={pieChart}
             options={options}
             width={"100%"}
             height={"400px"}
@@ -74,17 +103,17 @@ const Dashboard = () => {
             chartType="BarChart"
             width="100%"
             height="400px"
-            diffdata={diffdata}
+            data={data}
             options={options2}
           />
         </div>
         <div className="mt-6">
           <Chart
-            chartType="Bar"
+            chartType="Line"
             width="100%"
             height="400px"
             data={data2}
-            options={options3}
+            options={options}
           />
         </div>
       </section>
