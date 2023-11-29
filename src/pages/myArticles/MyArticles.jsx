@@ -11,15 +11,26 @@ import { useState } from "react";
 import ArticleUpdateModal from "../../components/articleUpdateModal/ArticleUpdateModal";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+import MessageModal from "../../components/messageModal/MessageModal";
 
-const TABLE_HEAD = ["Serial No", "Title", "Status", "Is Premium", ""];
+const TABLE_HEAD = [
+  "Serial No",
+  "Title",
+  "Status",
+  "Is Premium",
+  "",
+  "message",
+];
 
 const MyArticles = () => {
   const axios = useAxiosPublic();
   const [update, setUpdate] = useState({});
   const [open, setOpen] = useState(false);
+  const [messageOpen, setMessageOpen] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleOpen = () => setOpen(!open);
+  const handleOpenMessage = () => setMessageOpen(!messageOpen);
   const { isLoading, error, userArticle, refetch } = useUserArticle();
   if (isLoading) return <LoadingAnimation />;
   if (error) return <PageError err={error} />;
@@ -54,6 +65,11 @@ const MyArticles = () => {
       }
     });
   };
+
+  const handleSendMassage = (message) => {
+    setMessage(message);
+    handleOpenMessage();
+  };
   return (
     <>
       <SiteTitle page="My Articles"></SiteTitle>
@@ -82,94 +98,118 @@ const MyArticles = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {userArticle?.map((article, index) => {
-                    const isLast = index === userArticle.length - 1;
-                    const classes = isLast
-                      ? "p-4"
-                      : "p-4 border-b border-blue-gray-50";
+                  {userArticle.length === 0 ? (
+                    <div className="flex justify-center items-center">
+                      <h1 className="text-2xl font-bold">
+                        You have no article
+                      </h1>
+                    </div>
+                  ) : (
+                    userArticle?.map((article, index) => {
+                      const isLast = index === userArticle.length - 1;
+                      const classes = isLast
+                        ? "p-4"
+                        : "p-4 border-b border-blue-gray-50";
 
-                    return (
-                      <tr key={index}>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
+                      return (
+                        <tr key={index}>
+                          <td className={classes}>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {index + 1}
+                            </Typography>
+                          </td>
+                          <td className={classes}>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {article.title}
+                            </Typography>
+                          </td>
+                          <td className={classes}>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {article.status === "approved" ? (
+                                <span className="text-green-500">
+                                  {article.status}
+                                </span>
+                              ) : article.status === "declined" ? (
+                                <span className="text-red-500">
+                                  {article.status}
+                                </span>
+                              ) : (
+                                <span className="text-blue-500">
+                                  {article.status}
+                                </span>
+                              )}
+                            </Typography>
+                          </td>
+                          <td className={classes}>
+                            <Typography
+                              variant="small"
+                              color="blue-gray"
+                              className="font-normal"
+                            >
+                              {article.premium === "free" ? (
+                                <span>NO</span>
+                              ) : (
+                                <span>YES</span>
+                              )}
+                            </Typography>
+                          </td>
+                          <td
+                            className={`${classes} flex  justify-center items-center gap-2`}
                           >
-                            {index + 1}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {article.title}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {article.status === "approved" ? (
-                              <span className="text-green-500">
-                                {article.status}
-                              </span>
-                            ) : article.status === "declined" ? (
-                              <span className="text-red-500">
-                                {article.status}
-                              </span>
+                            <Link
+                              to={`/articles-Details/${article._id}`}
+                              className="hover:text-secondary_color"
+                            >
+                              Details
+                            </Link>
+                            <Button
+                              onClick={() => handleUpdate(article)}
+                              size="sm"
+                              className="text-green-400"
+                            >
+                              Update
+                            </Button>
+                            <Button
+                              onClick={() => handleDelete(article?._id)}
+                              size="sm"
+                              className="text-red-400"
+                            >
+                              Delete
+                            </Button>
+                          </td>
+                          <td>
+                            {article.status === "decline" ? (
+                              <div className="flex flex-col gap-2">
+                                <span>{article.status}</span>
+                                <Button
+                                  className="text-green-500"
+                                  onClick={() =>
+                                    handleSendMassage(article.message)
+                                  }
+                                >
+                                  Message
+                                </Button>
+                              </div>
                             ) : (
-                              <span className="text-blue-500">
-                                {article.status}
-                              </span>
+                              "No message"
                             )}
-                          </Typography>
-                        </td>
-                        <td className={classes}>
-                          <Typography
-                            variant="small"
-                            color="blue-gray"
-                            className="font-normal"
-                          >
-                            {article.premium === "free" ? (
-                              <span>NO</span>
-                            ) : (
-                              <span>YES</span>
-                            )}
-                          </Typography>
-                        </td>
-                        <td
-                          className={`${classes} flex  justify-center items-center gap-2`}
-                        >
-                          <Link
-                            to={`/articles-Details/${article._id}`}
-                            className="hover:text-secondary_color"
-                          >
-                            Details
-                          </Link>
-                          <Button
-                            onClick={() => handleUpdate(article)}
-                            size="sm"
-                            className="text-green-400"
-                          >
-                            Update
-                          </Button>
-                          <Button
-                            onClick={() => handleDelete(article?._id)}
-                            size="sm"
-                            className="text-red-400"
-                          >
-                            Delete
-                          </Button>
-                        </td>
-                        <td className="hidden"></td>
-                      </tr>
-                    );
-                  })}
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
                 </tbody>
               </table>
             </Card>
@@ -182,6 +222,11 @@ const MyArticles = () => {
         open={open}
         setOpen={setOpen}
       ></ArticleUpdateModal>
+      <MessageModal
+        message={message}
+        messageOpen={messageOpen}
+        handleOpenMessage={handleOpenMessage}
+      ></MessageModal>
     </>
   );
 };
