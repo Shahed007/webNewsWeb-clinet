@@ -4,23 +4,6 @@ import useAxiosPublic from "../useAxiosPublic";
 import useAuth from "../useAuth";
 import useAxiosSecure from "../useAxiosSecure";
 
-export const useTending = () => {
-  const {
-    isLoading,
-    error,
-    data: tending,
-  } = useQuery({
-    queryKey: ["tending"],
-    queryFn: async () => {
-      const res = await axios.get(
-        "https://raw.githubusercontent.com/Shahed007/asets/main/trending.json"
-      );
-      return res.data;
-    },
-  });
-  return { isLoading, error, tending };
-};
-
 export const usePublisher = () => {
   const axios = useAxiosPublic();
   const {
@@ -78,6 +61,7 @@ export const usePlan = () => {
 
 export const useAllUser = () => {
   const axiosSecure = useAxiosSecure();
+  const { user } = useAuth();
   const {
     isLoading,
     error,
@@ -85,6 +69,7 @@ export const useAllUser = () => {
     refetch,
   } = useQuery({
     queryKey: ["allUser"],
+    enabled: !!user?.email,
     queryFn: async () => {
       const res = await axiosSecure.get(`/users?page=${0}&pageSize=${5}`);
       return res.data;
@@ -94,7 +79,7 @@ export const useAllUser = () => {
 };
 
 export const useUserArticle = () => {
-  const axios = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const { user, loading } = useAuth();
   const {
     isLoading,
@@ -103,9 +88,9 @@ export const useUserArticle = () => {
     refetch,
   } = useQuery({
     queryKey: ["userArticle", loading, user],
-
+    enabled: !!user?.email,
     queryFn: async () => {
-      const res = await axios.get(`/articles?author_email=${user?.email}`);
+      const res = await axiosSecure.get(`/user-article/${user?.email}`);
       return res.data;
     },
   });

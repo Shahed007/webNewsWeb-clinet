@@ -5,11 +5,11 @@ import Select from "react-select";
 import { Input } from "@material-tailwind/react";
 import SiteTitle from "../../components/siteTitle/SiteTitle";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
 import LoadingAnimation from "../../components/loadingAnimation/LoadingAnimation";
 import PageError from "../../components/error/PageError";
 import ArticlesCard from "../../components/card/ArticlesCard";
 import { usePublisherName } from "../../hooks/api";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 const newsTags = [
   "Breaking News",
@@ -27,7 +27,7 @@ const newsTags = [
 const tags = newsTags.map((tag) => ({ value: tag.toLowerCase(), label: tag }));
 
 const AllArticles = () => {
-  const axios = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const [getTag, setTags] = useState("");
   const [getPublisher, setPublisher] = useState("");
   const [search, setSearch] = useState("");
@@ -37,7 +37,7 @@ const AllArticles = () => {
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["allArticles", getPublisher, search, searchText, getTag],
     queryFn: async () => {
-      const res = await axios.get(
+      const res = await axiosSecure.get(
         `/articles?title=${search}&publisher=${
           getPublisher?.value === undefined ? "" : getPublisher?.value
         }&tag=${getTag?.value === undefined ? "" : getTag?.value}`

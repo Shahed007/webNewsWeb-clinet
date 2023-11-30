@@ -78,34 +78,34 @@ const MyArticles = () => {
           <Title>My articles</Title>
           <div className="mt-12">
             <Card className="h-full w-full overflow-scroll">
-              <table className="w-full min-w-max table-auto text-left">
-                <thead>
-                  <tr>
-                    {TABLE_HEAD.map((head) => (
-                      <th
-                        key={head}
-                        className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 "
-                      >
-                        <Typography
-                          variant="small"
-                          color="blue-gray"
-                          className="font-normal leading-none opacity-70"
+              {userArticle?.length === 0 ? (
+                <div className="h-screen flex w-full justify-center items-center">
+                  <h1 className="text-2xl text-center font-bold font-popins ">
+                    You have not Articles
+                  </h1>
+                </div>
+              ) : (
+                <table className="w-full min-w-max table-auto text-left">
+                  <thead>
+                    <tr>
+                      {TABLE_HEAD.map((head) => (
+                        <th
+                          key={head}
+                          className="border-b border-blue-gray-100 bg-blue-gray-50 p-4 "
                         >
-                          {head}
-                        </Typography>
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {userArticle.length === 0 ? (
-                    <div className="flex justify-center items-center">
-                      <h1 className="text-2xl font-bold">
-                        You have no article
-                      </h1>
-                    </div>
-                  ) : (
-                    userArticle?.map((article, index) => {
+                          <Typography
+                            variant="small"
+                            color="blue-gray"
+                            className="font-normal leading-none opacity-70"
+                          >
+                            {head}
+                          </Typography>
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {userArticle?.map((article, index) => {
                       const isLast = index === userArticle.length - 1;
                       const classes = isLast
                         ? "p-4"
@@ -208,10 +208,10 @@ const MyArticles = () => {
                           </td>
                         </tr>
                       );
-                    })
-                  )}
-                </tbody>
-              </table>
+                    })}
+                  </tbody>
+                </table>
+              )}
             </Card>
           </div>
         </Container>

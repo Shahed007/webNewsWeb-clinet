@@ -12,11 +12,12 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const TABLE_HEAD = ["Serial No:", "Picture", "Name", "Email", ""];
 
 const AllUsers = () => {
-  const axios = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
   const userParPage = 5;
   const [activePage, setActivePage] = useState(1);
   const {
@@ -27,7 +28,7 @@ const AllUsers = () => {
   } = useQuery({
     queryKey: ["users", activePage],
     queryFn: async () => {
-      const res = await axios.get(
+      const res = await axiosSecure.get(
         `/users?page=${activePage}&pageSize=${userParPage}`
       );
       return res.data;
@@ -40,7 +41,7 @@ const AllUsers = () => {
   const totalPages = Math.ceil(allUser?.totalUsers / userParPage);
 
   const handleCreateAdmin = async (id) => {
-    const res = await axios.patch(`/admin/${id}`, { roll: "admin" });
+    const res = await axiosSecure.patch(`/admin/${id}`, { roll: "admin" });
     if (res.data.success) {
       toast.success("Admin created successful");
       refetch();

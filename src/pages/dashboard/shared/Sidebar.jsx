@@ -65,7 +65,7 @@ export function Sidebar() {
                 <Spinner className="h-4 w-4" />
               ) : (
                 <Chip
-                  value={allUser?.totalUsers}
+                  value={allUser?.totalUsers ? allUser?.totalUsers : 0}
                   size="sm"
                   variant="ghost"
                   color="blue-gray"

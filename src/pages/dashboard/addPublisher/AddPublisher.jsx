@@ -1,9 +1,9 @@
 import { Button, Input, Spinner, Typography } from "@material-tailwind/react";
 import Title from "../../../components/title/Title";
 import imageUpload from "../../../utils/imageUpload";
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const AddPublisher = () => {
   const axios = useAxiosPublic();
