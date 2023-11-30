@@ -18,11 +18,13 @@ import Payment from "../pages/payment/Payment";
 import PrivateRoute from "../pages/private/PrivateRoute";
 import AdminRoute from "../pages/private/AdminRoute";
 import AdminAllArticle from "../pages/dashboard/allArticles/AdminAllArticle";
+import ErrorPage from "../pages/errorPage/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         index: true,
