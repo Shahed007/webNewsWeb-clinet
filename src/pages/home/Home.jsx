@@ -13,6 +13,7 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
+import OfficeLocation from "./officeLocation/OfficeLocation";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
@@ -31,6 +32,7 @@ const Home = () => {
       <AllPublisher></AllPublisher>
       <Statastics></Statastics>
       <Plan></Plan>
+      <OfficeLocation></OfficeLocation>
       <Dialog
         open={open}
         handler={handleOpen}
