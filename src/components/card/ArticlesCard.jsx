@@ -9,7 +9,7 @@ import {
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-const ArticlesCard = ({ data }) => {
+const ArticlesCard = ({ data, userRoll }) => {
   const {
     _id,
     title,
@@ -52,7 +52,7 @@ const ArticlesCard = ({ data }) => {
           <h4 className=" text-lg font-bold text-text_primary grow">{title}</h4>
           <p className="mt-3 font-normal text-lg text-text_secondary/80 ">
             {description.slice(0, 60)}...
-            <Button variant="text" size="sm" disabled={premium === "yeas"}>
+            <Button variant="text" size="sm" disabled={userRoll.premiumTaken === "no"}>
               <Link to={`/articles-Details/${_id}`}>Read more</Link>
             </Button>
           </p>
@@ -78,4 +78,5 @@ export default ArticlesCard;
 
 ArticlesCard.propTypes = {
   data: PropTypes.object.isRequired,
+  userRoll: PropTypes.any
 };

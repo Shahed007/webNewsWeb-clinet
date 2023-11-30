@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import LoadingAnimation from "../../components/loadingAnimation/LoadingAnimation";
 import PageError from "../../components/error/PageError";
 import ArticlesCard from "../../components/card/ArticlesCard";
-import { usePublisherName } from "../../hooks/api";
+import { useAdmin, usePublisherName } from "../../hooks/api";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
@@ -28,6 +28,7 @@ const newsTags = [
 const tags = newsTags.map((tag) => ({ value: tag.toLowerCase(), label: tag }));
 
 const AllArticles = () => {
+  const { data: userRoll, isLoading: roll } = useAdmin();
   const axios = useAxiosPublic();
   const [getTag, setTags] = useState("");
   const [getPublisher, setPublisher] = useState("");
@@ -47,7 +48,7 @@ const AllArticles = () => {
     },
   });
 
-  if (isLoading && loading2) return <LoadingAnimation />;
+  if (isLoading && loading2 && roll) return <LoadingAnimation />;
   if (error || err) return <PageError err={error}></PageError>;
 
   const approved = data?.filter((article) => article.status === "approved");
@@ -146,7 +147,11 @@ const AllArticles = () => {
           ) : (
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {approved?.map((article) => (
-                <ArticlesCard key={article._id} data={article}></ArticlesCard>
+                <ArticlesCard
+                  key={article._id}
+                  data={article}
+                  userRoll={userRoll}
+                ></ArticlesCard>
               ))}
             </div>
           )}
