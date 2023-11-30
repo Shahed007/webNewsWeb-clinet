@@ -1,5 +1,4 @@
 import Title from "../../../components/title/Title";
-import allUser from "../../../assets/icon/teamwork.png";
 import normalUser from "../../../assets/icon/group.png";
 import premiumUser from "../../../assets/icon/premium.png";
 import CountUp from "react-countup";
@@ -21,7 +20,7 @@ const Statastics = () => {
   if (isLoading) return <LoadingAnimation />;
   if (error) return <PageError err={error} />;
 
-  const premiumUser = data?.filter((item) => item.premiumTaken === "yeas");
+  const premiumUser2 = data?.filter((item) => item.premiumTaken === "yeas");
 
   return (
     <section className="mt-20">
@@ -47,7 +46,7 @@ const Statastics = () => {
             </h2>
             <CountUp
               start={0}
-              end={premiumUser.length ? premiumUser.length : 0}
+              end={premiumUser2.length ? premiumUser2.length : 0}
               duration={2.75}
               className="mt-5 font-popins text-xl font-semibold text-secondary_color"
             ></CountUp>
