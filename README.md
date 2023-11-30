@@ -1,8 +1,12 @@
-# React + Vite
+# WebNewsWave
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 🔗 Links
+[WebNewsWave](https://webnewswave-client.web.app/)
 
-Currently, two official plugins are available:
+## 5 Features of project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- My website has a premium subscription system. On home page user can see a modal after 10 seconds from there it will take to subscription page. My website has 3 subscription planes for users. If user subscribed they show premium articleless page.
+- My website has admin dashboard from where admin can decline, delete, approve articles. Can do premium articles. If the admin does not approve, the user will not be able to see the article.
+- Admin can add publisher to my website. User can post articles. If the admin approves it, it will show on the website.
+- My website admin will show how many articles the publisher has as a percentage through a pie chart on the admin dashboard. You can see how many view each titles have received in the bar chart.
+- My website admin can make someone else admin if he wants. If the user posts an article, the user can see its status on his my article page.
