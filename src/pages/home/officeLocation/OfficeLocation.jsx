@@ -20,10 +20,10 @@ const OfficeLocation = () => {
   ];
 
   return (
-    <section className="my-20">
+    <section className="mt-20">
       <Container className="w-full">
         <Title>Office Location</Title>
-        <div className="w-full h-full overflow-hidden">
+        <div className="w-full h-full overflow-hidden mt-12">
           <MapContainer
             center={center}
             zoom={13}

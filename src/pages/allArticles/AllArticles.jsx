@@ -10,6 +10,7 @@ import PageError from "../../components/error/PageError";
 import ArticlesCard from "../../components/card/ArticlesCard";
 import { usePublisherName } from "../../hooks/api";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const newsTags = [
   "Breaking News",
@@ -27,7 +28,7 @@ const newsTags = [
 const tags = newsTags.map((tag) => ({ value: tag.toLowerCase(), label: tag }));
 
 const AllArticles = () => {
-  const axiosSecure = useAxiosSecure();
+  const axios = useAxiosPublic();
   const [getTag, setTags] = useState("");
   const [getPublisher, setPublisher] = useState("");
   const [search, setSearch] = useState("");
@@ -37,7 +38,7 @@ const AllArticles = () => {
   const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["allArticles", getPublisher, search, searchText, getTag],
     queryFn: async () => {
-      const res = await axiosSecure.get(
+      const res = await axios.get(
         `/articles?title=${search}&publisher=${
           getPublisher?.value === undefined ? "" : getPublisher?.value
         }&tag=${getTag?.value === undefined ? "" : getTag?.value}`
@@ -82,6 +83,7 @@ const AllArticles = () => {
               <div className=" xl:basis-2/5 lg:basis-1/2 w-full flex sm:flex-row flex-col items-center gap-6">
                 <div className="w-full">
                   <Select
+                    className="relative z-[120]"
                     defaultValue={getTag}
                     onChange={setTags}
                     options={tags}
@@ -90,6 +92,7 @@ const AllArticles = () => {
                 </div>
                 <div className="w-full">
                   <Select
+                    className="relative z-[120]"
                     defaultValue={getPublisher}
                     onChange={setPublisher}
                     options={publisher}

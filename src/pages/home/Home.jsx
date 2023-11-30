@@ -14,6 +14,7 @@ import {
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import OfficeLocation from "./officeLocation/OfficeLocation";
+import TopArticleRighter from "./topArticleRitghter/TopArticleRighter";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
@@ -33,6 +34,7 @@ const Home = () => {
       <Statastics></Statastics>
       <Plan></Plan>
       <OfficeLocation></OfficeLocation>
+      <TopArticleRighter></TopArticleRighter>
       <Dialog
         open={open}
         handler={handleOpen}
