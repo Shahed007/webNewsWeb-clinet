@@ -13,7 +13,6 @@ const PremiumArticles = () => {
   const premiumArticle = allArticles?.article?.filter(
     (item) => item.premium === "yeas"
   );
-  console.log(premiumArticle);
   return (
     <>
       <SiteTitle page="Premium Articles"></SiteTitle>
