@@ -55,7 +55,7 @@ const Dashboard = () => {
       const article = articleData[i];
       const { publisher, premium } = article;
 
-      if (premium) {
+      if (premium === "yeas") {
         premiumCounts[publisher] = (premiumCounts[publisher] || 0) + 1;
       }
     }
