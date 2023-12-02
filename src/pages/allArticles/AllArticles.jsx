@@ -9,7 +9,6 @@ import LoadingAnimation from "../../components/loadingAnimation/LoadingAnimation
 import PageError from "../../components/error/PageError";
 import ArticlesCard from "../../components/card/ArticlesCard";
 import { useAdmin, usePublisherName } from "../../hooks/api";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const newsTags = [

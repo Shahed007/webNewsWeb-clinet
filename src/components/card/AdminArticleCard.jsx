@@ -8,15 +8,11 @@ import {
 } from "@material-tailwind/react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
-import { useState } from "react";
-import DeclineModal from "../declineModal/DeclineModal";
+import PropTypes from "prop-types";
 
-const AdminArticleCard = ({ data, refetch }) => {
+const AdminArticleCard = ({ data, refetch, handleOpen, setId }) => {
   const axios = useAxiosPublic();
-  const [open, setOpen] = useState(false);
-  const [getId, setId] = useState("");
 
-  const handleOpen = () => setOpen(!open);
   const {
     title,
     publisher,
@@ -57,14 +53,12 @@ const AdminArticleCard = ({ data, refetch }) => {
     handleOpen();
   };
   return (
-    /* 
-    article title,article author
-name, article author email,article author photo, Posted Date,status,publisher,approve
-button,decline button,Delete button,make premium button
-     */
-
     <>
-      <Card color="transparent" shadow={false} className="w-full ">
+      <Card
+        color="transparent"
+        shadow={false}
+        className="w-full bg-white/20 backdrop-blur-md p-6 shadow-sm border border-gray-200"
+      >
         <CardHeader
           color="transparent"
           floated={false}
@@ -94,7 +88,7 @@ button,decline button,Delete button,make premium button
             <p>Status: {status}</p>
             <p>Publisher: {publisher}</p>
           </div>
-          <h2 className="mt-6">{title}</h2>
+          <h2 className="mt-6 text-text_primary font-semibold">{title}</h2>
           <div className="mt-6 flex gap-2">
             {status === "approved" ? (
               <span className="text-green-500 text-base">{status}</span>
@@ -140,15 +134,15 @@ button,decline button,Delete button,make premium button
           </div>
         </CardBody>
       </Card>
-      <DeclineModal
-        className="hidden"
-        id={getId}
-        open={open}
-        handleOpen={handleOpen}
-        setOpen={setOpen}
-      ></DeclineModal>
     </>
   );
+};
+
+AdminArticleCard.propTypes = {
+  data: PropTypes.any,
+  handleOpen: PropTypes.any,
+  setId: PropTypes.any,
+  refetch: PropTypes.any,
 };
 
 export default AdminArticleCard;

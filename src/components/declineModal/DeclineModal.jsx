@@ -6,10 +6,11 @@ import {
   DialogFooter,
   Textarea,
 } from "@material-tailwind/react";
+import PropTypes from "prop-types";
 import { useState } from "react";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import toast from "react-hot-toast";
-const DeclineModal = ({ id, open, handleOpen, setOpen }) => {
+const DeclineModal = ({ id, open, handleOpen, setOpen, refetch }) => {
   const [message, setMessage] = useState("");
   const axios = useAxiosPublic();
   const handleSubmit = async () => {
@@ -19,6 +20,7 @@ const DeclineModal = ({ id, open, handleOpen, setOpen }) => {
     });
     if (res.data.success) {
       setOpen(false);
+      refetch();
       toast.success("declined success fully");
     }
   };
@@ -50,6 +52,14 @@ const DeclineModal = ({ id, open, handleOpen, setOpen }) => {
       </Dialog>
     </div>
   );
+};
+
+DeclineModal.propTypes = {
+  refetch: PropTypes.any,
+  setOpen: PropTypes.any,
+  handleOpen: PropTypes.any,
+  open: PropTypes.any,
+  id: PropTypes.any,
 };
 
 export default DeclineModal;
