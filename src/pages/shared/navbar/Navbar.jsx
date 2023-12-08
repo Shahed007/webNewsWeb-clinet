@@ -6,6 +6,7 @@ import {
   List,
   ListItem,
   Avatar,
+  Input,
 } from "@material-tailwind/react";
 import Container from "../../../components/container/Container";
 import Logo from "../../../components/logo/Logo";
@@ -27,6 +28,7 @@ export function StickyNavbar() {
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const { user, logout } = useAuth();
+  const [openSearch, setOpenSearch] = useState(false);
   subscriptionChecker(data, refetch, user);
 
   useEffect(() => {
@@ -289,7 +291,10 @@ export function StickyNavbar() {
             <div>
               <DesktopLink></DesktopLink>
             </div>
-            <SearchAndNotification></SearchAndNotification>
+            <SearchAndNotification
+              setOpenSearch={setOpenSearch}
+              openSearch={openSearch}
+            ></SearchAndNotification>
           </div>
         </Container>
       </Navbar>
@@ -316,6 +321,30 @@ export function StickyNavbar() {
         </div>
         <List className="w-full gap-0">{navLinksMobiles}</List>
       </Drawer>
+      <div
+        className={`absolute top-16 right-8 w-60   bg-transparent z-[100] ${
+          openSearch ? "block" : "hidden"
+        }`}
+      >
+        <div
+          className="rotate-180 ml-auto mr-5 "
+          style={{
+            borderWidth: "12px 8px 0 8px",
+            width: "0px",
+            height: "0px",
+            borderStyle: "solid",
+            borderColor: "#8888 transparent transparent transparent",
+          }}
+        ></div>
+        <Input
+          type="text"
+          placeholder="Search by title"
+          className="!border w-full  !border-gray-300 bg-white text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
+          labelProps={{
+            className: "hidden",
+          }}
+        />
+      </div>
     </>
   );
 }
