@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Navbar,
   Button,
@@ -16,17 +15,21 @@ import toast from "react-hot-toast";
 import { useAdmin } from "../../../hooks/api";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import subscriptionChecker from "../../../utils/subscriptionCheker";
+import { useEffect } from "react";
+import { useState } from "react";
+import DesktopLink from "./DesktopLink";
+import SearchAndNotification from "./SearchAndNotification";
 
 export function StickyNavbar() {
   const axiosSecure = useAxiosSecure();
   const { data, refetch } = useAdmin();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const { user, logout } = useAuth();
   subscriptionChecker(data, refetch, user);
 
-  React.useEffect(() => {
+  useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setOpen(false)
@@ -211,8 +214,8 @@ export function StickyNavbar() {
 
   return (
     <>
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4 ">
-        <Container>
+      <Navbar className="sticky top-0 z-10  max-w-full rounded-none h-16 px-0 ">
+        {/* <Container>
           <div className="flex items-center justify-between text-blue-gray-900">
             <div className="mr-4 cursor-pointer py-1.5 font-medium">
               <div className="hidden 2xl:block">
@@ -278,6 +281,15 @@ export function StickyNavbar() {
                 )}
               </div>
             </div>
+          </div>
+        </Container> */}
+        <Container>
+          <div className="flex items-center justify-between">
+            <Logo></Logo>
+            <div>
+              <DesktopLink></DesktopLink>
+            </div>
+            <SearchAndNotification></SearchAndNotification>
           </div>
         </Container>
       </Navbar>
