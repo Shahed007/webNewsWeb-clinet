@@ -14,8 +14,8 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { useAdmin } from "../../../hooks/api";
-import moment from "moment";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import subscriptionChecker from "../../../utils/subscriptionCheker";
 
 export function StickyNavbar() {
   const axiosSecure = useAxiosSecure();
@@ -24,32 +24,7 @@ export function StickyNavbar() {
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const { user, logout } = useAuth();
-
-  if (data && user) {
-    const lastLoginTimeString = moment(
-      parseInt(user?.metadata.lastLoginAt)
-    ).format("YYYY-MM-DD HH:mm:ss");
-
-    const subscriptionTimeString = data.time;
-
-    const lastLoginTime = moment(lastLoginTimeString);
-    const subscriptionTime = moment(
-      subscriptionTimeString,
-      "YYYY-MM-DD HH:mm:ss"
-    );
-
-    if (!lastLoginTime.isBefore(subscriptionTime)) {
-      const update = async () => {
-        const res = await axiosSecure.patch(`/user/${user?.email}`, {
-          premiumTaken: "no",
-        });
-        if (res.data.success) {
-          refetch();
-        }
-      };
-      update();
-    }
-  }
+  subscriptionChecker(data, refetch, user);
 
   React.useEffect(() => {
     window.addEventListener(
@@ -224,15 +199,15 @@ export function StickyNavbar() {
     </>
   );
 
-  const handleLogout = () =>{
+  const handleLogout = () => {
     logout().then(() => {
-      axiosSecure.get("/clearAccessToken").then(res => {
-        if(res.data.success){
-           toast.success("Logout successful")
+      axiosSecure.get("/clearAccessToken").then((res) => {
+        if (res.data.success) {
+          toast.success("Logout successful");
         }
-      })
-    })
-  }
+      });
+    });
+  };
 
   return (
     <>
