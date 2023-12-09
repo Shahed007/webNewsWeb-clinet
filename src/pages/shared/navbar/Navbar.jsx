@@ -29,6 +29,7 @@ export function StickyNavbar() {
   const closeDrawer = () => setOpen(false);
   const { user, logout } = useAuth();
   const [openSearch, setOpenSearch] = useState(false);
+  const [openNotification, setOpenNotification] = useState(false);
   subscriptionChecker(data, refetch, user);
 
   useEffect(() => {
@@ -294,6 +295,8 @@ export function StickyNavbar() {
             <SearchAndNotification
               setOpenSearch={setOpenSearch}
               openSearch={openSearch}
+              setOpenNotification={setOpenNotification}
+              openNotification={openNotification}
             ></SearchAndNotification>
           </div>
         </Container>
@@ -345,7 +348,11 @@ export function StickyNavbar() {
           }}
         />
       </div>
-      <div className="absolute right-0 z-50 top-[71px] rounded-md flex justify-center p-4 shadow-md w-60 bg-white">
+      <div
+        className={`absolute right-0 z-50 top-[71px] rounded-md flex justify-center p-4 shadow-md w-60 bg-white ${
+          openNotification ? "scale-100 duration-500" : "scale-0 duration-200"
+        }`}
+      >
         <div
           className="rotate-180  absolute -top-2"
           style={{
