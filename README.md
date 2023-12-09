@@ -10,7 +10,7 @@ Server site code link: [WebNewsWave-server](https://github.com/Shahed007/webNews
 
 On this website, I use React.js, Tailwind CSS, and Material Tailwind to create the front end. For data fetching, I employ TanStack Query, and for authentication, I integrate Firebase. On the backend, I utilize Mongoose with a MongoDB database, along with Express.js and Node.js. Deployed server on Vercel.
 
-## 5 Features of project
+## 5 Features of my project
 
 - My website features a premium subscription system. Upon visiting the homepage, users encounter a modal after 10 seconds, guiding them to the subscription page. The website offers three subscription plans like 1 minute, 5 days, 10 days. for users to choose from. Once a user subscribes, they gain access to a premium, ad-free experience on the article pages.
 - My website incorporates an admin dashboard that enables administrators to manage articles. Admins have the ability to decline, delete, or approve articles. Additionally, they can designate certain articles as premium. If an article is not approved by the admin, it remains inaccessible to users. This ensures that only approved and authorized content is visible on the website.
