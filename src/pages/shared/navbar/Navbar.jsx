@@ -345,6 +345,19 @@ export function StickyNavbar() {
           }}
         />
       </div>
+      <div className="absolute right-0 z-50 top-[71px] rounded-md flex justify-center p-4 shadow-md w-60 bg-white">
+        <div
+          className="rotate-180  absolute -top-2"
+          style={{
+            borderWidth: "12px 8px 0 8px",
+            width: "0px",
+            height: "0px",
+            borderStyle: "solid",
+            borderColor: "#8888 transparent transparent transparent",
+          }}
+        ></div>
+        <p>Notification here</p>
+      </div>
     </>
   );
 }

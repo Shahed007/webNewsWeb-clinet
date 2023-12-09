@@ -1,12 +1,19 @@
 # WebNewsWave
 
 ## 🔗 Links
+Live website link :
 [WebNewsWave](https://webnewswave-client.web.app/)
+
+Server site code link: [WebNewsWave-server](https://github.com/Shahed007/webNewsWeb-server-v1)
+
+## I have used whatever technology on this website:
+
+On this website, I use React.js, Tailwind CSS, and Material Tailwind to create the front end. For data fetching, I employ TanStack Query, and for authentication, I integrate Firebase. On the backend, I utilize Mongoose with a MongoDB database, along with Express.js and Node.js. Deployed server on Vercel.
 
 ## 5 Features of project
 
-- My website has a premium subscription system. On home page user can see a modal after 10 seconds from there it will take to subscription page. My website has 3 subscription planes for users. If user subscribed they show premium articleless page.
-- My website has admin dashboard from where admin can decline, delete, approve articles. Can do premium articles. If the admin does not approve, the user will not be able to see the article.
-- Admin can add publisher to my website. User can post articles. If the admin approves it, it will show on the website.
-- My website admin will show how many articles the publisher has as a percentage through a pie chart on the admin dashboard. You can see how many view each titles have received in the bar chart.
-- My website admin can make someone else admin if he wants. If the user posts an article, the user can see its status on his my article page.
+- My website features a premium subscription system. Upon visiting the homepage, users encounter a modal after 10 seconds, guiding them to the subscription page. The website offers three subscription plans like 1 minute, 5 days, 10 days. for users to choose from. Once a user subscribes, they gain access to a premium, ad-free experience on the article pages.
+- My website incorporates an admin dashboard that enables administrators to manage articles. Admins have the ability to decline, delete, or approve articles. Additionally, they can designate certain articles as premium. If an article is not approved by the admin, it remains inaccessible to users. This ensures that only approved and authorized content is visible on the website.
+- The website is equipped with an admin dashboard that allows administrators to add publishers. Users have the ability to post articles and after submission, the articles go through an approval process by the administrator. Once approved, articles are visible on the website, ensuring a controlled and curated content experience.
+- My website admin dashboard has a dynamic presentation of publisher statistics. Administrators can visualize the distribution of each publisher's articles through a pie chart, displaying each publisher's percentage contribution to the overall content. Additionally, a bar chart provides insight into visitor statistics for each article title, allowing administrators to gauge the popularity of individual articles. These graphical representations offer a comprehensive overview of content engagement and contributor performance.
+- The admin functionality on my website extends to the capability of appointing new administrators. In the admin dashboard's user section, I have implemented pagination for improved navigation and efficiency. Additionally, I have applied pagination to the admin dashboard's all articles pages, ensuring a streamlined and organized presentation of content for enhanced user experience.
