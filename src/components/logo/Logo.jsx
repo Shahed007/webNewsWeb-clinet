@@ -7,7 +7,7 @@ const Logo = () => {
       to="/"
     >
       {" "}
-      NewsNest
+      WebNewsWave
     </Link>
   );
 };

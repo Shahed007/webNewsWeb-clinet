@@ -6,7 +6,7 @@ import subscription from "../../../assets/icon/subscription.png";
 
 const DesktopLink = () => {
   return (
-    <ul className="text-text_primary text-base flex items-center gap-10">
+    <ul className="text-text_primary text-base flex items-center gap-6">
       <li>
         <NavLink className="flex items-center gap-2">
           <span>
@@ -36,7 +36,7 @@ const DesktopLink = () => {
           <span>Video</span>
         </NavLink>
       </li>
-      <li>
+      <li className="">
         <NavLink className="flex items-center gap-2">
           <span className="text-2xl">
             <TfiWrite />
