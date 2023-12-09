@@ -10,7 +10,7 @@ Server site code link: [WebNewsWave-server](https://github.com/Shahed007/webNews
 
 On this website, I use React.js, Tailwind CSS, and Material Tailwind to create the front end. For data fetching, I employ TanStack Query, and for authentication, I integrate Firebase. On the backend, I utilize Mongoose with a MongoDB database, along with Express.js and Node.js. Deployed server on Vercel.
 
-## I have used whatever technology on this website:
+## Waht is the purpose of the building this website?
 The purpose of creating a news portal website is to provide a platform for disseminating timely and relevant information to a wide audience. It serves as a centralized source for news articles, updates, and various topics of interest. The website can aim to inform, educate, and engage users on current events, entertainment, sports, and other news categories. Additionally, a well-designed news portal can attract a diverse audience, build a community, and generate revenue through advertisements or subscription models.
 
 ## 5 Features of my project
