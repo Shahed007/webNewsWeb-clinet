@@ -24,7 +24,7 @@ const ArticlesCard = ({ data, userRoll }) => {
     publish_date,
     premium,
   } = data || {};
-  const detailsUrl = useRef(`http://localhost:5173/articles-Details/${_id}`);
+  const detailsUrl = useRef(`https://webnewswave-client.web.app/articles-Details/${_id}`);
 
   const handleCopyClick = async () => {
     try {
@@ -67,7 +67,7 @@ const ArticlesCard = ({ data, userRoll }) => {
           <input
             ref={detailsUrl}
             className="hidden"
-            defaultValue={`http://localhost:5173/articles-Details/${_id}`}
+            defaultValue={`https://webnewswave-client.web.app/articles-Details/${_id}`}
           />
           <Button size="sm" onClick={handleCopyClick}>
             Copy link
