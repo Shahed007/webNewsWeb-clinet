@@ -6,9 +6,16 @@ import subscription from "../../../assets/icon/subscription.png";
 
 const DesktopLink = () => {
   return (
-    <ul className="text-text_primary text-base flex items-center gap-10">
-      <li>
-        <NavLink className="flex items-center gap-2">
+    <ul className="text-text_primary text-base flex items-center gap-6 desktop-navbar">
+      <>
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            isActive
+              ? "flex items-center gap-2 text-secondary_color "
+              : "flex items-center gap-2 desktop-link "
+          }
+        >
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -27,17 +34,31 @@ const DesktopLink = () => {
           </span>
           <span>Home</span>
         </NavLink>
-      </li>
+      </>
       <li>
-        <NavLink className="flex items-center gap-2">
+        <NavLink
+          to="/video"
+          className={({ isActive }) =>
+            isActive
+              ? "flex items-center gap-2 text-secondary_color "
+              : "flex items-center gap-2 desktop-link "
+          }
+        >
           <span className="text-2xl">
             <MdSlowMotionVideo />
           </span>
           <span>Video</span>
         </NavLink>
       </li>
-      <li>
-        <NavLink className="flex items-center gap-2">
+      <li className="">
+        <NavLink
+          to="/top-writer"
+          className={({ isActive }) =>
+            isActive
+              ? "flex items-center gap-2 text-secondary_color "
+              : "flex items-center gap-2 desktop-link "
+          }
+        >
           <span className="text-2xl">
             <TfiWrite />
           </span>
@@ -45,7 +66,14 @@ const DesktopLink = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink className="flex items-center gap-2">
+        <NavLink
+          to="/subscription"
+          className={({ isActive }) =>
+            isActive
+              ? "flex items-center gap-2 text-secondary_color "
+              : "flex items-center gap-2 desktop-link "
+          }
+        >
           <span className="text-2xl">
             <img src={subscription} alt="subscription" />
           </span>
@@ -53,7 +81,14 @@ const DesktopLink = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink className="flex items-center gap-2">
+        <NavLink
+          to="/premium-article"
+          className={({ isActive }) =>
+            isActive
+              ? "flex items-center gap-2 text-secondary_color "
+              : "flex items-center gap-2 desktop-link "
+          }
+        >
           <span className="text-2xl">
             <MdOutlineWorkspacePremium />
           </span>
