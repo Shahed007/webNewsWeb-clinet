@@ -26,7 +26,11 @@ const AdminArticleCard = ({ data, refetch, handleOpen, setId }) => {
 
   const handleAprove = async (id) => {
     const res = await axios.patch(`/article/${id}`, { status: "approved" });
-    if (res.data.success) {
+    const notification = await axios.put(`/notification/${id}`, {
+      title: title,
+    });
+
+    if (res.data.success && notification.data.success) {
       toast.success("Approved Success fully");
       refetch();
     }

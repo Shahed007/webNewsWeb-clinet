@@ -13,7 +13,7 @@ import Logo from "../../../components/logo/Logo";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import toast from "react-hot-toast";
-import { useAdmin } from "../../../hooks/api";
+import { useAdmin, useNotification } from "../../../hooks/api";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import subscriptionChecker from "../../../utils/subscriptionCheker";
 import { useEffect } from "react";
@@ -31,6 +31,7 @@ export function StickyNavbar() {
   const [openSearch, setOpenSearch] = useState(false);
   const [openNotification, setOpenNotification] = useState(false);
   subscriptionChecker(data, refetch, user);
+  const { notification, isLoading } = useNotification();
 
   useEffect(() => {
     window.addEventListener(
@@ -217,8 +218,8 @@ export function StickyNavbar() {
 
   return (
     <>
-      <Navbar className="sticky top-0 z-10  max-w-full rounded-none h-16 px-0 ">
-        {/* <Container>
+      <Navbar className="sticky top-0 z-10  max-w-full rounded-none h-20 px-0 ">
+        <Container>
           <div className="flex items-center justify-between text-blue-gray-900">
             <div className="mr-4 cursor-pointer py-1.5 font-medium">
               <div className="hidden 2xl:block">
@@ -251,7 +252,7 @@ export function StickyNavbar() {
                 <ul className="flex items-center gap-6">{navLinksDesktop}</ul>
               </div>
             </div>
-            <div>
+            <div className="flex gap-6 items-center">
               <div className="flex items-center gap-x-1">
                 {user ? (
                   <div className="flex gap-3">
@@ -283,10 +284,16 @@ export function StickyNavbar() {
                   </Link>
                 )}
               </div>
+              <SearchAndNotification
+                setOpenSearch={setOpenSearch}
+                openSearch={openSearch}
+                setOpenNotification={setOpenNotification}
+                openNotification={openNotification}
+              ></SearchAndNotification>
             </div>
           </div>
-        </Container> */}
-        <Container>
+        </Container>
+        {/* <Container>
           <div className="flex items-center justify-between">
             <Logo></Logo>
             <div>
@@ -299,7 +306,7 @@ export function StickyNavbar() {
               openNotification={openNotification}
             ></SearchAndNotification>
           </div>
-        </Container>
+        </Container> */}
       </Navbar>
 
       <Drawer open={open} onClose={closeDrawer} className="h-full">
@@ -349,7 +356,7 @@ export function StickyNavbar() {
         />
       </div>
       <div
-        className={`absolute right-0 z-50 top-[71px] rounded-md flex justify-center p-4 shadow-md w-60 bg-white ${
+        className={`absolute right-0 z-50 top-[71px] rounded-md flex justify-center p-4 shadow-md w-60 h-60 overflow-y-auto bg-white ${
           openNotification ? "scale-100 duration-500" : "scale-0 duration-200"
         }`}
       >
@@ -363,7 +370,18 @@ export function StickyNavbar() {
             borderColor: "#8888 transparent transparent transparent",
           }}
         ></div>
-        <p>Notification here</p>
+
+        {isLoading ? (
+          <p>Loading</p>
+        ) : (
+          <div className="flex flex-col gap-3">
+            {notification.map((item) => (
+              <p key={item._id} className="text-[12px]">
+                <span className="font-bold">New article:</span> {item.title}
+              </p>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );

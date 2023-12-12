@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
+import { useNotification } from "../../../hooks/api";
 const SearchAndNotification = ({
   setOpenSearch,
   openSearch,
   setOpenNotification,
   openNotification,
 }) => {
+  const { notification } = useNotification();
+
   return (
     <>
       <div className="flex items-center text-text_primary gap-6">
@@ -30,11 +33,13 @@ const SearchAndNotification = ({
               />
             </svg>
             <span className="flex absolute h-3 w-3 rounded-full top-[2px] right-0 bg-primary_color  justify-center items-center">
-              <small className="text-white text-[10px]">1</small>
+              <small className="text-white text-[10px]">
+                {notification?.length}
+              </small>
             </span>
           </button>
         </div>
-        <div>
+        {/* <div>
           <button
             className={`rounded-full h-10 w-10 flex active:scale-95 justify-center items-center duration-300 hover:shadow-md hover:text-white hover:bg-secondary_color ${
               openSearch ? "bg-secondary_color shadow-md text-white" : ""
@@ -56,7 +61,7 @@ const SearchAndNotification = ({
               />
             </svg>
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );

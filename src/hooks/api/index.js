@@ -127,3 +127,21 @@ export const useAllArticle = () => {
   });
   return { isLoading, error, allArticles, refetch };
 };
+
+export const useNotification = () => {
+  const axios = useAxiosPublic();
+
+  const {
+    data: notification,
+    refetch,
+    isLoading,
+  } = useQuery({
+    queryKey: ["notification"],
+    queryFn: async () => {
+      const res = await axios.get("/notification");
+      return res.data;
+    },
+  });
+
+  return { notification, refetch, isLoading };
+};
