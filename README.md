@@ -6,6 +6,14 @@ Live website link :
 
 Server site code link: [WebNewsWave-server](https://github.com/Shahed007/webNewsWeb-server-v1)
 
+## Admin dashboard
+
+# Admin email
+elon@gmail.com
+
+# Admin Pass
+Elon@1
+
 ## I have used whatever technology on this website:
 
 On this website, I use React.js, Tailwind CSS, and Material Tailwind to create the front end. For data fetching, I employ TanStack Query, and for authentication, I integrate Firebase. On the backend, I utilize Mongoose with a MongoDB database, along with Express.js and Node.js. Deployed server on Vercel.
