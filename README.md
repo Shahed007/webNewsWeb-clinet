@@ -6,12 +6,12 @@ Live website link :
 
 Server site code link: [WebNewsWave-server](https://github.com/Shahed007/webNewsWeb-server-v1)
 
-## Admin dashboard
+# Admin dashboard
 
-# Admin email
+## Admin email
 elon@gmail.com
 
-# Admin Pass
+## Admin Pass
 Elon@1
 
 ## I have used whatever technology on this website:
