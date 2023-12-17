@@ -1,10 +1,13 @@
 import PropTypes from "prop-types";
 import { useNotification } from "../../../hooks/api";
+import { Avatar } from "@material-tailwind/react";
 const SearchAndNotification = ({
   setOpenSearch,
   openSearch,
   setOpenNotification,
   openNotification,
+  user,
+  handleLogout,
 }) => {
   const { notification } = useNotification();
 
@@ -39,7 +42,7 @@ const SearchAndNotification = ({
             </span>
           </button>
         </div>
-        {/* <div>
+        <div>
           <button
             className={`rounded-full h-10 w-10 flex active:scale-95 justify-center items-center duration-300 hover:shadow-md hover:text-white hover:bg-secondary_color ${
               openSearch ? "bg-secondary_color shadow-md text-white" : ""
@@ -61,7 +64,13 @@ const SearchAndNotification = ({
               />
             </svg>
           </button>
-        </div> */}
+        </div>
+        <Avatar
+          className="drop-shadow-md"
+          src={user?.photoURL}
+          alt="avatar"
+          size="md"
+        />
       </div>
     </>
   );
@@ -72,6 +81,8 @@ SearchAndNotification.propTypes = {
   openSearch: PropTypes.bool.isRequired,
   setOpenNotification: PropTypes.func.isRequired,
   openNotification: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired,
+  handleLogout: PropTypes.func.isRequired,
 };
 
 export default SearchAndNotification;
