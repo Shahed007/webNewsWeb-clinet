@@ -2,7 +2,6 @@ import PropTypes from "prop-types";
 import {
   Card,
   CardHeader,
-  CardFooter,
   Typography,
   Button,
   IconButton,
@@ -15,11 +14,11 @@ import { useRef, useState } from "react";
 import copy from "clipboard-copy";
 import toast from "react-hot-toast";
 import { FacebookShareButton, WhatsappShareButton } from "react-share";
-import { AiOutlineLike, AiFillLike } from "react-icons/ai";
+import { AiOutlineLike } from "react-icons/ai";
 
 const ArticlesCard = ({ data, userRoll }) => {
   const [shareButtonActive, setShareButtonActive] = useState(false);
-  const [likes, setLikes] = useState(false);
+
   const {
     _id,
     title,
@@ -45,25 +44,27 @@ const ArticlesCard = ({ data, userRoll }) => {
     }
   };
 
-  const handleLike = async () => {
-    setLikes(!likes);
-  };
-
   return (
-    <Card className="w-full  flex-row">
+    <Card className="w-full  md:flex-row flex-col">
       <CardHeader
         shadow={false}
         floated={false}
-        className="m-0 w-2/5 shrink-0 rounded-r-none"
+        className="m-0 md:w-2/5 md:shrink-0 rounded-t-md overflow-hidden relative"
       >
         <img
           src={image}
           alt={title.slice(0, 20)}
           className="h-full w-full object-cover"
         />
+        <h4
+          className="absolute top-0 left-0 w-full p-2 text-white bg-gray-700/70 backdrop-blur-md"
+          style={{ borderTopLeftRadius: "6px" }}
+        >
+          {publish_date}
+        </h4>
       </CardHeader>
-      <CardBody>
-        <div className="flex justify-between items-center">
+      <CardBody className="flex flex-col sm:px-3 p-2">
+        <div className="flex justify-between items-center mb-4">
           <div className="flex gap-1 mb-3">
             {tags?.map((tag, idx) => (
               <span
@@ -143,11 +144,15 @@ const ArticlesCard = ({ data, userRoll }) => {
             </div>
           </div>
         </div>
-        <Typography variant="h4" color="blue-gray" className="mb-2">
+        <Typography
+          variant="h4"
+          color="blue-gray"
+          className="mb-2 sm:text-xl text-base"
+        >
           {title}
         </Typography>
-        <Typography color="gray" className="mb-8 font-normal">
-          {description.slice(0, 120)}...
+        <Typography color="gray" className="xl:mb-8 mb-3 font-normal grow">
+          {description.slice(0, 100)}...
         </Typography>
         <div className="border shadow-sm rounded-sm py-2 px-1 flex justify-between items-center mb-3">
           <h6 className="text-sm font-bold uppercase">{publisher}</h6>

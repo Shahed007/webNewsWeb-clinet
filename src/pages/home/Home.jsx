@@ -27,6 +27,8 @@ const Home = () => {
   const [getPublisher, setPublisher] = useState("all");
   const [searchToggle, setSearchToggle] = useState(false);
   const [search, setSearch] = useState("");
+  const [openCategory, setOpenCategory] = useState(false);
+  console.log(openCategory);
 
   const handleOpen = () => setOpen(!open);
 
@@ -50,8 +52,22 @@ const Home = () => {
       <OfficeLocation></OfficeLocation>
       <TopArticleRighter></TopArticleRighter> */}
       <LatestNews></LatestNews>
-      <main className="grid grid-cols-1 lg:grid-cols-12 mx-3 my-12 gap-3">
-        <aside className="col-span-2 h-screen bg-white border shadow-sm rounded p-2 overflow-y-auto">
+      <main className="grid grid-cols-1 xl:grid-cols-12 mx-3 my-12 gap-3 relative">
+        <div
+          className={`p-2 w-[240px] bg-white absolute top-0  h-screen overflow-y-auto z-[200] duration-300 transition-all ${
+            openCategory ? "left-0 duration-300" : "-left-full"
+          }`}
+        >
+          <LeftSiteBar
+            category={category}
+            setCategory={setCategory}
+            getPublisher={getPublisher}
+            setPublisher={setPublisher}
+            openCategory={openCategory}
+            setOpenCategory={setOpenCategory}
+          ></LeftSiteBar>
+        </div>
+        <aside className="xl:col-span-2 hidden xl:block h-screen bg-white border shadow-sm rounded p-2 overflow-y-auto">
           <LeftSiteBar
             category={category}
             setCategory={setCategory}
@@ -59,9 +75,31 @@ const Home = () => {
             setPublisher={setPublisher}
           ></LeftSiteBar>
         </aside>
-        <section className="col-span-7 h-screen overflow-y-auto bg-white shadow-sm border rounded-md ">
+        <section className="xl:col-span-7 col-span-12 h-screen overflow-y-auto bg-white shadow-sm border rounded-md ">
           <div className="p-3 border-b rounded-t-md shadow-sm flex justify-between items-center ">
-            <h3 className="text-lg font-semibold"> News</h3>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setOpenCategory(!openCategory)}
+                className="xl:hidden block"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-6 h-6"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              </button>
+
+              <h3 className="text-lg font-semibold"> News</h3>
+            </div>
             <button
               className="h-10 w-10 flex justify-center items-center text-white shadow-sm border rounded-full bg-secondary_color"
               onClick={() => setSearchToggle(!searchToggle)}
@@ -104,7 +142,7 @@ const Home = () => {
             getPublisher={getPublisher}
           ></CenterAria>
         </section>
-        <aside className="col-span-3 h-screen">
+        <aside className="xl:col-span-3 col-span-12 h-screen flex flex-col justify-between overflow-y-auto">
           <RightSide></RightSide>
         </aside>
       </main>

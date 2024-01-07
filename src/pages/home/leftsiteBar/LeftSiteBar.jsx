@@ -17,13 +17,38 @@ const newsTags = [
   "Environment",
 ];
 
-const LeftSiteBar = ({ category, setCategory, getPublisher, setPublisher }) => {
+const LeftSiteBar = ({
+  category,
+  setCategory,
+  getPublisher,
+  setPublisher,
+  openCategory,
+  setOpenCategory,
+}) => {
   const { isLoading, error, publisher } = usePublisher();
   if (isLoading) return <LoadingAnimation></LoadingAnimation>;
   if (error) return <PageError err={error}></PageError>;
-  console.log(publisher);
+
   return (
     <div>
+      <div className="flex justify-end my-3">
+        <button onClick={() => setOpenCategory(!openCategory)}>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18 18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
       <h3 className="text-lg font-semibold text-center border shadow-sm py-2">
         Category
       </h3>
@@ -76,10 +101,12 @@ const LeftSiteBar = ({ category, setCategory, getPublisher, setPublisher }) => {
 };
 
 LeftSiteBar.propTypes = {
+  openCategory: PropTypes.bool,
   category: PropTypes.string,
   getPublisher: PropTypes.string,
   setPublisher: PropTypes.func,
   setCategory: PropTypes.func,
+  setOpenCategory: PropTypes.func,
 };
 
 export default LeftSiteBar;
