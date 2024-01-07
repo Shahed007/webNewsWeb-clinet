@@ -1,4 +1,4 @@
-import { Navbar, Button, IconButton, Drawer } from "@material-tailwind/react";
+import { Navbar, IconButton, Drawer } from "@material-tailwind/react";
 import Container from "../../../components/container/Container";
 import Logo from "../../../components/logo/Logo";
 import useAuth from "../../../hooks/useAuth";
@@ -84,7 +84,7 @@ export function StickyNavbar() {
               setOpenNotification={setOpenNotification}
               openNotification={openNotification}
               user={user}
-              handleLogout={user}
+              handleLogout={handleLogout}
             ></SearchAndNotification>
           </div>
         </Container>

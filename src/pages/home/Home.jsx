@@ -4,7 +4,7 @@ import TrendingArticles from "./trendingArticles/TrendingArticles";
 import Statastics from "./statastics/Statastics";
 import Plan from "./plan/Plan";
 import SiteTitle from "../../components/siteTitle/SiteTitle";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -15,9 +15,15 @@ import {
 import { Link } from "react-router-dom";
 import OfficeLocation from "./officeLocation/OfficeLocation";
 import TopArticleRighter from "./topArticleRitghter/TopArticleRighter";
+import LatestNews from "./latestNews/latestNews";
+import LeftSiteBar from "./leftsiteBar/leftSiteBar";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
+  const [category, setCategory] = useState("all");
+  const [getPublisher, setPublisher] = useState("all");
+
+  console.log(getPublisher);
 
   const handleOpen = () => setOpen(!open);
 
@@ -28,13 +34,26 @@ const Home = () => {
   return (
     <>
       <SiteTitle page="Home"></SiteTitle>
-      <HeroSection></HeroSection>
+      {/* <HeroSection></HeroSection>
       <TrendingArticles></TrendingArticles>
       <AllPublisher></AllPublisher>
       <Statastics></Statastics>
       <Plan></Plan>
       <OfficeLocation></OfficeLocation>
-      <TopArticleRighter></TopArticleRighter>
+      <TopArticleRighter></TopArticleRighter> */}
+      <LatestNews></LatestNews>
+      <main className="grid grid-cols-1 lg:grid-cols-12 mx-3">
+        <aside className="col-span-2 h-screen bg-white border shadow-sm rounded p-2 overflow-y-auto">
+          <LeftSiteBar
+            category={category}
+            setCategory={setCategory}
+            getPublisher={getPublisher}
+            setPublisher={setPublisher}
+          ></LeftSiteBar>
+        </aside>
+        <section className="col-span-7 h-screen overflow-y-auto"></section>
+        <aside className="col-span-3 h-screen"></aside>
+      </main>
       <Dialog
         open={open}
         handler={handleOpen}
