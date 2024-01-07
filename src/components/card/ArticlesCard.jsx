@@ -7,6 +7,7 @@ import {
   Button,
   IconButton,
   Input,
+  CardBody,
 } from "@material-tailwind/react";
 import { FaEye } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -49,32 +50,30 @@ const ArticlesCard = ({ data, userRoll }) => {
   };
 
   return (
-    <Card className=" overflow-hidden relative flex flex-col">
+    <Card className="w-full  flex-row">
       <CardHeader
-        floated={false}
         shadow={false}
-        color="transparent"
-        className="m-0 rounded-none h-80"
+        floated={false}
+        className="m-0 w-2/5 shrink-0 rounded-r-none"
       >
         <img
-          className="hover:scale-105 duration-500 h-full w-full"
           src={image}
-          alt={`image of ${title}`}
+          alt={title.slice(0, 20)}
+          className="h-full w-full object-cover"
         />
-        <div className="absolute bottom-0 left-0 bg-primary_color p-2 font-popins text-white tracking-wide">
-          <h4>PHOTO</h4>
-        </div>
-        <div className="absolute top-0 right-0 bg-primary_color p-2 font-popins text-white tracking-wide">
-          <h4>{publish_date}</h4>
-        </div>
       </CardHeader>
-      <div className="grow">
-        <div className="flex justify-between items-center mt-2 px-3">
-          <p className="   text-secondary_color flex gap-1 flex-1 flex-wrap text-sm grow text-[9px]">
-            {tags?.map((item, idx) => (
-              <span key={idx}>#{item}</span>
+      <CardBody>
+        <div className="flex justify-between items-center">
+          <div className="flex gap-1 mb-3">
+            {tags?.map((tag, idx) => (
+              <span
+                key={idx}
+                className="text-secondary_color text-[12px] font-medium"
+              >
+                #{tag}
+              </span>
             ))}
-          </p>
+          </div>
           <div className="relative flex-1 flex justify-end">
             <button
               onClick={() => setShareButtonActive(!shareButtonActive)}
@@ -144,44 +143,45 @@ const ArticlesCard = ({ data, userRoll }) => {
             </div>
           </div>
         </div>
-        <div className="px-3 pt-4 flex flex-col">
-          <h4 className=" text-lg font-bold text-text_primary grow">{title}</h4>
-          <p className="mt-3 font-normal text-lg text-text_secondary/80 ">
-            {description.slice(0, 60)}...
-            <Button
-              variant="text"
-              size="sm"
-              disabled={userRoll?.premiumTaken === "no"}
-            >
-              <Link to={`/articles-Details/${_id}`}>Read more</Link>
-            </Button>
-          </p>
-        </div>
-      </div>
-      <CardFooter className="flex items-center justify-between">
-        <div className="flex  flex-col">
-          <h4 className="text-base font-bold text-text_primary">Publisher</h4>
-          <h5>{publisher.toUpperCase()}</h5>
-        </div>
-        <div className="flex items-center gap-2">
-          <Typography className="font-normal text-sm flex items-center gap-1">
-            <span className="font-bold text-text_primary">
-              <FaEye />
-            </span>{" "}
-            <span className="font-medium">{viewers}</span>
-          </Typography>
-          <div className="flex items-center gap-1 ">
-            <button onClick={handleLike} className="text-lg">
-              {likes ? (
-                <AiFillLike className="text-secondary_color" />
-              ) : (
-                <AiOutlineLike />
-              )}
-            </button>
-            <span>0</span>
+        <Typography variant="h4" color="blue-gray" className="mb-2">
+          {title}
+        </Typography>
+        <Typography color="gray" className="mb-8 font-normal">
+          {description.slice(0, 120)}...
+        </Typography>
+        <div className="border shadow-sm rounded-sm py-2 px-1 flex justify-between items-center mb-3">
+          <h6 className="text-sm font-bold uppercase">{publisher}</h6>
+          <div className="flex gap-2 items-center">
+            <div className="flex gap-2 items-center">
+              <FaEye></FaEye>
+              <span>{viewers}</span>
+            </div>
+            <div className="flex gap-2 items-center">
+              <AiOutlineLike></AiOutlineLike>
+              <span>10</span>
+            </div>
           </div>
         </div>
-      </CardFooter>
+        <Link to={`/articles-Details/${_id}`} className="inline-block">
+          <Button variant="text" className="flex items-center gap-2">
+            Read more
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+              className="h-4 w-4"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+              />
+            </svg>
+          </Button>
+        </Link>
+      </CardBody>
     </Card>
   );
 };

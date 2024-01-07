@@ -3,6 +3,7 @@ import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import PropTypes from "prop-types";
 import LoadingAnimation from "../../../components/loadingAnimation/LoadingAnimation";
 import PageError from "../../../components/error/PageError";
+import ArticlesCard from "../../../components/card/ArticlesCard";
 
 const CenterAria = ({ search, getPublisher, getTag }) => {
   const axios = useAxiosPublic();
@@ -20,7 +21,14 @@ const CenterAria = ({ search, getPublisher, getTag }) => {
 
   if (isLoading) return <LoadingAnimation></LoadingAnimation>;
   if (error) return <PageError err={error}></PageError>;
-  return <div>CenterAria</div>;
+
+  return (
+    <div className="grid grid-cols-1 gap-4">
+      {data?.map((item) => (
+        <ArticlesCard key={item._id} data={item}></ArticlesCard>
+      ))}
+    </div>
+  );
 };
 
 CenterAria.propTypes = {

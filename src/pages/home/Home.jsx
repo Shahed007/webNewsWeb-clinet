@@ -18,14 +18,22 @@ import OfficeLocation from "./officeLocation/OfficeLocation";
 import TopArticleRighter from "./topArticleRitghter/TopArticleRighter";
 import LatestNews from "./latestNews/latestNews";
 import LeftSiteBar from "./leftsiteBar/leftSiteBar";
+import CenterAria from "./centerAria/CenterAria";
+import RightSide from "./rightSide/RightSide";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
   const [category, setCategory] = useState("all");
   const [getPublisher, setPublisher] = useState("all");
   const [searchToggle, setSearchToggle] = useState(false);
+  const [search, setSearch] = useState("");
 
   const handleOpen = () => setOpen(!open);
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    setSearch(e.target.searchText.value);
+  };
 
   useEffect(() => {
     const openSubscription = setTimeout(() => setOpen(true), 10000);
@@ -79,12 +87,26 @@ const Home = () => {
               searchToggle ? "max-h-screen" : ""
             }`}
           >
-            <div className="px-4 py-2 text-justify">
-              <Input color="blue" label="Search Title" />
-            </div>
+            <form
+              onSubmit={handleSearch}
+              className="px-4 py-2 flex items-center gap-2"
+            >
+              <Input name="searchText" color="blue" label="Search Title" />
+              <button className="p-2 bg-secondary_color text-white rounded-md font-medium duration-200 hover:bg-secondary_color/70 active:scale-95">
+                Search
+              </button>
+            </form>
           </div>
+
+          <CenterAria
+            search={search}
+            getTag={category}
+            getPublisher={getPublisher}
+          ></CenterAria>
         </section>
-        <aside className="col-span-3 h-screen"></aside>
+        <aside className="col-span-3 h-screen">
+          <RightSide></RightSide>
+        </aside>
       </main>
       <Dialog
         open={open}
