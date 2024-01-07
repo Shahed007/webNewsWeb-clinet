@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  Input,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import OfficeLocation from "./officeLocation/OfficeLocation";
@@ -22,8 +23,7 @@ const Home = () => {
   const [open, setOpen] = React.useState(false);
   const [category, setCategory] = useState("all");
   const [getPublisher, setPublisher] = useState("all");
-
-  console.log(getPublisher);
+  const [searchToggle, setSearchToggle] = useState(false);
 
   const handleOpen = () => setOpen(!open);
 
@@ -42,7 +42,7 @@ const Home = () => {
       <OfficeLocation></OfficeLocation>
       <TopArticleRighter></TopArticleRighter> */}
       <LatestNews></LatestNews>
-      <main className="grid grid-cols-1 lg:grid-cols-12 mx-3">
+      <main className="grid grid-cols-1 lg:grid-cols-12 mx-3 my-12 gap-3">
         <aside className="col-span-2 h-screen bg-white border shadow-sm rounded p-2 overflow-y-auto">
           <LeftSiteBar
             category={category}
@@ -51,7 +51,39 @@ const Home = () => {
             setPublisher={setPublisher}
           ></LeftSiteBar>
         </aside>
-        <section className="col-span-7 h-screen overflow-y-auto"></section>
+        <section className="col-span-7 h-screen overflow-y-auto bg-white shadow-sm border rounded-md ">
+          <div className="p-3 border-b rounded-t-md shadow-sm flex justify-between items-center ">
+            <h3 className="text-lg font-semibold"> News</h3>
+            <button
+              className="h-10 w-10 flex justify-center items-center text-white shadow-sm border rounded-full bg-secondary_color"
+              onClick={() => setSearchToggle(!searchToggle)}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            </button>
+          </div>
+          <div
+            className={`overflow-hidden max-h-0 transition-all duration-700 shadow-sm border rounded-b-sm ${
+              searchToggle ? "max-h-screen" : ""
+            }`}
+          >
+            <div className="px-4 py-2 text-justify">
+              <Input color="blue" label="Search Title" />
+            </div>
+          </div>
+        </section>
         <aside className="col-span-3 h-screen"></aside>
       </main>
       <Dialog

@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import PropTypes from "prop-types";
+import LoadingAnimation from "../../../components/loadingAnimation/LoadingAnimation";
+import PageError from "../../../components/error/PageError";
 
 const CenterAria = ({ search, getPublisher, getTag }) => {
   const axios = useAxiosPublic();
@@ -15,6 +17,9 @@ const CenterAria = ({ search, getPublisher, getTag }) => {
       return res.data;
     },
   });
+
+  if (isLoading) return <LoadingAnimation></LoadingAnimation>;
+  if (error) return <PageError err={error}></PageError>;
   return <div>CenterAria</div>;
 };
 
