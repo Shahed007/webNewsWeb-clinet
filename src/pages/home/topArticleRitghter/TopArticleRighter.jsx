@@ -6,7 +6,7 @@ const TopArticleRighter = () => {
   return (
     <section className="my-12">
       <Container>
-        <Title> our Top Article writer</Title>
+        <Title> our Top  writer</Title>
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <TopArticleRiterCard
             image="https://i.ibb.co/kmVLrRZ/dmitry-vechorko-E9-PFbdh-Zmus-unsplash.jpg"

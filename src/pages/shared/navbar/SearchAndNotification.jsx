@@ -1,14 +1,16 @@
 import PropTypes from "prop-types";
-import { useNotification } from "../../../hooks/api";
-import { Avatar } from "@material-tailwind/react";
+import { useAdmin, useNotification } from "../../../hooks/api";
+import { Avatar, Button } from "@material-tailwind/react";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
 const SearchAndNotification = ({
-  setOpenSearch,
-  openSearch,
   setOpenNotification,
   openNotification,
   user,
   handleLogout,
 }) => {
+  const { data } = useAdmin();
+  const [userMenu, setUserMenu] = useState(false);
   const { notification } = useNotification();
 
   return (
@@ -42,43 +44,84 @@ const SearchAndNotification = ({
             </span>
           </button>
         </div>
-        <div>
-          <button
-            className={`rounded-full h-10 w-10 flex active:scale-95 justify-center items-center duration-300 hover:shadow-md hover:text-white hover:bg-secondary_color ${
-              openSearch ? "bg-secondary_color shadow-md text-white" : ""
-            }`}
-            onClick={() => setOpenSearch(!openSearch)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 drop-shadow-2xl"
+        {user ? (
+          <>
+            <Avatar
+              onClick={() => setUserMenu(!userMenu)}
+              className="drop-shadow-md relative cursor-pointer"
+              src={user?.photoURL}
+              alt="avatar"
+              size="md"
+            />
+            <div
+              className={`absolute top-16 w-64 right-0 duration-300 transition-all ${
+                userMenu ? "scale-100" : "scale-0"
+              } bg-white shadow-sm rounded-b-md border`}
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-              />
-            </svg>
-          </button>
-        </div>
-        <Avatar
-          className="drop-shadow-md"
-          src={user?.photoURL}
-          alt="avatar"
-          size="md"
-        />
+              <div className="p-3">
+                <h4 className="text-center font-medium">
+                  {user?.displayName} (
+                  <span className="text-sm">
+                    {data?.roll !== "admin" ? "guest" : data.roll}
+                  </span>
+                  )
+                </h4>
+                <div className="py-4 text-center ">
+                  {data?.roll === "admin" ? (
+                    <NavLink
+                      to="/dashboard"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "border-t-[2px] h-full  border-b-[2px]  py-[6px] border-t-secondary_color border-b-secondary_color text-secondary_color "
+                          : "border-t-[2px] h-full  border-b-[2px]  py-5 border-t-transparent border-b-transparent hover:py-[6px] hover:border-t-secondary_color duration-200 hover:text-secondary_color hover:border-b-secondary_color "
+                      }
+                    >
+                      Dashboard
+                    </NavLink>
+                  ) : (
+                    <NavLink
+                      to="/my-Articles"
+                      className={({ isActive }) =>
+                        isActive
+                          ? "border-t-[2px] h-full  border-b-[2px]  py-[6px] border-t-secondary_color border-b-secondary_color text-secondary_color "
+                          : "border-t-[2px] h-full  border-b-[2px]  py-5 border-t-transparent border-b-transparent hover:py-[6px] hover:border-t-secondary_color duration-200 hover:text-secondary_color hover:border-b-secondary_color "
+                      }
+                    >
+                      My Articles
+                    </NavLink>
+                  )}
+                </div>
+               
+                <div className="flex ">
+                  <Button
+                    onClick={handleLogout}
+                    size="lg"
+                    className="w-full bg-secondary_color"
+                  >
+                    Logout
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          <NavLink
+            to="/login"
+            className={({ isActive }) =>
+              isActive
+                ? "border-t-[2px] h-full  border-b-[2px]  py-[6px] border-t-secondary_color border-b-secondary_color text-secondary_color "
+                : "border-t-[2px] h-full  border-b-[2px]  py-5 border-t-transparent border-b-transparent hover:py-[6px] hover:border-t-secondary_color duration-200 hover:text-secondary_color hover:border-b-secondary_color "
+            }
+          >
+            Login
+          </NavLink>
+        )}
       </div>
     </>
   );
 };
 
 SearchAndNotification.propTypes = {
-  setOpenSearch: PropTypes.func.isRequired,
-  openSearch: PropTypes.bool.isRequired,
   setOpenNotification: PropTypes.func.isRequired,
   openNotification: PropTypes.bool.isRequired,
   user: PropTypes.object.isRequired,

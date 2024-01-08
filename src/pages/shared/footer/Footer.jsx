@@ -15,27 +15,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           <div className="md:col-span-2 w-full">
             <h2 className="text-4xl text-white mb-2">Don&apos;t Miss Out</h2>
-            <p className="text-white/80 mb-6">
-              Subscribe our news letter for latest news?
-            </p>
-            <div className="flex items-center gap-1">
-              <Input
-                type="email"
-                placeholder="Email Address"
-                className="!border !border-gray-400 flex-1  bg-text_secondary text-gray-900 shadow-lg shadow-gray-900/5 ring-4 ring-transparent text-white/80 placeholder:text-gray-500 focus:!border-gray-900 focus:!border-t-gray-900 focus:ring-gray-900/10"
-                labelProps={{
-                  className: "hidden",
-                }}
-                containerProps={{ className: "min-w-[100px]" }}
-              />
-              <Button
-                variant="filled"
-                size="sm"
-                className="flex justify-center items-center w-1/5 bg-red-500"
-              >
-                Subscribe
-              </Button>
-            </div>
+
             <p className="mt-6 text-white/80 font-inter font-light text-justify mb-6">
               This site is intended for Us consumers. By siging up, you
               understand and agree that your data will be collected and used

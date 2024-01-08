@@ -1,8 +1,7 @@
 import AllPublisher from "./allPubliser/AllPublisher";
-import HeroSection from "./heroSection/HeroSection";
+
 import TrendingArticles from "./trendingArticles/TrendingArticles";
-import Statastics from "./statastics/Statastics";
-import Plan from "./plan/Plan";
+
 import SiteTitle from "../../components/siteTitle/SiteTitle";
 import React, { useEffect, useState } from "react";
 import {
@@ -14,8 +13,6 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
-import OfficeLocation from "./officeLocation/OfficeLocation";
-import TopArticleRighter from "./topArticleRitghter/TopArticleRighter";
 import LatestNews from "./latestNews/latestNews";
 import LeftSiteBar from "./leftsiteBar/leftSiteBar";
 import CenterAria from "./centerAria/CenterAria";
@@ -32,7 +29,6 @@ const Home = () => {
   const [searchToggle, setSearchToggle] = useState(false);
   const [search, setSearch] = useState("");
   const [openCategory, setOpenCategory] = useState(false);
-  console.log(openCategory);
 
   const handleOpen = () => setOpen(!open);
 

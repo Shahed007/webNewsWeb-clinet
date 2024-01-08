@@ -12,7 +12,7 @@ import DesktopLink from "./DesktopLink";
 import SearchAndNotification from "./SearchAndNotification";
 import MobileLinks from "./mobileLinks";
 import NotificationPanel from "./NotificationPanel";
-import SearchInput from "./SearchInput";
+
 
 export function StickyNavbar() {
   const axiosSecure = useAxiosSecure();
@@ -21,7 +21,6 @@ export function StickyNavbar() {
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const { user, logout } = useAuth();
-  const [openSearch, setOpenSearch] = useState(false);
   const [openNotification, setOpenNotification] = useState(false);
   subscriptionChecker(data, refetch, user);
   const { notification, isLoading } = useNotification();
@@ -79,8 +78,6 @@ export function StickyNavbar() {
             </div>
 
             <SearchAndNotification
-              setOpenSearch={setOpenSearch}
-              openSearch={openSearch}
               setOpenNotification={setOpenNotification}
               openNotification={openNotification}
               user={user}
@@ -113,7 +110,6 @@ export function StickyNavbar() {
 
         <MobileLinks></MobileLinks>
       </Drawer>
-      <SearchInput openSearch={openSearch}></SearchInput>
       <NotificationPanel
         isLoading={isLoading}
         notification={notification}

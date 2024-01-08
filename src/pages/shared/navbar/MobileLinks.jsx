@@ -15,18 +15,7 @@ const MobileLinks = () => {
           Home
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          to="/video"
-          className={({ isActive }) =>
-            isActive
-              ? " w-full block  bg-secondary_color   p-2 rounded-md text-white"
-              : " w-full block p-2"
-          }
-        >
-          Video
-        </NavLink>
-      </li>
+
       <li className="">
         <NavLink
           to="/top-writer"
@@ -61,6 +50,42 @@ const MobileLinks = () => {
           }
         >
           Premium News
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/about-us"
+          className={({ isActive }) =>
+            isActive
+              ? " w-full block  bg-secondary_color p-2 rounded-md text-white"
+              : " w-full block p-2"
+          }
+        >
+          About Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/contact-us"
+          className={({ isActive }) =>
+            isActive
+              ? " w-full block  bg-secondary_color p-2 rounded-md text-white"
+              : " w-full block p-2"
+          }
+        >
+          Contact Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          to="/add-articles"
+          className={({ isActive }) =>
+            isActive
+              ? " w-full block  bg-secondary_color p-2 rounded-md text-white"
+              : " w-full block p-2"
+          }
+        >
+          Ad Articles
         </NavLink>
       </li>
     </ul>

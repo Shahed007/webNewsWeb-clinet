@@ -19,6 +19,9 @@ import PrivateRoute from "../pages/private/PrivateRoute";
 import AdminRoute from "../pages/private/AdminRoute";
 import AdminAllArticle from "../pages/dashboard/allArticles/AdminAllArticle";
 import ErrorPage from "../pages/errorPage/ErrorPage";
+import TopWriter from "../pages/topWriter/TopWriter";
+import AboutUs from "../pages/aboutUs/AboutUs";
+import ContactUs from "../pages/contactUs/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +64,18 @@ const router = createBrowserRouter([
       {
         path: "/premium-Articles",
         element: <PremiumArticles></PremiumArticles>,
+      },
+      {
+        path: "/top-writer",
+        element: <TopWriter></TopWriter>,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs></AboutUs>,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs></ContactUs>,
       },
       {
         path: "/my-Articles",
