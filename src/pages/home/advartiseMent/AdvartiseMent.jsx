@@ -1,16 +1,20 @@
+import { Link } from "react-router-dom";
 import Container from "../../../components/container/Container";
+import PropTypes from "prop-types";
 
-const AdvartiseMent = () => {
+const AdvartiseMent = ({ img }) => {
   return (
     <section className="mt-20">
       <Container>
         <div className="w-full border shadow-sm p-2 rounded-sm ">
           <div className="h-48 w-4/5 mx-auto rounded-sm relative">
-            <img
-              className="h-full w-full rounded-sm"
-              src="https://i.ibb.co/CtJb1Xw/49424515662-99d5493404-b-min.jpg"
-              alt=""
-            />
+            <Link to="#">
+              <img
+                className="h-full w-full rounded-sm object-cover"
+                src={img}
+                alt=""
+              />
+            </Link>
             <button className="absolute top-0 right-0">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -32,6 +36,10 @@ const AdvartiseMent = () => {
       </Container>
     </section>
   );
+};
+
+AdvartiseMent.propTypes = {
+  img: PropTypes.string,
 };
 
 export default AdvartiseMent;

@@ -22,6 +22,8 @@ import CenterAria from "./centerAria/CenterAria";
 import RightSide from "./rightSide/RightSide";
 import AdvartiseMent from "./advartiseMent/AdvartiseMent";
 import Recomended from "./recomended/Recomended";
+import NewsAlert from "./newsAllert/NewsAlert";
+import UserReview from "./userReview/UserReview";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
@@ -150,8 +152,11 @@ const Home = () => {
       </main>
       <AllPublisher></AllPublisher>
       <TrendingArticles></TrendingArticles>
-      <AdvartiseMent></AdvartiseMent>
+      <AdvartiseMent img="https://i.ibb.co/CtJb1Xw/49424515662-99d5493404-b-min.jpg"></AdvartiseMent>
       <Recomended></Recomended>
+      <AdvartiseMent img="https://i.ibb.co/n07nqBV/social-media-food-banner-ad-design-template-221638-68.jpg"></AdvartiseMent>
+      <NewsAlert></NewsAlert>
+      <UserReview></UserReview>
       <Dialog
         open={open}
         handler={handleOpen}

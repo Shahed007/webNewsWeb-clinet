@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-const RecomendedCard = ({ title, image, viewers, _id }) => {
+const RecomendedCard = ({ title, image, _id }) => {
   return (
     <Link
       to={`/articles-Details/${_id}`}
