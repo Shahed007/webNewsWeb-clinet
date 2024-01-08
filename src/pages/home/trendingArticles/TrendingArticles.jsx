@@ -32,7 +32,7 @@ const TrendingArticles = () => {
   });
 
   return (
-    <section className="mt-20">
+    <section className="mt-20" data-aos="zoom-in">
       <Container>
         <Title>Trending news</Title>
 

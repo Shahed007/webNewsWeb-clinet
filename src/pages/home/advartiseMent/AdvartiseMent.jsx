@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const AdvartiseMent = ({ img }) => {
   return (
-    <section className="mt-20">
+    <section className="mt-20" data-aos="zoom-in">
       <Container>
         <div className="w-full border shadow-sm p-2 rounded-sm ">
           <div className="h-48 w-4/5 mx-auto rounded-sm relative">

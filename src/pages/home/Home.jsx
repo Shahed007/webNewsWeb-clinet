@@ -44,13 +44,6 @@ const Home = () => {
   return (
     <>
       <SiteTitle page="Home"></SiteTitle>
-      {/* <HeroSection></HeroSection>
-      <TrendingArticles></TrendingArticles>
-      
-      <Statastics></Statastics>
-      <Plan></Plan>
-      <OfficeLocation></OfficeLocation>
-      <TopArticleRighter></TopArticleRighter> */}
       <LatestNews></LatestNews>
       <main className="grid grid-cols-1 xl:grid-cols-12 mx-3 my-12 gap-3 relative">
         <div
@@ -67,7 +60,7 @@ const Home = () => {
             setOpenCategory={setOpenCategory}
           ></LeftSiteBar>
         </div>
-        <aside className="xl:col-span-2 hidden xl:block h-screen bg-white border shadow-sm rounded p-2 overflow-y-auto">
+        <aside data-aos="fade-right" className="xl:col-span-2 hidden xl:block h-screen bg-white border shadow-sm rounded p-2 overflow-y-auto">
           <LeftSiteBar
             category={category}
             setCategory={setCategory}
@@ -75,7 +68,7 @@ const Home = () => {
             setPublisher={setPublisher}
           ></LeftSiteBar>
         </aside>
-        <section className="xl:col-span-7 col-span-12 xl:h-screen h-auto xl:overflow-y-auto bg-white shadow-sm border rounded-md ">
+        <section data-aos="zoom-in" className="xl:col-span-7 col-span-12 xl:h-screen h-auto xl:overflow-y-auto bg-white shadow-sm border rounded-md ">
           <div className="p-3 border-b rounded-t-md shadow-sm flex justify-between items-center ">
             <div className="flex items-center gap-3">
               <button
@@ -142,7 +135,7 @@ const Home = () => {
             getPublisher={getPublisher}
           ></CenterAria>
         </section>
-        <aside className="xl:col-span-3 col-span-12 xl:h-screen flex flex-col justify-between xl:overflow-y-auto">
+        <aside data-aos="fade-left" className="xl:col-span-3 col-span-12 xl:h-screen flex flex-col justify-between xl:overflow-y-auto">
           <RightSide></RightSide>
         </aside>
       </main>
