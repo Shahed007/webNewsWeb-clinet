@@ -45,7 +45,7 @@ const ArticlesCard = ({ data, userRoll }) => {
   };
 
   return (
-    <Card className="w-full  md:flex-row flex-col">
+    <Card className="w-full  md:flex-row flex-col" >
       <CardHeader
         shadow={false}
         floated={false}

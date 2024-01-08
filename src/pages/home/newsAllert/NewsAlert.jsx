@@ -3,7 +3,7 @@ import Title from "../../../components/title/Title";
 
 const NewsAlert = () => {
   return (
-    <section className="my-20 max-w-xl mx-auto px-4">
+    <section className="my-20 max-w-xl mx-auto px-4" data-aos="zoom-in">
       <Title className="mb-12">Get News Alert</Title>
       <div className="flex gap-1 items-center">
         <Input color="blue" label="Enter Email" />

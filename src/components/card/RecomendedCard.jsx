@@ -5,17 +5,19 @@ const RecomendedCard = ({ title, image, _id }) => {
   return (
     <Link
       to={`/articles-Details/${_id}`}
-      className="flex items-center gap-3 border shadow-sm group bg-white  "
+      
     >
-      <div className="w-72 h-36 overflow-hidden ">
-        <img
-          className=" w-full h-full object-cover duration-300 transition-all group-hover:scale-110"
-          src={image}
-          alt=""
-        />
-      </div>
-      <div>
-        <h3 className="text-[12px]">{title}</h3>
+      <div className="flex items-center gap-3 border shadow-sm group bg-white p-0 m-0">
+        <div className="w-[40%] overflow-hidden ">
+          <img
+            className=" w-full h-full object-cover duration-300 transition-all group-hover:scale-110"
+            src={image}
+            alt=""
+          />
+        </div>
+        <div>
+          <h3 className="text-[12px]">{title}</h3>
+        </div>
       </div>
     </Link>
   );

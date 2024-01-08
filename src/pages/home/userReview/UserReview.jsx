@@ -16,7 +16,7 @@ import ReviewCard from "../../../components/card/ReviewCard";
 const UserReview = () => {
   const [reviews] = useState(newsWebsiteReviews);
   return (
-    <section className="mb-20">
+    <section className="mb-20" data-aos="zoom-in">
       <Container>
         <Title className="mb-12">Satisfy user</Title>
         <Swiper

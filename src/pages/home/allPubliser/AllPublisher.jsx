@@ -12,7 +12,7 @@ const AllPublisher = () => {
   if (isLoading) return <LoadingAnimation></LoadingAnimation>;
   if (error) return <PageError err={error}></PageError>;
   return (
-    <section className="mt-20">
+    <section className="mt-20" data-aos="zoom-in">
       <Container>
         <Title>All Publisher</Title>
         <div className="mt-12">

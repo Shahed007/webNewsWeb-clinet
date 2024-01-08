@@ -11,7 +11,7 @@ const LatestNews = () => {
   if (error) return <PageError err={error}></PageError>;
   const { article } = allArticles || [];
   return (
-    <section className=" py-5">
+    <section className=" py-5" data-aos="fade-up">
       <div className="mb-4">
         <Title>Latest News</Title>
       </div>

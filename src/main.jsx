@@ -7,6 +7,10 @@ import AuthProvider from "./context/AuthProvider.jsx";
 import { Toaster } from "react-hot-toast";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { HelmetProvider } from "react-helmet-async";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
 
 const queryClient = new QueryClient();
 
