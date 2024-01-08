@@ -41,7 +41,7 @@ const DesktopLink = () => {
       </li>
       <li>
         <NavLink
-          to="/subscription"
+          to="subscription"
           className={({ isActive }) =>
             isActive
               ? "border-t-[2px] h-full  border-b-[2px]  py-[6px] border-t-secondary_color border-b-secondary_color text-secondary_color "
@@ -53,7 +53,7 @@ const DesktopLink = () => {
       </li>
       <li>
         <NavLink
-          to="/premium-article"
+          to="/premium-Articles"
           className={({ isActive }) =>
             isActive
               ? "border-t-[2px] h-full  border-b-[2px]  py-[6px] border-t-secondary_color border-b-secondary_color text-secondary_color "

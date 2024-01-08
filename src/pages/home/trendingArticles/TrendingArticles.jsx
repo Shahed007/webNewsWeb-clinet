@@ -1,6 +1,5 @@
 import loadingAnimation from "../../../assets/loading/loading-animation.gif";
 import Container from "../../../components/container/Container";
-import ArticlesCard from "../../../components/card/ArticlesCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 // Import Swiper styles
@@ -10,6 +9,7 @@ import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
 import Title from "../../../components/title/Title";
 import { useAllArticle } from "../../../hooks/api";
+import TrendingArticleCard from "../../../components/card/TrendingArtilceCard";
 
 const TrendingArticles = () => {
   const { isLoading, error, allArticles } = useAllArticle();
@@ -50,18 +50,15 @@ const TrendingArticles = () => {
             }}
             modules={[Pagination, Autoplay]}
             breakpoints={{
-              768: {
+              1100: {
                 slidesPerView: 2,
-              },
-              1280: {
-                slidesPerView: 3,
               },
             }}
             className="h-full"
           >
             {shortByView?.slice(0, 6)?.map((data, idx) => (
               <SwiperSlide key={idx} className="h-full mb-10">
-                <ArticlesCard data={data}></ArticlesCard>
+                <TrendingArticleCard data={data}></TrendingArticleCard>
               </SwiperSlide>
             ))}
           </Swiper>

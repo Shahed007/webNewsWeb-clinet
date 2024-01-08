@@ -41,7 +41,7 @@ const MobileLinks = () => {
       </li>
       <li>
         <NavLink
-          to="/subscription"
+          to="subscription"
           className={({ isActive }) =>
             isActive
               ? " w-full block  bg-secondary_color   p-2 rounded-md text-white"
@@ -53,7 +53,7 @@ const MobileLinks = () => {
       </li>
       <li>
         <NavLink
-          to="/premium-article"
+          to="premium-article"
           className={({ isActive }) =>
             isActive
               ? " w-full block  bg-secondary_color p-2 rounded-md text-white"

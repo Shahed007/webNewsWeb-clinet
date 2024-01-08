@@ -16,7 +16,7 @@ import toast from "react-hot-toast";
 import { FacebookShareButton, WhatsappShareButton } from "react-share";
 import { AiOutlineLike } from "react-icons/ai";
 
-const ArticlesCard = ({ data, userRoll }) => {
+const TrendingArticleCard = ({ data, userRoll }) => {
   const [shareButtonActive, setShareButtonActive] = useState(false);
 
   const {
@@ -49,7 +49,7 @@ const ArticlesCard = ({ data, userRoll }) => {
       <CardHeader
         shadow={false}
         floated={false}
-        className="m-0 md:w-2/5 md:shrink-0 rounded-t-md overflow-hidden relative md:h-auto h-48"
+        className="m-0 md:w-2/5 md:shrink-0 rounded-t-md overflow-hidden relative  h-[220px] md:h-auto"
       >
         <img
           src={image}
@@ -63,7 +63,7 @@ const ArticlesCard = ({ data, userRoll }) => {
           {publish_date}
         </h4>
       </CardHeader>
-      <CardBody className="flex flex-col sm:px-3 p-2">
+      <CardBody className="flex flex-col sm:px-3 p-2 ">
         <div className="flex justify-between items-center mb-4">
           <div className="flex gap-1 mb-3">
             {tags?.map((tag, idx) => (
@@ -149,7 +149,7 @@ const ArticlesCard = ({ data, userRoll }) => {
           color="blue-gray"
           className="mb-2 sm:text-xl text-base"
         >
-          {title}
+          {title.slice(0,30)}...
         </Typography>
         <Typography color="gray" className="xl:mb-8 mb-3 font-normal grow">
           {description.slice(0, 100)}...
@@ -191,9 +191,9 @@ const ArticlesCard = ({ data, userRoll }) => {
   );
 };
 
-export default ArticlesCard;
+export default TrendingArticleCard;
 
-ArticlesCard.propTypes = {
+TrendingArticleCard.propTypes = {
   data: PropTypes.object.isRequired,
   userRoll: PropTypes.any,
 };

@@ -31,7 +31,7 @@ const LeftSiteBar = ({
 
   return (
     <div>
-      <div className="flex justify-end my-3">
+      <div className="flex justify-end my-3 xl:hidden ">
         <button onClick={() => setOpenCategory(!openCategory)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

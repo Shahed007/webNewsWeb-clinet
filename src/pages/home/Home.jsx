@@ -20,6 +20,7 @@ import LatestNews from "./latestNews/latestNews";
 import LeftSiteBar from "./leftsiteBar/leftSiteBar";
 import CenterAria from "./centerAria/CenterAria";
 import RightSide from "./rightSide/RightSide";
+import AdvartiseMent from "./advartiseMent/AdvartiseMent";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
@@ -46,7 +47,7 @@ const Home = () => {
       <SiteTitle page="Home"></SiteTitle>
       {/* <HeroSection></HeroSection>
       <TrendingArticles></TrendingArticles>
-      <AllPublisher></AllPublisher>
+      
       <Statastics></Statastics>
       <Plan></Plan>
       <OfficeLocation></OfficeLocation>
@@ -75,7 +76,7 @@ const Home = () => {
             setPublisher={setPublisher}
           ></LeftSiteBar>
         </aside>
-        <section className="xl:col-span-7 col-span-12 h-screen overflow-y-auto bg-white shadow-sm border rounded-md ">
+        <section className="xl:col-span-7 col-span-12 xl:h-screen h-auto xl:overflow-y-auto bg-white shadow-sm border rounded-md ">
           <div className="p-3 border-b rounded-t-md shadow-sm flex justify-between items-center ">
             <div className="flex items-center gap-3">
               <button
@@ -142,10 +143,13 @@ const Home = () => {
             getPublisher={getPublisher}
           ></CenterAria>
         </section>
-        <aside className="xl:col-span-3 col-span-12 h-screen flex flex-col justify-between overflow-y-auto">
+        <aside className="xl:col-span-3 col-span-12 xl:h-screen flex flex-col justify-between xl:overflow-y-auto">
           <RightSide></RightSide>
         </aside>
       </main>
+      <AllPublisher></AllPublisher>
+      <TrendingArticles></TrendingArticles>
+      <AdvartiseMent></AdvartiseMent>
       <Dialog
         open={open}
         handler={handleOpen}

@@ -4,7 +4,7 @@ import Real_Madrid from "../../../assets/logo/Real-Madrid.png";
 const RightSide = () => {
   return (
     <>
-      <div className="bg-white rounded-md border shadow-sm p-3 xl:mb-0 mb-8">
+      <div className="bg-white rounded-md border shadow-sm p-3  mb-6">
         <h3 className="text-lg font-semibold p-2 border-b shadow-sm">
           Sports News
         </h3>
