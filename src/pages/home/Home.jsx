@@ -21,6 +21,7 @@ import LeftSiteBar from "./leftsiteBar/leftSiteBar";
 import CenterAria from "./centerAria/CenterAria";
 import RightSide from "./rightSide/RightSide";
 import AdvartiseMent from "./advartiseMent/AdvartiseMent";
+import Recomended from "./recomended/Recomended";
 
 const Home = () => {
   const [open, setOpen] = React.useState(false);
@@ -150,6 +151,7 @@ const Home = () => {
       <AllPublisher></AllPublisher>
       <TrendingArticles></TrendingArticles>
       <AdvartiseMent></AdvartiseMent>
+      <Recomended></Recomended>
       <Dialog
         open={open}
         handler={handleOpen}
